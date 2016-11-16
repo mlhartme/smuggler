@@ -47,14 +47,14 @@ public class Main {
 
 		System.out.println("test");
 
-		WebResource resource = CLIENT.resource("https://api.smugmug.com/services/api/json/1.3.0/").queryParam("method", "smugmug.albums.get");
-		resource = resource.queryParams(new MultivaluedMapImpl());
+		WebResource resource = CLIENT.resource("https://api.smugmug.com/api/v2/user/mlhartme");
 		secrets = new OAuthSecrets().consumerSecret(CONSUMER_SECRET);
 		secrets.setTokenSecret(OAUTH_TOKEN_SECRET);
 		params = new OAuthParameters().consumerKey(CONSUMER_KEY).signatureMethod("HMAC-SHA1").version("1.0");
 		params.token(OAUTH_TOKEN_ID);
 		resource.addFilter(new OAuthClientFilter(CLIENT.getProviders(), params, secrets));
 
-		System.out.println(resource.get(String.class));
+		WebResource.Builder builder = resource.accept("application/json");
+		System.out.println(builder.get(String.class));
 	}
 }
