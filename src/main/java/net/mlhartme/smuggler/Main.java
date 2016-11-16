@@ -10,8 +10,6 @@ import com.sun.jersey.oauth.signature.OAuthSecrets;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 public class Main {
@@ -28,9 +26,8 @@ public class Main {
 		}
 	}
 
-	private static String CONSUMER_SECRET = get("consumer.secret");
 	private static String CONSUMER_KEY = get("consumer.key");
-	
+	private static String CONSUMER_SECRET = get("consumer.secret");
 	private static String OAUTH_TOKEN_ID = get("token.id");
 	private static String OAUTH_TOKEN_SECRET = get("token.secret");
 
@@ -46,18 +43,17 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		OAuthSecrets secrets;
-		OAuthParameters oauthParams;
+		OAuthParameters params;
 
-		//get the albums and print them out.
 		System.out.println("test");
 
 		WebResource resource = CLIENT.resource("https://api.smugmug.com/services/api/json/1.3.0/").queryParam("method", "smugmug.albums.get");
 		resource = resource.queryParams(new MultivaluedMapImpl());
 		secrets = new OAuthSecrets().consumerSecret(CONSUMER_SECRET);
 		secrets.setTokenSecret(OAUTH_TOKEN_SECRET);
-		oauthParams = new OAuthParameters().consumerKey(CONSUMER_KEY).signatureMethod("HMAC-SHA1").version("1.0");
-		oauthParams.token(OAUTH_TOKEN_ID);
-		resource.addFilter(new OAuthClientFilter(CLIENT.getProviders(), oauthParams, secrets));
+		params = new OAuthParameters().consumerKey(CONSUMER_KEY).signatureMethod("HMAC-SHA1").version("1.0");
+		params.token(OAUTH_TOKEN_ID);
+		resource.addFilter(new OAuthClientFilter(CLIENT.getProviders(), params, secrets));
 
 		System.out.println(resource.get(String.class));
 	}
