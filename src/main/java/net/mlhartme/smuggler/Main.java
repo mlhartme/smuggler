@@ -47,7 +47,7 @@ public class Main {
 
 		System.out.println("test");
 
-		WebResource resource = CLIENT.resource("https://api.smugmug.com/api/v2/user/mlhartme");
+		WebResource resource = CLIENT.resource("https://api.smugmug.com/api/v2/user/mlhartme!albums");
 		secrets = new OAuthSecrets().consumerSecret(CONSUMER_SECRET);
 		secrets.setTokenSecret(OAUTH_TOKEN_SECRET);
 		params = new OAuthParameters().consumerKey(CONSUMER_KEY).signatureMethod("HMAC-SHA1").version("1.0");
