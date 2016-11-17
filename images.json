@@ -1,0 +1,213 @@
+{
+  "Options": {
+    "Methods": [
+      "GET"
+    ],
+    "ParameterDescription": {
+      "Varchar": "Variable length text from MIN_CHARS to MAX_CHARS (MAX_CHARS = INFINITY meaning arbitrary length)"
+    },
+    "Parameters": {
+      "GET": [
+        {
+          "Name": "FileNames",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "",
+          "Description": "A list of filenames (percent-encoded and comma-separated); if used, an image will only be included in the result set if its file name is in the list",
+          "Type": "Varchar",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": "INFINITY"
+        }
+      ]
+    }
+  },
+  "Response": {
+    "Uri": "/api/v2/album/fHRvtz!images",
+    "UriDescription": "Images from album",
+    "EndpointType": "AlbumImages",
+    "Locator": "AlbumImage",
+    "LocatorType": "Objects",
+    "AlbumImage": [
+      {
+        "Uri": "/api/v2/album/fHRvtz/image/vG2ZSX2-0",
+        "WebUri": "https://mlhartme.smugmug.com/Timeline/n-n9P9C4/i-vG2ZSX2",
+        "UriDescription": "Image from album",
+        "Title": "",
+        "Caption": "",
+        "Keywords": "",
+        "KeywordArray": [],
+        "Watermark": "No",
+        "Latitude": "0.00000000000000",
+        "Longitude": "0.00000000000000",
+        "Altitude": 0,
+        "Hidden": false,
+        "ThumbnailUrl": "https://photos.smugmug.com/photos/i-vG2ZSX2/0/Th/i-vG2ZSX2-Th.jpg",
+        "FileName": "DSCF0575.JPG",
+        "Processing": false,
+        "UploadKey": "5499222938",
+        "Date": "2016-11-17T19:20:35+00:00",
+        "Format": "JPG",
+        "OriginalHeight": 2136,
+        "OriginalWidth": 2848,
+        "OriginalSize": 1488426,
+        "LastUpdated": "2016-11-17T19:20:38+00:00",
+        "Collectable": true,
+        "IsArchive": false,
+        "IsVideo": false,
+        "CanEdit": true,
+        "Protected": false,
+        "Watermarked": false,
+        "ImageKey": "vG2ZSX2",
+        "ArchivedUri": "https://photos.smugmug.com/photos/i-vG2ZSX2/0/D/i-vG2ZSX2-D.jpg",
+        "ArchivedSize": 1488426,
+        "ArchivedMD5": "379bb168d517e39b2d0298625f4e410f",
+        "FormattedValues": {
+          "Caption": {
+            "html": "",
+            "text": ""
+          }
+        },
+        "Uris": {
+          "LargestImage": {
+            "Uri": "/api/v2/image/vG2ZSX2-0!largestimage",
+            "UriDescription": "Largest size available for image",
+            "EndpointType": "LargestImage",
+            "Locator": "LargestImage",
+            "LocatorType": "Object"
+          },
+          "ImageSizes": {
+            "Uri": "/api/v2/image/vG2ZSX2-0!sizes",
+            "UriDescription": "Sizes available for image",
+            "EndpointType": "ImageSizes",
+            "Locator": "ImageSizes",
+            "LocatorType": "Object"
+          },
+          "ImageSizeDetails": {
+            "Uri": "/api/v2/image/vG2ZSX2-0!sizedetails",
+            "UriDescription": "Detailed size information for image",
+            "EndpointType": "ImageSizeDetails",
+            "Locator": "ImageSizeDetails",
+            "LocatorType": "Object"
+          },
+          "PointOfInterest": {
+            "Uri": "/api/v2/image/vG2ZSX2!pointofinterest",
+            "UriDescription": "Point of interest for image",
+            "EndpointType": "PointOfInterest",
+            "Locator": "PointOfInterest",
+            "LocatorType": "Object"
+          },
+          "PointOfInterestCrops": {
+            "Uri": "/api/v2/image/vG2ZSX2!poicrops",
+            "UriDescription": "PointOfInterest Crops for image",
+            "EndpointType": "PointOfInterestCrops",
+            "Locator": "PointOfInterestCrops",
+            "LocatorType": "List"
+          },
+          "Regions": {
+            "Uri": "/api/v2/image/vG2ZSX2!regions",
+            "UriDescription": "Regions for image",
+            "EndpointType": "Regions",
+            "Locator": "Region",
+            "LocatorType": "Objects"
+          },
+          "ImageAlbum": {
+            "Uri": "/api/v2/album/fHRvtz",
+            "UriDescription": "Album by key",
+            "EndpointType": "Album",
+            "Locator": "Album",
+            "LocatorType": "Object"
+          },
+          "ImageDownload": {
+            "Uri": "/api/v2/image/vG2ZSX2!download",
+            "UriDescription": "Download image",
+            "EndpointType": "ImageDownload",
+            "Locator": "ImageDownload",
+            "LocatorType": "Object"
+          },
+          "ImageOwner": {
+            "Uri": "/api/v2/user/mlhartme",
+            "UriDescription": "User By Nickname",
+            "EndpointType": "User",
+            "Locator": "User",
+            "LocatorType": "Object"
+          },
+          "ImageComments": {
+            "Uri": "/api/v2/image/vG2ZSX2!comments",
+            "UriDescription": "Comments on image",
+            "EndpointType": "ImageComments",
+            "Locator": "Comment",
+            "LocatorType": "Objects"
+          },
+          "RotateImage": {
+            "Uri": "/api/v2/image/vG2ZSX2!rotate",
+            "UriDescription": "Rotate an image",
+            "EndpointType": "RotateImage"
+          },
+          "ColorImage": {
+            "Uri": "/api/v2/image/vG2ZSX2!color",
+            "UriDescription": "Color an image",
+            "EndpointType": "ColorImage",
+            "Locator": "ColorImage",
+            "LocatorType": "Object"
+          },
+          "CropImage": {
+            "Uri": "/api/v2/image/vG2ZSX2!crop",
+            "UriDescription": "Crop an image",
+            "EndpointType": "CropImage"
+          },
+          "WatermarkImage": {
+            "Uri": "/api/v2/image/vG2ZSX2!watermark",
+            "UriDescription": "Watermark Image",
+            "EndpointType": "WatermarkImage"
+          },
+          "ImageMetadata": {
+            "Uri": "/api/v2/image/vG2ZSX2!metadata",
+            "UriDescription": "Metadata for image",
+            "EndpointType": "ImageMetadata",
+            "Locator": "ImageMetadata",
+            "LocatorType": "Object"
+          },
+          "ImagePrices": {
+            "Uri": "/api/v2/image/vG2ZSX2!prices",
+            "UriDescription": "Purchasable Skus",
+            "EndpointType": "ImagePrices",
+            "Locator": "CatalogSkuPrice",
+            "LocatorType": "Objects"
+          },
+          "Image": {
+            "Uri": "/api/v2/image/vG2ZSX2-0",
+            "UriDescription": "Image by key",
+            "EndpointType": "Image",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "Album": {
+            "Uri": "/api/v2/album/fHRvtz",
+            "UriDescription": "Album by key",
+            "EndpointType": "Album",
+            "Locator": "Album",
+            "LocatorType": "Object"
+          },
+          "AlbumImageShareUris": {
+            "Uri": "/api/v2/album/fHRvtz/image/vG2ZSX2-0!shareuris",
+            "UriDescription": "URIs that are useful for sharing",
+            "EndpointType": "AlbumImageShareUris",
+            "Locator": "AlbumImageShareUris",
+            "LocatorType": "Object"
+          }
+        },
+        "Movable": true
+      }
+    ],
+    "Pages": {
+      "Total": 1,
+      "Start": 1,
+      "Count": 1,
+      "RequestedCount": 100,
+      "FirstPage": "/api/v2/album/fHRvtz!images?start=1&count=100",
+      "LastPage": "/api/v2/album/fHRvtz!images?start=1&count=100"
+    }
+  },
+  "Code": 200,
+  "Message": "Ok"
+}
