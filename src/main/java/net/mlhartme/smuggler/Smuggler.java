@@ -9,13 +9,17 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.oauth.client.OAuthClientFilter;
 import com.sun.jersey.oauth.signature.OAuthParameters;
 import com.sun.jersey.oauth.signature.OAuthSecrets;
+import net.oneandone.sushi.fs.file.FileNode;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+import static com.sun.tools.doclint.Entity.image;
 
 public class Smuggler {
 	public static Smuggler load() throws IOException {
@@ -55,6 +59,24 @@ public class Smuggler {
 		this.album = album;
 	}
 
+	public void upload(FileNode file, String album) throws IOException {
+		byte[] image = file.readBytes();
+		WebResource resource = resource("http://upload.smugmug.com/");
+
+		String md5 = file.md5();
+
+		WebResource.Builder builder = resource.getRequestBuilder();
+		builder = builder.header("Content-Length", image.length);
+		builder = builder.header("Content-MD5", md5);
+		builder = builder.header("X-Smug-ResponseType", "JSON");
+		builder = builder.header("X-Smug-FileName", file.getName());
+		builder = builder.header("X-Smug-AlbumUri", "/api/v2/album/" + album);
+		builder = builder.header("X-Smug-Version", "v2");
+
+		String response = builder.post(String.class, image);
+		System.out.println("done: " + response);
+	}
+
 	public List<String> album(String album) throws IOException {
 		JsonObject obj;
 		JsonArray array;
@@ -69,20 +91,23 @@ public class Smuggler {
 		return result;
 	}
 
-	public JsonElement request(String path) throws IOException {
+	private JsonElement request(String path) throws IOException {
+		WebResource resource = resource("https://api.smugmug.com/" + path);
+		WebResource.Builder builder = resource.accept("application/json");
+		return new JsonParser().parse(builder.get(String.class));
+	}
+
+	private WebResource resource(String url) {
 		OAuthSecrets secrets;
 		OAuthParameters params;
+		WebResource result;
 
-		System.out.println("test");
-
-		WebResource resource = client.resource("https://api.smugmug.com/" + path);
+		result = client.resource(url);
 		secrets = new OAuthSecrets().consumerSecret(consumerSecret);
 		secrets.setTokenSecret(oauthTokenSecret);
 		params = new OAuthParameters().consumerKey(consumerKey).signatureMethod("HMAC-SHA1").version("1.0");
 		params.token(oauthTokenId);
-		resource.addFilter(new OAuthClientFilter(client.getProviders(), params, secrets));
-
-		WebResource.Builder builder = resource.accept("application/json");
-		return new JsonParser().parse(builder.get(String.class));
+		result.addFilter(new OAuthClientFilter(client.getProviders(), params, secrets));
+		return result;
 	}
 }

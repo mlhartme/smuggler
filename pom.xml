@@ -42,6 +42,12 @@
   		<artifactId>oauth-signature</artifactId>
   		<version>1.14</version>
   	</dependency>
+
+      <dependency>
+          <groupId>net.oneandone</groupId>
+          <artifactId>sushi</artifactId>
+          <version>3.1.2</version>
+      </dependency>
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
