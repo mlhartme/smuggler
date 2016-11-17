@@ -59,7 +59,8 @@ public class Smuggler {
 		this.album = album;
 	}
 
-	public void upload(FileNode file, String album) throws IOException {
+	public String upload(FileNode file, String album) throws IOException {
+		JsonObject response;
 		byte[] image = file.readBytes();
 		WebResource resource = resource("http://upload.smugmug.com/");
 
@@ -73,8 +74,11 @@ public class Smuggler {
 		builder = builder.header("X-Smug-AlbumUri", "/api/v2/album/" + album);
 		builder = builder.header("X-Smug-Version", "v2");
 
-		String response = builder.post(String.class, image);
-		System.out.println("done: " + response);
+		response = new JsonParser().parse(builder.post(String.class, image)).getAsJsonObject();
+		if (!"ok".equals(response.get("stat").getAsString())) {
+			throw new IOException("not ok: " + response);
+		}
+		return response.get("Image").getAsJsonObject().get("ImageUri").getAsString();
 	}
 
 	public List<String> album(String album) throws IOException {

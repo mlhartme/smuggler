@@ -19,8 +19,8 @@ public class Main {
 		remote = smuggler.album(smuggler.album);
 		for (FileNode file : local) {
 			if (!remote.contains(file.getName())) {
-				System.out.println("upload " + file);
-				smuggler.upload(file, smuggler.album);
+				System.out.print("upload " + file + " ... ");
+				System.out.println(smuggler.upload(file, smuggler.album));
 			}
 		}
 	}
