@@ -21,4 +21,8 @@ public class Image {
         this.key = key;
         this.fileName = fileName;
     }
+
+    public void delete(Smugmug smugmug) {
+        smugmug.resource("https://api.smugmug.com/api/v2/image/" + key).delete();
+    }
 }

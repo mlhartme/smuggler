@@ -9,13 +9,9 @@ import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.oauth.client.OAuthClientFilter;
 import com.sun.jersey.oauth.signature.OAuthParameters;
 import com.sun.jersey.oauth.signature.OAuthSecrets;
-import net.oneandone.sushi.fs.file.FileNode;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.Reader;
-import java.util.Properties;
 import java.util.UUID;
 
 /** https://smugmug.atlassian.net/wiki/display/API/Home */
@@ -45,8 +41,11 @@ public class Smugmug {
 	}
 
 	public JsonElement request(String path) throws IOException {
-		WebResource resource = resource("https://api.smugmug.com/" + path);
-		WebResource.Builder builder = resource.accept("application/json");
+		WebResource resource;
+		WebResource.Builder builder;
+
+		resource = resource("https://api.smugmug.com/" + path);
+		builder = resource.accept("application/json");
 		return new JsonParser().parse(builder.get(String.class));
 	}
 

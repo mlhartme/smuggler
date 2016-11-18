@@ -46,11 +46,26 @@ public class Main {
 			remote = album.list(smugmug);
 			for (FileNode file : local) {
 				if (Image.lookupFileName(remote, file.getName()) == null) {
-					System.out.print("upload " + file + " ... ");
+					System.out.print("A " + file);
 					System.out.println(album.upload(smugmug, file));
 				}
 			}
+			for (Image image : remote) {
+				if (lookup(local, image.fileName) == null) {
+					System.out.print("D " + image.fileName);
+					image.delete(smugmug);
+				}
+			}
 		}
+	}
+
+	private static FileNode lookup(List<FileNode> local, String fileName) {
+		for (FileNode file : local) {
+			if (file.getName().equals(fileName)) {
+				return file;
+			}
+		}
+		return null;
 	}
 
 }
