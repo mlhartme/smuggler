@@ -140,6 +140,8 @@ public class Smuggler {
 		return result;
 	}
 
+	//-- TODO
+
 	public void addOauth(WebResource.Builder dest) {
 		StringBuilder builder;
 
@@ -153,6 +155,10 @@ public class Smuggler {
 		arg(builder, "oauth_signature", signature());
 
 		dest.header("Authorization", builder.toString());
+	}
+
+	private static String signature() {
+		return "";
 	}
 
 	private static void arg(StringBuilder builder, String key, String value) {
