@@ -1,5 +1,7 @@
 package net.mlhartme.smuggler;
 
+import net.oneandone.sushi.fs.DirectoryNotFoundException;
+import net.oneandone.sushi.fs.ListException;
 import net.oneandone.sushi.fs.World;
 import net.oneandone.sushi.fs.file.FileNode;
 
@@ -35,6 +37,25 @@ public class Main {
 		albumName = get(p, "album");
 		smugmug = new Smugmug(get(p, "consumer.key"), get(p, "consumer.secret"), get(p, "token.id"), get(p, "token.secret"));
 
+		// sync(smugmug, world, userName, albumName);
+		tree(smugmug, userName);
+	}
+
+	public static void tree(Smugmug smugmug, String userName) throws IOException {
+		User user;
+		Folder folder;
+
+		user = new User(userName);
+		folder = user.folder(smugmug);
+		System.out.println(folder.nodeId + " " + folder.urlPath);
+	}
+
+	public static void sync(World world, Smugmug smugmug, String userName, String albumName) throws IOException {
+		List<FileNode> local;
+		User user;
+		Album album;
+		List<Image> remote;
+
 		local = world.getHome().join("timeline").list();
 		try (PrintStream dest = new PrintStream(new FileOutputStream("wire.log"))) {
 			smugmug.wirelog(dest);
@@ -57,8 +78,8 @@ public class Main {
 				}
 			}
 		}
-	}
 
+	}
 	private static FileNode lookup(List<FileNode> local, String fileName) {
 		for (FileNode file : local) {
 			if (file.getName().equals(fileName)) {

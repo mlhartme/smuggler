@@ -15,6 +15,15 @@ public class User {
         this.key = key;
     }
 
+    public Folder folder(Smugmug smugmug) throws IOException {
+        JsonElement result;
+        JsonObject folder;
+
+        result = smugmug.get("api/v2/folder/user/" + key);
+        folder = result.getAsJsonObject().get("Response").getAsJsonObject().get("Folder").getAsJsonObject();
+        return new Folder(folder.get("NodeID").getAsString(), folder.get("UrlPath").getAsString());
+    }
+
     public List<Album> listAlbums(Smugmug smugmug) throws IOException {
         JsonObject obj;
         JsonArray array;
