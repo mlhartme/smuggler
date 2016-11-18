@@ -4,6 +4,7 @@ import net.oneandone.sushi.fs.DirectoryNotFoundException;
 import net.oneandone.sushi.fs.ListException;
 import net.oneandone.sushi.fs.World;
 import net.oneandone.sushi.fs.file.FileNode;
+import net.oneandone.sushi.util.Strings;
 
 import java.io.*;
 import java.util.List;
@@ -24,12 +25,8 @@ public class Main {
 		Properties p;
 		World world;
 		Smugmug smugmug;
-		User user;
-		Album album;
 		String userName;
 		String albumName;
-		List<Image> remote;
-		List<FileNode> local;
 
 		world = World.create();
 		p = world.getHome().join(".smuggler.properties").readProperties();
@@ -43,11 +40,26 @@ public class Main {
 
 	public static void tree(Smugmug smugmug, String userName) throws IOException {
 		User user;
-		Folder folder;
 
 		user = new User(userName);
-		folder = user.folder(smugmug);
-		System.out.println(folder.nodeId + " " + folder.urlPath);
+		tree(smugmug, 0, user.folder(smugmug));
+	}
+
+	public static void tree(Smugmug smugmug, int indent, Folder folder) throws IOException {
+		Album album;
+
+		System.out.println(Strings.times(' ', indent) + folder.urlPath + " (" + folder.nodeId + ")");
+		for (Object obj : folder.list(smugmug)) {
+			if (obj instanceof Folder) {
+				tree(smugmug, indent + 2, (Folder) obj);
+			} else {
+				album = (Album) obj;
+				System.out.println(Strings.times(' ', indent + 2) + album.name + " (" + folder.nodeId + ")");
+				for (Image image : album.list(smugmug)) {
+					System.out.println(Strings.times(' ', indent + 4) + image.fileName);
+				}
+			}
+		}
 	}
 
 	public static void sync(World world, Smugmug smugmug, String userName, String albumName) throws IOException {

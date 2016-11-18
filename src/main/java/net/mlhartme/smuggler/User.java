@@ -33,7 +33,7 @@ public class User {
         array = obj.get("Response").getAsJsonObject().get("Album").getAsJsonArray();
         result = new ArrayList<>();
         for (JsonElement e : array) {
-            result.add(new Album(e.getAsJsonObject().get("AlbumKey").getAsString(), e.getAsJsonObject().get("Name").getAsString()));
+            result.add(new Album(e.getAsJsonObject().get("NodeId").getAsString(), e.getAsJsonObject().get("AlbumKey").getAsString(), e.getAsJsonObject().get("Name").getAsString()));
         }
         return result;
     }

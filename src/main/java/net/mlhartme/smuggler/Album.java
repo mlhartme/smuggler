@@ -12,10 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Album {
+    public final String nodeId;
     public final String key;
     public final String name;
 
-    public Album(String key, String name) {
+    public Album(String nodeId, String key, String name) {
+        this.nodeId = nodeId;
         this.key = key;
         this.name = name;
     }
