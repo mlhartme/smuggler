@@ -26,7 +26,7 @@ public class Album {
         List<Image> result;
         JsonObject object;
 
-        obj = smugmug.request("api/v2/album/" + key + "!images").getAsJsonObject();
+        obj = smugmug.get("api/v2/album/" + key + "!images").getAsJsonObject();
         array = obj.get("Response").getAsJsonObject().get("AlbumImage").getAsJsonArray();
         result = new ArrayList<>();
         for (JsonElement e : array) {
@@ -39,14 +39,12 @@ public class Album {
     public Image upload(Smugmug smugmug, FileNode file) throws IOException {
         JsonObject response;
         byte[] image;
-        WebResource resource;
         String md5;
         WebResource.Builder builder;
 
         image = file.readBytes();
-        resource = smugmug.resource("http://upload.smugmug.com/");
+        builder = smugmug.resource("http://upload.smugmug.com/");
         md5 = file.md5();
-        builder = resource.getRequestBuilder();
         builder = builder.header("Content-Length", image.length);
         builder = builder.header("Content-MD5", md5);
         builder = builder.header("X-Smug-ResponseType", "JSON");

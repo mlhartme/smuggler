@@ -40,27 +40,25 @@ public class Smugmug {
 		return new User(id);
 	}
 
-	public JsonElement request(String path) throws IOException {
-		WebResource resource;
+	public JsonElement get(String path) throws IOException {
 		WebResource.Builder builder;
 
-		resource = resource("https://api.smugmug.com/" + path);
-		builder = resource.accept("application/json");
+		builder = resource("https://api.smugmug.com/" + path);
 		return new JsonParser().parse(builder.get(String.class));
 	}
 
-	public WebResource resource(String url) {
+	public WebResource.Builder resource(String url) {
 		OAuthSecrets secrets;
 		OAuthParameters params;
-		WebResource result;
+		WebResource resource;
 
-		result = client.resource(url);
+		resource = client.resource(url);
 		secrets = new OAuthSecrets().consumerSecret(consumerSecret);
 		secrets.setTokenSecret(oauthTokenSecret);
 		params = new OAuthParameters().consumerKey(consumerKey).signatureMethod("HMAC-SHA1").version("1.0");
 		params.token(oauthTokenId);
-		result.addFilter(new OAuthClientFilter(client.getProviders(), params, secrets));
-		return result;
+		resource.addFilter(new OAuthClientFilter(client.getProviders(), params, secrets));
+		return resource.accept("application/json");
 	}
 
 	//-- TODO

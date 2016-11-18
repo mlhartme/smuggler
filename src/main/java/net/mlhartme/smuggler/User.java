@@ -20,7 +20,7 @@ public class User {
         JsonArray array;
         List<Album> result;
 
-        obj = smugmug.request("api/v2/user/" + key + "!albums").getAsJsonObject();
+        obj = smugmug.get("api/v2/user/" + key + "!albums").getAsJsonObject();
         array = obj.get("Response").getAsJsonObject().get("Album").getAsJsonArray();
         result = new ArrayList<>();
         for (JsonElement e : array) {
