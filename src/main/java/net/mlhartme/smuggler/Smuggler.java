@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.oauth.client.OAuthClientFilter;
 import com.sun.jersey.oauth.signature.OAuthParameters;
 import com.sun.jersey.oauth.signature.OAuthSecrets;
@@ -13,6 +14,7 @@ import net.oneandone.sushi.fs.file.FileNode;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,6 +62,10 @@ public class Smuggler {
 		this.oauthTokenSecret = oauthTokenSecret;
 		this.user = user;
 		this.album = album;
+	}
+
+	public void wirelog(PrintStream dest) {
+		client.addFilter(new LoggingFilter(dest));
 	}
 
 	public String upload(FileNode file, String album) throws IOException {
