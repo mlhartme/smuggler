@@ -3,38 +3,54 @@ package net.mlhartme.smuggler;
 import net.oneandone.sushi.fs.World;
 import net.oneandone.sushi.fs.file.FileNode;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.List;
-import java.util.Map;
+import java.util.Properties;
 
 public class Main {
+	private static String get(Properties p, String key) {
+		String value;
+
+		value = p.getProperty(key);
+		if (value == null) {
+			throw new IllegalArgumentException("property not found: " + key);
+		}
+		return value;
+	}
+
 	public static void main(String[] args) throws IOException {
+		Properties p;
 		World world;
-		Smuggler smuggler;
-		List<String> remote;
+		Smugmug smugmug;
+		User user;
+		Album album;
+		String userName;
+		String albumName;
+		List<Image> remote;
 		List<FileNode> local;
-		Map<String, String> albums;
-		String albumKey;
 
 		world = World.create();
+		p = world.getHome().join(".smuggler.properties").readProperties();
+		userName = get(p, "user");
+		albumName = get(p, "album");
+		smugmug = new Smugmug(get(p, "consumer.key"), get(p, "consumer.secret"), get(p, "token.id"), get(p, "token.secret"));
+
 		local = world.getHome().join("timeline").list();
-		smuggler = Smuggler.load();
 		try (PrintStream dest = new PrintStream(new FileOutputStream("wire.log"))) {
-			smuggler.wirelog(dest);
-			albums = smuggler.listAlbums(smuggler.user);
-			albumKey = albums.get(smuggler.album);
-			if (albumKey == null) {
-				throw new IOException("no such album: " + smuggler.album);
+			smugmug.wirelog(dest);
+			user = new User(userName);
+			album = user.lookupAlbum(smugmug, albumName);
+			if (album == null) {
+				throw new IOException("no such album: " + albumName);
 			}
-			remote = smuggler.album(albumKey);
+			remote = album.list(smugmug);
 			for (FileNode file : local) {
-				if (!remote.contains(file.getName())) {
+				if (Image.lookupFileName(remote, file.getName()) == null) {
 					System.out.print("upload " + file + " ... ");
-					System.out.println(smuggler.upload(file, smuggler.album));
+					System.out.println(album.upload(smugmug, file));
 				}
 			}
 		}
 	}
+
 }
