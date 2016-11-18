@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
 /** https://smugmug.atlassian.net/wiki/display/API/Home */
 public class Smuggler {
@@ -137,5 +138,31 @@ public class Smuggler {
 		params.token(oauthTokenId);
 		result.addFilter(new OAuthClientFilter(client.getProviders(), params, secrets));
 		return result;
+	}
+
+	public void addOauth(WebResource.Builder dest) {
+		StringBuilder builder;
+
+		builder = new StringBuilder();
+		arg(builder, "OAuth oauth_nonce", UUID.randomUUID().toString());
+		arg(builder, "oauth_token", oauthTokenId);
+		arg(builder, "oauth_consumer_key", consumerKey);
+		arg(builder, "oauth_signature_method", "HMAC-SHA1");
+		arg(builder, "oauth_version", "1.0");
+		arg(builder, "oauth_timestamp", new Long(System.currentTimeMillis() / 1000).toString());
+		arg(builder, "oauth_signature", signature());
+
+		dest.header("Authorization", builder.toString());
+	}
+
+	private static void arg(StringBuilder builder, String key, String value) {
+		if (builder.length() > 0) {
+			builder.append(", ");
+		}
+		builder.append(key);
+		builder.append('=');
+		builder.append('"');
+		builder.append(value);
+		builder.append('"');
 	}
 }
