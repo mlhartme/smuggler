@@ -15,9 +15,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
+/** https://smugmug.atlassian.net/wiki/display/API/Home */
 public class Smuggler {
 	public static Smuggler load() throws IOException {
 		Properties p = new Properties();
@@ -25,7 +28,7 @@ public class Smuggler {
 			p.load(src);
 		}
 		return new Smuggler(get(p, "consumer.key"), get(p, "consumer.secret"), get(p, "token.id"),
-				get(p, "token.secret"), get(p, "album"));
+				get(p, "token.secret"), get(p, "user"), get(p, "album"));
 	}
 
 	private static String get(Properties p, String key) {
@@ -33,7 +36,7 @@ public class Smuggler {
 
 		value = p.getProperty(key);
 		if (value == null) {
-			throw new IllegalArgumentException(key);
+			throw new IllegalArgumentException("property not found: " + key);
 		}
 		return value;
 	}
@@ -45,14 +48,17 @@ public class Smuggler {
 	private final String consumerSecret;
 	private final String oauthTokenId;
 	private final String oauthTokenSecret;
+
+	public final String user;
 	public final String album;
 
-	public Smuggler(String consumerKey, String consumerSecret, String oauthTokenId, String oauthTokenSecret, String album) {
+	public Smuggler(String consumerKey, String consumerSecret, String oauthTokenId, String oauthTokenSecret, String user, String album) {
 		this.client = Client.create();
 		this.consumerKey = consumerKey;
 		this.consumerSecret = consumerSecret;
 		this.oauthTokenId = oauthTokenId;
 		this.oauthTokenSecret = oauthTokenSecret;
+		this.user = user;
 		this.album = album;
 	}
 
@@ -77,6 +83,21 @@ public class Smuggler {
 		}
 		return response.get("Image").getAsJsonObject().get("ImageUri").getAsString();
 	}
+
+	public Map<String, String> listAlbums(String user) throws IOException {
+		JsonObject obj;
+		JsonArray array;
+		Map<String, String> result;
+
+		obj = request("api/v2/user/" + user + "!albums").getAsJsonObject();
+		array = obj.get("Response").getAsJsonObject().get("Album").getAsJsonArray();
+		result = new HashMap<>();
+		for (JsonElement e : array) {
+			result.put(e.getAsJsonObject().get("Name").getAsString(), e.getAsJsonObject().get("AlbumKey").getAsString());
+		}
+		return result;
+	}
+
 
 	public List<String> album(String album) throws IOException {
 		JsonObject obj;

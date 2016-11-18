@@ -5,6 +5,7 @@ import net.oneandone.sushi.fs.file.FileNode;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
@@ -12,11 +13,18 @@ public class Main {
 		Smuggler smuggler;
 		List<String> remote;
 		List<FileNode> local;
+		Map<String, String> albums;
+		String albumKey;
 
 		world = World.create();
 		local = world.getHome().join("timeline").list();
 		smuggler = Smuggler.load();
-		remote = smuggler.album(smuggler.album);
+		albums = smuggler.listAlbums(smuggler.user);
+		albumKey = albums.get(smuggler.album);
+		if (albumKey == null) {
+			throw new IOException("no such album: " + smuggler.album);
+		}
+		remote = smuggler.album(albumKey);
 		for (FileNode file : local) {
 			if (!remote.contains(file.getName())) {
 				System.out.print("upload " + file + " ... ");
