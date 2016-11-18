@@ -48,16 +48,17 @@ public class Main {
 	public static void tree(Smugmug smugmug, int indent, Folder folder) throws IOException {
 		Album album;
 
-		System.out.println(Strings.times(' ', indent) + folder.urlPath + " (" + folder.nodeId + ")");
+		System.out.println(Strings.times(' ', indent) + "F " + folder.urlPath + " (" + folder.nodeId + ")");
 		for (Object obj : folder.list(smugmug)) {
 			if (obj instanceof Folder) {
 				tree(smugmug, indent + 2, (Folder) obj);
 			} else {
 				album = (Album) obj;
-				System.out.println(Strings.times(' ', indent + 2) + album.name + " (" + folder.nodeId + ")");
+				System.out.println(Strings.times(' ', indent + 2) + "A " + album.name + " (" + album.nodeId + ")");
+				/*
 				for (Image image : album.list(smugmug)) {
 					System.out.println(Strings.times(' ', indent + 4) + image.fileName);
-				}
+				}*/
 			}
 		}
 	}

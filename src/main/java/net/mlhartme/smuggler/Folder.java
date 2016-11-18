@@ -37,7 +37,7 @@ public class Folder {
                     break;
                 case "Album":
                     uri = node.get("Uris").getAsJsonObject().get("Album").getAsJsonObject().get("Uri").getAsString();
-                    result.add(new Album(nodeId, uri.substring(uri.lastIndexOf('/') + 1), node.get("Name").getAsString()));
+                    result.add(new Album(id, uri.substring(uri.lastIndexOf('/') + 1), node.get("Name").getAsString()));
                     break;
                 default:
                     throw new IOException("unexpected type: " + type);
