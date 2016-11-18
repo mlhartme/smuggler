@@ -14,12 +14,9 @@ import net.oneandone.sushi.fs.file.FileNode;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
-import static com.sun.tools.doclint.Entity.image;
 
 public class Smuggler {
 	public static Smuggler load() throws IOException {

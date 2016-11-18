@@ -61,7 +61,7 @@
     </dependency>
   </dependencies>
 
-  <build>
+  <!-- build>
     <plugins>
       <plugin>
         <groupId>net.oneandone.maven.plugins</groupId>
@@ -93,5 +93,5 @@
         </executions>
       </plugin>
     </plugins>
-  </build>  
+  </build -->
 </project>
