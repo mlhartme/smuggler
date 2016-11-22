@@ -9,17 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    public final String key;
+    public final String nickName;
 
-    public User(String key) {
-        this.key = key;
+    public User(String nickName) {
+        this.nickName = nickName;
     }
 
     public Folder folder(Smugmug smugmug) throws IOException {
         JsonElement result;
         JsonObject folder;
 
-        result = smugmug.get("api/v2/folder/user/" + key);
+        result = smugmug.get("api/v2/folder/user/" + nickName);
         folder = result.getAsJsonObject().get("Response").getAsJsonObject().get("Folder").getAsJsonObject();
         return new Folder(folder.get("Uri").getAsString(),
                 folder.get("NodeID").getAsString(), folder.get("UrlPath").getAsString());
@@ -30,7 +30,7 @@ public class User {
         JsonArray array;
         List<Album> result;
 
-        obj = smugmug.get("api/v2/user/" + key + "!albums").getAsJsonObject();
+        obj = smugmug.get("api/v2/user/" + nickName + "!albums").getAsJsonObject();
         array = obj.get("Response").getAsJsonObject().get("Album").getAsJsonArray();
         result = new ArrayList<>();
         for (JsonElement e : array) {

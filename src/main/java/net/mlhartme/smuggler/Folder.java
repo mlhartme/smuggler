@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.sun.jersey.api.client.WebResource;
+import net.oneandone.sushi.util.Strings;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class Folder {
         resource.header("Content-Type", "application/json");
         obj = new JsonObject();
         obj.add("Name", new JsonPrimitive(name));
-        obj.add("UrlName", new JsonPrimitive(name));
+        obj.add("UrlName", new JsonPrimitive(Strings.capitalize(name)));
        // obj.add("Privacy", new JsonPrimitive("Public"));
         resource.post(obj.toString());
     }
@@ -76,7 +77,7 @@ public class Folder {
         resource.header("Content-Type", "application/json");
         obj = new JsonObject();
         obj.add("Name", new JsonPrimitive(foo));
-        obj.add("UrlName", new JsonPrimitive(foo));
+        obj.add("UrlName", new JsonPrimitive(Strings.capitalize(foo)));
         // obj.add("Privacy", new JsonPrimitive("Public"));
         resource.post(obj.toString());
     }

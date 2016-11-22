@@ -62,7 +62,7 @@ public class Main {
 		user = smugmug.user(userName);
 		f = user.folder(smugmug);
 		System.out.println("create in " + f.uri);
-		f.createAlbum(smugmug, "foo");
+		f.createFolder(smugmug, "bar");
 	}
 
 
@@ -91,14 +91,14 @@ public class Main {
 		}
 	}
 
-	public static void sync(World world, Smugmug smugmug, String userName, String albumName) throws IOException {
+	public static void sync(World world, Smugmug smugmug, String userNickName, String albumName) throws IOException {
 		List<FileNode> local;
 		User user;
 		Album album;
 		List<Image> remote;
 
 		local = world.getHome().join("timeline").list();
-		user = new User(userName);
+		user = new User(userNickName);
 		album = user.lookupAlbum(smugmug, albumName);
 		if (album == null) {
 			throw new IOException("no such album: " + albumName);
