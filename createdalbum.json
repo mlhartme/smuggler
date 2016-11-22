@@ -1,0 +1,699 @@
+{
+  "Options": {
+    "Methods": [
+      "POST"
+    ],
+    "ParameterDescription": {
+      "Varchar": "Variable length text from MIN_CHARS to MAX_CHARS (MAX_CHARS = INFINITY meaning arbitrary length)",
+      "Uri": "Absolute or relative URL, restricted to Locator of the supplied URL if not null.   Up to a MAX_LENGTH in length.",
+      "Boolean": "For true return type true or 1, for false type false or 0",
+      "Select": "Select MIN_COUNT to MAX_COUNT options.  Options should pass only the \"Value\".  When passing more then one value, use an array.",
+      "Text": "Variable length text from MIN_CHARS to MAX_CHARS (MAX_CHARS = INFINITY meaning arbitrary length)",
+      "Integer": "Integer value in the range MIN_VALUE to MAX_VALUE, inclusive"
+    },
+    "Parameters": {
+      "POST": [
+        {
+          "Name": "NiceName",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Description": "Use UrlName instead",
+          "Type": "Varchar",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": 32,
+          "Deprecated": "2014-11-20",
+          "Value": "Album"
+        },
+        {
+          "Name": "UrlName",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Description": "A human-readable name for use in the URL",
+          "Type": "Varchar",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": 32,
+          "Value": "Album"
+        },
+        {
+          "Name": "Title",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Description": "Use Name instead",
+          "Type": "Varchar",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": 255,
+          "Deprecated": "2014-11-20",
+          "Value": "album"
+        },
+        {
+          "Name": "Name",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Varchar",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": 255,
+          "Value": "album"
+        },
+        {
+          "Name": "CommunityUri",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Uri",
+          "MAX_LENGTH": "INFINITY",
+          "Locator": "Community"
+        },
+        {
+          "Name": "PrintmarkUri",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Uri",
+          "MAX_LENGTH": "INFINITY",
+          "Locator": "Printmark"
+        },
+        {
+          "Name": "WatermarkUri",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Uri",
+          "MAX_LENGTH": "INFINITY",
+          "Locator": "Watermark"
+        },
+        {
+          "Name": "ThemeUri",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Description": "Only applies to legacy accounts",
+          "Type": "Uri",
+          "MAX_LENGTH": "INFINITY",
+          "Locator": "Theme"
+        },
+        {
+          "Name": "TemplateUri",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Uri",
+          "MAX_LENGTH": "INFINITY",
+          "Locator": "Template"
+        },
+        {
+          "Name": "AllowDownloads",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": false
+        },
+        {
+          "Name": "Backprinting",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Varchar",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": 255,
+          "Value": ""
+        },
+        {
+          "Name": "BoutiquePackaging",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "Inherit from User",
+          "Type": "Select",
+          "OPTIONS": [
+            "No",
+            "Yes",
+            "Inherit from User"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": 1,
+          "Value": "Inherit from User"
+        },
+        {
+          "Name": "CanRank",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": true
+        },
+        {
+          "Name": "Clean",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": false
+        },
+        {
+          "Name": "Comments",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": true
+        },
+        {
+          "Name": "Description",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Text",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": 65535,
+          "Value": ""
+        },
+        {
+          "Name": "DownloadPassword",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Varchar",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": 50
+        },
+        {
+          "Name": "EXIF",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": true
+        },
+        {
+          "Name": "External",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Description": "An old setting that no longer has any function",
+          "Type": "Boolean",
+          "Deprecated": "2015-09-08",
+          "Value": true
+        },
+        {
+          "Name": "FamilyEdit",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": false
+        },
+        {
+          "Name": "Filenames",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": false
+        },
+        {
+          "Name": "FriendEdit",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": false
+        },
+        {
+          "Name": "Geography",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": true
+        },
+        {
+          "Name": "Header",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "Custom",
+          "Description": "Appearance",
+          "Type": "Select",
+          "OPTIONS": [
+            "Custom",
+            "SmugMug"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": 1,
+          "Value": "Custom"
+        },
+        {
+          "Name": "HideOwner",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": false
+        },
+        {
+          "Name": "InterceptShipping",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "Inherit from User",
+          "Description": "Personal Delivery",
+          "Type": "Select",
+          "OPTIONS": [
+            "No",
+            "Yes",
+            "Inherit from User"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": 1,
+          "Value": "Inherit from User"
+        },
+        {
+          "Name": "Keywords",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Varchar",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": 255,
+          "Value": ""
+        },
+        {
+          "Name": "LargestSize",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "Original",
+          "Type": "Select",
+          "OPTIONS": [
+            "Medium",
+            "Large",
+            "XLarge",
+            "X2Large",
+            "X3Large",
+            "Original"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": 1,
+          "Value": "Original"
+        },
+        {
+          "Name": "PackagingBranding",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": true
+        },
+        {
+          "Name": "Password",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Varchar",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": 50,
+          "Value": ""
+        },
+        {
+          "Name": "PasswordHint",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Varchar",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": 255,
+          "Value": ""
+        },
+        {
+          "Name": "Printable",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": true
+        },
+        {
+          "Name": "Privacy",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Description": "\"Private\" is not supported on legacy accounts",
+          "Type": "Select",
+          "OPTIONS": [
+            "Public",
+            "Unlisted",
+            "Private"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": 1,
+          "Value": "Public"
+        },
+        {
+          "Name": "ProofDays",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": 0,
+          "Type": "Integer",
+          "MIN_VALUE": "NEGATIVE_INFINITY",
+          "MAX_VALUE": "POSITIVE_INFINITY",
+          "Value": 0
+        },
+        {
+          "Name": "Protected",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Description": "Right-Click Protection",
+          "Type": "Boolean",
+          "Value": false
+        },
+        {
+          "Name": "Share",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": true
+        },
+        {
+          "Name": "Slideshow",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": true
+        },
+        {
+          "Name": "SmugSearchable",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "Inherit from User",
+          "Type": "Select",
+          "OPTIONS": [
+            "No",
+            "Inherit from User"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": 1,
+          "Value": "Inherit from User"
+        },
+        {
+          "Name": "SortDirection",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "Ascending",
+          "Type": "Select",
+          "OPTIONS": [
+            "Ascending",
+            "Descending"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": 1,
+          "Value": "Ascending"
+        },
+        {
+          "Name": "SortMethod",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "Position",
+          "Type": "Select",
+          "OPTIONS": [
+            "Position",
+            "Caption",
+            "Filename",
+            "Date Uploaded",
+            "Date Modified",
+            "Date Taken"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": 1,
+          "Value": "Position"
+        },
+        {
+          "Name": "SquareThumbs",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": true
+        },
+        {
+          "Name": "UploadKey",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Description": "Guest UploadKey",
+          "Type": "Varchar",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": "INFINITY"
+        },
+        {
+          "Name": "Watermark",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Description": "Automatically apply watermark to uploaded images?",
+          "Type": "Boolean",
+          "Value": false
+        },
+        {
+          "Name": "WorldSearchable",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Boolean",
+          "Value": true
+        },
+        {
+          "Name": "AutoRename",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": false,
+          "Description": "Auto-rename conflicting album NiceNames?",
+          "Type": "Boolean"
+        },
+        {
+          "Name": "SecurityType",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Select",
+          "OPTIONS": [
+            "None",
+            "Password",
+            "GrantAccess"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": "ALL",
+          "Value": "None"
+        }
+      ]
+    }
+  },
+  "Response": {
+    "Uri": "/api/v2/album/V5x6vL",
+    "UriDescription": "Album by key",
+    "EndpointType": "Album",
+    "Locator": "Album",
+    "LocatorType": "Object",
+    "ResponseLevel": "Full",
+    "DocUri": "https://api.smugmug.com/api/v2/doc/reference/album.html",
+    "Album": {
+      "ResponseLevel": "Full",
+      "Uri": "/api/v2/album/V5x6vL",
+      "WebUri": "https://mlhartme.smugmug.com/Album",
+      "UriDescription": "Album by key",
+      "NiceName": "Album",
+      "UrlName": "Album",
+      "Title": "album",
+      "Name": "album",
+      "AllowDownloads": false,
+      "Backprinting": "",
+      "BoutiquePackaging": "Inherit from User",
+      "CanRank": true,
+      "Clean": false,
+      "Comments": true,
+      "Description": "",
+      "EXIF": true,
+      "External": true,
+      "FamilyEdit": false,
+      "Filenames": false,
+      "FriendEdit": false,
+      "Geography": true,
+      "Header": "Custom",
+      "HideOwner": false,
+      "InterceptShipping": "Inherit from User",
+      "Keywords": "",
+      "LargestSize": "Original",
+      "PackagingBranding": true,
+      "Password": "",
+      "PasswordHint": "",
+      "Printable": true,
+      "Privacy": "Public",
+      "ProofDays": 0,
+      "Protected": false,
+      "Share": true,
+      "Slideshow": true,
+      "SmugSearchable": "Inherit from User",
+      "SortDirection": "Ascending",
+      "SortMethod": "Position",
+      "SquareThumbs": true,
+      "Watermark": false,
+      "WorldSearchable": true,
+      "SecurityType": "None",
+      "AlbumKey": "V5x6vL",
+      "Date": "2016-11-22T21:58:09+00:00",
+      "LastUpdated": "2016-11-22T21:58:09+00:00",
+      "ImagesLastUpdated": "2016-11-22T21:58:09+00:00",
+      "NodeID": "n7Pxzc",
+      "OriginalSizes": 0,
+      "TotalSizes": 0,
+      "ImageCount": 0,
+      "UrlPath": "/Album",
+      "CanShare": true,
+      "HasDownloadPassword": false,
+      "Uris": {
+        "AlbumShareUris": {
+          "Uri": "/api/v2/album/V5x6vL!shareuris",
+          "UriDescription": "URIs that are useful for sharing",
+          "EndpointType": "AlbumShareUris",
+          "Locator": "AlbumShareUris",
+          "LocatorType": "Object"
+        },
+        "Node": {
+          "Uri": "/api/v2/node/n7Pxzc",
+          "UriDescription": "Node with the given id.",
+          "EndpointType": "Node",
+          "Locator": "Node",
+          "LocatorType": "Object"
+        },
+        "NodeCoverImage": {
+          "Uri": "/api/v2/node/n7Pxzc!cover",
+          "UriDescription": "Cover image for a folder, album, or page",
+          "EndpointType": "NodeCoverImage",
+          "Locator": "Image",
+          "LocatorType": "Object"
+        },
+        "User": {
+          "Uri": "/api/v2/user/mlhartme",
+          "UriDescription": "User By Nickname",
+          "EndpointType": "User",
+          "Locator": "User",
+          "LocatorType": "Object"
+        },
+        "Folder": {
+          "Uri": "/api/v2/folder/user/mlhartme",
+          "UriDescription": "A folder or legacy (sub)category by UrlPath",
+          "EndpointType": "Folder",
+          "Locator": "Folder",
+          "LocatorType": "Object"
+        },
+        "ParentFolders": {
+          "Uri": "/api/v2/folder/user/mlhartme!parents",
+          "UriDescription": "The sequence of parent folders, from the given folder to the root",
+          "EndpointType": "ParentFolders",
+          "Locator": "Folder",
+          "LocatorType": "Objects"
+        },
+        "HighlightImage": {
+          "Uri": "/api/v2/highlight/node/n7Pxzc",
+          "UriDescription": "Highlight image for a folder, album, or page",
+          "EndpointType": "HighlightImage",
+          "Locator": "Image",
+          "LocatorType": "Object"
+        },
+        "AlbumHighlightImage": {
+          "Uri": "/api/v2/album/V5x6vL!highlightimage",
+          "UriDescription": "Highlight image for album",
+          "EndpointType": "AlbumHighlightImage",
+          "Locator": "AlbumImage",
+          "LocatorType": "Object"
+        },
+        "AlbumImages": {
+          "Uri": "/api/v2/album/V5x6vL!images",
+          "UriDescription": "Images from album",
+          "EndpointType": "AlbumImages",
+          "Locator": "AlbumImage",
+          "LocatorType": "Objects"
+        },
+        "AlbumPopularMedia": {
+          "Uri": "/api/v2/album/V5x6vL!popularmedia",
+          "UriDescription": "Popular images from album",
+          "EndpointType": "AlbumPopularMedia",
+          "Locator": "AlbumImage",
+          "LocatorType": "Objects"
+        },
+        "AlbumGeoMedia": {
+          "Uri": "/api/v2/album/V5x6vL!geomedia",
+          "UriDescription": "Geotagged images from album",
+          "EndpointType": "AlbumGeoMedia",
+          "Locator": "AlbumImage",
+          "LocatorType": "Objects"
+        },
+        "AlbumComments": {
+          "Uri": "/api/v2/album/V5x6vL!comments",
+          "UriDescription": "Comments on album",
+          "EndpointType": "AlbumComments",
+          "Locator": "Comment",
+          "LocatorType": "Objects"
+        },
+        "SortAlbumImages": {
+          "Uri": "/api/v2/album/V5x6vL!sortimages",
+          "UriDescription": "Change the ordering of images in a manually-ordered album",
+          "EndpointType": "SortAlbumImages"
+        },
+        "MoveAlbumImages": {
+          "Uri": "/api/v2/album/V5x6vL!moveimages",
+          "UriDescription": "Move images into album",
+          "EndpointType": "MoveAlbumImages"
+        },
+        "CollectImages": {
+          "Uri": "/api/v2/album/V5x6vL!collectimages",
+          "UriDescription": "Collect images into album",
+          "EndpointType": "CollectImages"
+        },
+        "ApplyAlbumTemplate": {
+          "Uri": "/api/v2/album/V5x6vL!applyalbumtemplate",
+          "UriDescription": "Apply an album template",
+          "EndpointType": "ApplyAlbumTemplate",
+          "Locator": "ApplyAlbumTemplate",
+          "LocatorType": "Object"
+        },
+        "DeleteAlbumImages": {
+          "Uri": "/api/v2/album/V5x6vL!deleteimages",
+          "UriDescription": "Delete album images",
+          "EndpointType": "DeleteAlbumImages"
+        },
+        "UploadFromUri": {
+          "Uri": "/api/v2/album/V5x6vL!uploadfromuri",
+          "UriDescription": "Upload a photo or video from elsewhere on the web",
+          "EndpointType": "UploadFromUri"
+        },
+        "AlbumGrants": {
+          "Uri": "/api/v2/album/V5x6vL!grants",
+          "UriDescription": "Grants for the Album",
+          "EndpointType": "AlbumGrants",
+          "Locator": "Grant",
+          "LocatorType": "Objects"
+        },
+        "AlbumDownload": {
+          "Uri": "/api/v2/album/V5x6vL!download",
+          "UriDescription": "Download album",
+          "EndpointType": "AlbumDownload",
+          "Locator": "Download",
+          "LocatorType": "Objects"
+        },
+        "AlbumPrices": {
+          "Uri": "/api/v2/album/V5x6vL!prices",
+          "UriDescription": "Purchasable Skus",
+          "EndpointType": "AlbumPrices",
+          "Locator": "CatalogSkuPrice",
+          "LocatorType": "Objects"
+        }
+      }
+    }
+  },
+  "Code": 201,
+  "Message": "Created"
+}

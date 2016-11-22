@@ -15,6 +15,7 @@ public class TestAll {
         User user;
         Folder root;
         Folder created;
+        Album album;
 
         world = World.create();
         config = Config.load(world);
@@ -27,6 +28,10 @@ public class TestAll {
             created = root.createFolder(smugmug, "folder2");
             System.out.println("created " + created.nodeId);
             created.delete(smugmug);
+
+            album = root.createAlbum(smugmug, "album4");
+            System.out.println("created " + album.name);
+            album.delete(smugmug);
         }
     }
 }

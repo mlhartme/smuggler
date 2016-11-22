@@ -74,9 +74,11 @@ public class Folder {
         return new Folder(created.get("Uri").getAsString(), created.get("NodeID").getAsString(), created.get("UrlPath").getAsString());
     }
 
-    public void createAlbum(Smugmug smugmug, String name) {
+    public Album createAlbum(Smugmug smugmug, String name) {
         WebResource.Builder resource;
         JsonObject obj;
+        String response;
+        JsonObject created;
 
         resource = smugmug.resource("https://api.smugmug.com" + uri + "!albums");
         resource.header("Content-Type", "application/json");
@@ -84,7 +86,9 @@ public class Folder {
         obj.add("Name", new JsonPrimitive(name));
         obj.add("UrlName", new JsonPrimitive(Strings.capitalize(name)));
         // obj.add("Privacy", new JsonPrimitive("Public"));
-        resource.post(obj.toString());
+        response = resource.post(String.class, obj.toString());
+        created = new JsonParser().parse(response).getAsJsonObject().get("Response").getAsJsonObject().get("Album").getAsJsonObject();
+        return new Album(created.get("NodeID").getAsString(), created.get("AlbumKey").getAsString(), created.get("Name").getAsString());
     }
 
     public void delete(Smugmug smugmug) {

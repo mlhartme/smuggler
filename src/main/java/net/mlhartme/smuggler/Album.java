@@ -64,4 +64,11 @@ public class Album {
         idx = uri.lastIndexOf('/');
         return new Image(uri.substring(idx + 1), file.getName());
     }
+
+    public void delete(Smugmug smugmug) {
+        WebResource.Builder resource;
+
+        resource = smugmug.resource("https://api.smugmug.com/api/v2/node/" + nodeId);
+        resource.delete();
+    }
 }
