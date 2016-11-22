@@ -1,7 +1,5 @@
 package net.mlhartme.smuggler;
 
-import net.oneandone.sushi.fs.DirectoryNotFoundException;
-import net.oneandone.sushi.fs.ListException;
 import net.oneandone.sushi.fs.World;
 import net.oneandone.sushi.fs.file.FileNode;
 import net.oneandone.sushi.util.Strings;
@@ -28,14 +26,28 @@ public class Main {
 		String userName;
 		String albumName;
 
+		if (args.length != 1) {
+			System.out.println("usage:");
+			System.out.println("  smuggler tree");
+			System.out.println("  smuggler sync");
+			return;
+		}
 		world = World.create();
 		p = world.getHome().join(".smuggler.properties").readProperties();
 		userName = get(p, "user");
 		albumName = get(p, "album");
 		smugmug = new Smugmug(get(p, "consumer.key"), get(p, "consumer.secret"), get(p, "token.id"), get(p, "token.secret"));
 
-		// sync(smugmug, world, userName, albumName);
-		tree(smugmug, userName);
+		switch (args[0]) {
+			case "sync":
+				sync(world, smugmug, userName, albumName);
+				break;
+			case "tree":
+				tree(smugmug, userName);
+				break;
+			default:
+				throw new IOException("unknown command: " + args[0]);
+		}
 	}
 
 	public static void tree(Smugmug smugmug, String userName) throws IOException {
