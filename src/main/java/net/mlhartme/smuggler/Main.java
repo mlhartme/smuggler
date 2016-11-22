@@ -62,7 +62,7 @@ public class Main {
 		user = smugmug.user(userName);
 		f = user.folder(smugmug);
 		System.out.println("create in " + f.uri);
-		f.createFolder(smugmug, "foo");
+		f.createAlbum(smugmug, "foo");
 	}
 
 

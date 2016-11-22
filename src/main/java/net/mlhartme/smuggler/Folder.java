@@ -50,15 +50,29 @@ public class Folder {
         return result;
     }
 
-    public void createFolder(Smugmug smugmug, String foo) {
+    public void createFolder(Smugmug smugmug, String name) {
         WebResource.Builder resource;
         JsonObject obj;
 
         resource = smugmug.resource("https://api.smugmug.com" + uri + "!folders");
+        resource.header("Content-Type", "application/json");
+        obj = new JsonObject();
+        obj.add("Name", new JsonPrimitive(name));
+        obj.add("UrlName", new JsonPrimitive(name));
+       // obj.add("Privacy", new JsonPrimitive("Public"));
+        resource.post(obj.toString());
+    }
+
+    public void createAlbum(Smugmug smugmug, String foo) {
+        WebResource.Builder resource;
+        JsonObject obj;
+
+        resource = smugmug.resource("https://api.smugmug.com" + uri + "!albums?_verbosity=1&Name=" + foo + "&UrlName=" + foo);
+        resource.header("Content-Type", "application/json");
         obj = new JsonObject();
         obj.add("Name", new JsonPrimitive(foo));
         obj.add("UrlName", new JsonPrimitive(foo));
-        //obj.add("Privacy", new JsonPrimitive("Unlisted"));
+        // obj.add("Privacy", new JsonPrimitive("Public"));
         resource.post(obj.toString());
     }
 }
