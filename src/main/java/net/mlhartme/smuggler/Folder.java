@@ -40,7 +40,7 @@ public class Folder {
                     result.add(new Album(id, uri.substring(uri.lastIndexOf('/') + 1), node.get("Name").getAsString()));
                     break;
                 default:
-                    throw new IOException("unexpected type: " + type);
+                    throw new IOException("unknown type: " + type);
             }
         }
         return result;

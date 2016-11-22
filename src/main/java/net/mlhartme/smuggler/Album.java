@@ -43,6 +43,8 @@ public class Album {
         byte[] image;
         String md5;
         WebResource.Builder builder;
+        String uri;
+        int idx;
 
         image = file.readBytes();
         builder = smugmug.resource("http://upload.smugmug.com/");
@@ -58,9 +60,8 @@ public class Album {
         if (!"ok".equals(response.get("stat").getAsString())) {
             throw new IOException("not ok: " + response);
         }
-        String uri = response.get("Image").getAsJsonObject().get("ImageUri").getAsString();
-        int idx = uri.lastIndexOf('/');
+        uri = response.get("Image").getAsJsonObject().get("ImageUri").getAsString();
+        idx = uri.lastIndexOf('/');
         return new Image(uri.substring(idx + 1), file.getName());
     }
-
 }
