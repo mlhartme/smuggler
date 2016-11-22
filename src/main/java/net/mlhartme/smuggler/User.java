@@ -21,7 +21,8 @@ public class User {
 
         result = smugmug.get("api/v2/folder/user/" + key);
         folder = result.getAsJsonObject().get("Response").getAsJsonObject().get("Folder").getAsJsonObject();
-        return new Folder(folder.get("NodeID").getAsString(), folder.get("UrlPath").getAsString());
+        return new Folder(folder.get("Uri").getAsString(),
+                folder.get("NodeID").getAsString(), folder.get("UrlPath").getAsString());
     }
 
     public List<Album> listAlbums(Smugmug smugmug) throws IOException {

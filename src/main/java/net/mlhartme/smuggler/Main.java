@@ -37,18 +37,34 @@ public class Main {
 		userName = get(p, "user");
 		albumName = get(p, "album");
 		smugmug = new Smugmug(get(p, "consumer.key"), get(p, "consumer.secret"), get(p, "token.id"), get(p, "token.secret"));
-
-		switch (args[0]) {
-			case "sync":
-				sync(world, smugmug, userName, albumName);
-				break;
-			case "tree":
-				tree(smugmug, userName);
-				break;
-			default:
-				throw new IOException("unknown command: " + args[0]);
+		try (PrintStream dest = new PrintStream(new FileOutputStream("wire.log"))) {
+			smugmug.wirelog(dest);
+			switch (args[0]) {
+				case "sync":
+					sync(world, smugmug, userName, albumName);
+					break;
+				case "tree":
+					tree(smugmug, userName);
+					break;
+				case "test":
+					test(smugmug, userName);
+					break;
+				default:
+					throw new IOException("unknown command: " + args[0]);
+			}
 		}
 	}
+
+	public static void test(Smugmug smugmug, String userName) throws IOException {
+		User user;
+		Folder f;
+
+		user = smugmug.user(userName);
+		f = user.folder(smugmug);
+		System.out.println("create in " + f.uri);
+		f.createFolder(smugmug, "foo");
+	}
+
 
 	public static void tree(Smugmug smugmug, String userName) throws IOException {
 		User user;
@@ -60,7 +76,7 @@ public class Main {
 	public static void tree(Smugmug smugmug, int indent, Folder folder) throws IOException {
 		Album album;
 
-		System.out.println(Strings.times(' ', indent) + "F " + folder.urlPath + " (" + folder.nodeId + ")");
+		System.out.println(Strings.times(' ', indent) + "F " + folder.urlPath + " (" + folder.nodeId + "@" + folder.uri + ")");
 		for (Object obj : folder.list(smugmug)) {
 			if (obj instanceof Folder) {
 				tree(smugmug, indent + 2, (Folder) obj);
@@ -82,28 +98,24 @@ public class Main {
 		List<Image> remote;
 
 		local = world.getHome().join("timeline").list();
-		try (PrintStream dest = new PrintStream(new FileOutputStream("wire.log"))) {
-			smugmug.wirelog(dest);
-			user = new User(userName);
-			album = user.lookupAlbum(smugmug, albumName);
-			if (album == null) {
-				throw new IOException("no such album: " + albumName);
-			}
-			remote = album.list(smugmug);
-			for (FileNode file : local) {
-				if (Image.lookupFileName(remote, file.getName()) == null) {
-					System.out.print("A " + file);
-					System.out.println(album.upload(smugmug, file));
-				}
-			}
-			for (Image image : remote) {
-				if (lookup(local, image.fileName) == null) {
-					System.out.print("D " + image.fileName);
-					image.delete(smugmug);
-				}
+		user = new User(userName);
+		album = user.lookupAlbum(smugmug, albumName);
+		if (album == null) {
+			throw new IOException("no such album: " + albumName);
+		}
+		remote = album.list(smugmug);
+		for (FileNode file : local) {
+			if (Image.lookupFileName(remote, file.getName()) == null) {
+				System.out.print("A " + file);
+				System.out.println(album.upload(smugmug, file));
 			}
 		}
-
+		for (Image image : remote) {
+			if (lookup(local, image.fileName) == null) {
+				System.out.print("D " + image.fileName);
+				image.delete(smugmug);
+			}
+		}
 	}
 	private static FileNode lookup(List<FileNode> local, String fileName) {
 		for (FileNode file : local) {

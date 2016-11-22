@@ -3,16 +3,20 @@ package net.mlhartme.smuggler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.sun.jersey.api.client.WebResource;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Folder {
+    public final String uri;
     public final String nodeId;
     public final String urlPath;
 
-    public Folder(String nodeId, String urlPath) {
+    public Folder(String uri, String nodeId, String urlPath) {
+        this.uri = uri;
         this.nodeId = nodeId;
         this.urlPath = urlPath;
     }
@@ -33,16 +37,28 @@ public class Folder {
             type = node.get("Type").getAsString();
             switch (type) {
                 case "Folder":
-                    result.add(new Folder(id, node.get("UrlPath").getAsString()));
+                    result.add(new Folder(node.get("Uri").getAsString(), id, node.get("UrlPath").getAsString()));
                     break;
                 case "Album":
                     uri = node.get("Uris").getAsJsonObject().get("Album").getAsJsonObject().get("Uri").getAsString();
                     result.add(new Album(id, uri.substring(uri.lastIndexOf('/') + 1), node.get("Name").getAsString()));
                     break;
                 default:
-                    throw new IOException("unknown type: " + type);
+                    throw new IOException("unexpected type: " + type);
             }
         }
         return result;
+    }
+
+    public void createFolder(Smugmug smugmug, String foo) {
+        WebResource.Builder resource;
+        JsonObject obj;
+
+        resource = smugmug.resource("https://api.smugmug.com" + uri + "!folders");
+        obj = new JsonObject();
+        obj.add("Name", new JsonPrimitive(foo));
+        obj.add("UrlName", new JsonPrimitive(foo));
+        //obj.add("Privacy", new JsonPrimitive("Unlisted"));
+        resource.post(obj.toString());
     }
 }
