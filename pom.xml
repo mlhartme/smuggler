@@ -68,7 +68,7 @@
         <artifactId>application</artifactId>
         <version>1.6.1</version>
         <configuration>
-          <name>smugmug</name>
+          <name>smuggler</name>
           <main>net.mlhartme.smuggler.Main</main>
           <options>-Djava.awt.headless=true</options>
             <overwrite>META-INF/jersey-module-version, javax/xml/**/*, META-INF/NOTICE, META-INF/LICENSE*, META-INF/ASL2.0</overwrite>
