@@ -1,0 +1,358 @@
+{
+  "Options": {
+    "Methods": [
+      "POST"
+    ],
+    "ParameterDescription": {
+      "Varchar": "Variable length text from MIN_CHARS to MAX_CHARS (MAX_CHARS = INFINITY meaning arbitrary length)",
+      "Boolean": "For true return type true or 1, for false type false or 0",
+      "Select": "Select MIN_COUNT to MAX_COUNT options.  Options should pass only the \"Value\".  When passing more then one value, use an array.",
+      "Text": "Variable length text from MIN_CHARS to MAX_CHARS (MAX_CHARS = INFINITY meaning arbitrary length)",
+      "Uri": "Absolute or relative URL, restricted to Locator of the supplied URL if not null.   Up to a MAX_LENGTH in length."
+    },
+    "Parameters": {
+      "POST": [
+        {
+          "Name": "Name",
+          "Required": true,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Varchar",
+          "MIN_CHARS": 1,
+          "MAX_CHARS": 254,
+          "Value": "folder"
+        },
+        {
+          "Name": "UrlName",
+          "Required": true,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Varchar",
+          "MIN_CHARS": 1,
+          "MAX_CHARS": 32,
+          "Value": "Folder"
+        },
+        {
+          "Name": "AutoRename",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": false,
+          "Description": "Auto-rename conflicting album NiceNames?",
+          "Type": "Boolean"
+        },
+        {
+          "Name": "SecurityType",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Select",
+          "OPTIONS": [
+            "None",
+            "Password",
+            "GrantAccess"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": "ALL",
+          "Value": "None"
+        },
+        {
+          "Name": "SortMethod",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "DateModified",
+          "Type": "Select",
+          "OPTIONS": [
+            "SortIndex",
+            "Name",
+            "DateAdded",
+            "DateModified"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": 1,
+          "Value": "DateModified"
+        },
+        {
+          "Name": "SortDirection",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "Descending",
+          "Type": "Select",
+          "OPTIONS": [
+            "Ascending",
+            "Descending"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": 1,
+          "Value": "Descending"
+        },
+        {
+          "Name": "Description",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Text",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": 65535,
+          "Value": ""
+        },
+        {
+          "Name": "Keywords",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Varchar",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": 255,
+          "Value": ""
+        },
+        {
+          "Name": "Password",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Varchar",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": 50,
+          "Value": ""
+        },
+        {
+          "Name": "PasswordHint",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Varchar",
+          "MIN_CHARS": 0,
+          "MAX_CHARS": 255,
+          "Value": ""
+        },
+        {
+          "Name": "Privacy",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "Unlisted",
+          "Type": "Select",
+          "OPTIONS": [
+            "Public",
+            "Unlisted",
+            "Private"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": 1,
+          "Value": "Public"
+        },
+        {
+          "Name": "SmugSearchable",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Description": "Not supported on legacy accounts. \"Inherit from User\" and \"No\" are for sub-folders; other values and \"No\" are for the root folder.",
+          "Type": "Select",
+          "OPTIONS": [
+            "No",
+            "Local",
+            "LocalUser",
+            "Yes",
+            "Inherit from User"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": "ALL",
+          "Value": "Inherit from User"
+        },
+        {
+          "Name": "WorldSearchable",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Description": "Not supported on legacy accounts. \"Inherit from User\" and \"No\" are for sub-folders; other values and \"No\" are for the root folder.",
+          "Type": "Select",
+          "OPTIONS": [
+            "No",
+            "HomeOnly",
+            "Yes",
+            "Inherit from User"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": "ALL",
+          "Value": "Inherit from User"
+        },
+        {
+          "Name": "HighlightImageUri",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": null,
+          "Type": "Uri",
+          "MAX_LENGTH": "INFINITY",
+          "Locator": "Image"
+        }
+      ]
+    }
+  },
+  "Response": {
+    "Uri": "/api/v2/folder/user/mlhartme/Folder",
+    "UriDescription": "A folder or legacy (sub)category by UrlPath",
+    "EndpointType": "Folder",
+    "Locator": "Folder",
+    "LocatorType": "Object",
+    "ResponseLevel": "Full",
+    "Folder": {
+      "ResponseLevel": "Full",
+      "Uri": "/api/v2/folder/user/mlhartme/Folder",
+      "WebUri": "https://mlhartme.smugmug.com/Folder",
+      "UriDescription": "A folder or legacy (sub)category by UrlPath",
+      "Name": "folder",
+      "UrlName": "Folder",
+      "SecurityType": "None",
+      "SortMethod": "DateModified",
+      "SortDirection": "Descending",
+      "Description": "",
+      "Keywords": "",
+      "Password": "",
+      "PasswordHint": "",
+      "Privacy": "Public",
+      "SmugSearchable": "Inherit from User",
+      "WorldSearchable": "Inherit from User",
+      "DateAdded": "2016-11-22T21:38:12+00:00",
+      "DateModified": "2016-11-22T21:38:12+00:00",
+      "UrlPath": "/Folder",
+      "NodeID": "sN9Vj6",
+      "IsEmpty": true,
+      "Uris": {
+        "FolderByID": {
+          "Uri": "/api/v2/folder/id/sN9Vj6",
+          "UriDescription": "Get folder by its ID",
+          "EndpointType": "FolderByID",
+          "Locator": "Folder",
+          "LocatorType": "Object"
+        },
+        "Node": {
+          "Uri": "/api/v2/node/sN9Vj6",
+          "UriDescription": "Node with the given id.",
+          "EndpointType": "Node",
+          "Locator": "Node",
+          "LocatorType": "Object"
+        },
+        "User": {
+          "Uri": "/api/v2/user/mlhartme",
+          "UriDescription": "User By Nickname",
+          "EndpointType": "User",
+          "Locator": "User",
+          "LocatorType": "Object"
+        },
+        "ParentFolders": {
+          "Uri": "/api/v2/folder/user/mlhartme!parents",
+          "UriDescription": "The sequence of parent folders, from the given folder to the root",
+          "EndpointType": "ParentFolders",
+          "Locator": "Folder",
+          "LocatorType": "Objects"
+        },
+        "ParentFolder": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!parent",
+          "UriDescription": "Parent folder",
+          "EndpointType": "ParentFolder",
+          "Locator": "Folder",
+          "LocatorType": "Object"
+        },
+        "HighlightImage": {
+          "Uri": "/api/v2/highlight/node/sN9Vj6",
+          "UriDescription": "Highlight image for a folder, album, or page",
+          "EndpointType": "HighlightImage",
+          "Locator": "Image",
+          "LocatorType": "Object"
+        },
+        "FolderHighlightImage": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!highlightimage",
+          "UriDescription": "Highlight image for folder",
+          "EndpointType": "FolderHighlightImage",
+          "Locator": "Image",
+          "LocatorType": "Object"
+        },
+        "Folders": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!folders",
+          "UriDescription": "Folders inside of the folder",
+          "EndpointType": "Folders",
+          "Locator": "Folder",
+          "LocatorType": "Objects"
+        },
+        "FolderList": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!folderlist",
+          "UriDescription": "Recursive list of all of the user's folders",
+          "EndpointType": "FolderList",
+          "Locator": "FolderList",
+          "LocatorType": "List"
+        },
+        "MoveFolders": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!movefolders",
+          "UriDescription": "Move folders into folder",
+          "EndpointType": "MoveFolders"
+        },
+        "SortFolders": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!sortfolders",
+          "UriDescription": "Change the ordering of folders in manually-ordered folder",
+          "EndpointType": "SortFolders"
+        },
+        "FolderAlbums": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!albums",
+          "UriDescription": "Albums inside of the folder",
+          "EndpointType": "FolderAlbums",
+          "Locator": "Album",
+          "LocatorType": "Objects"
+        },
+        "AlbumFromAlbumTemplate": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!albumfromalbumtemplate",
+          "UriDescription": "Create album from album template",
+          "EndpointType": "AlbumFromAlbumTemplate"
+        },
+        "SortFolderAlbums": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!sortalbums",
+          "UriDescription": "Change the ordering of albums in manually-ordered folder",
+          "EndpointType": "SortFolderAlbums"
+        },
+        "MoveFolderAlbums": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!movealbums",
+          "UriDescription": "Move albums into folder",
+          "EndpointType": "MoveFolderAlbums"
+        },
+        "AlbumList": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!albumlist",
+          "UriDescription": "List of user's albums",
+          "EndpointType": "AlbumList",
+          "Locator": "AlbumList",
+          "LocatorType": "List"
+        },
+        "FolderPages": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!pages",
+          "UriDescription": "Pages inside of the folder",
+          "EndpointType": "FolderPages",
+          "Locator": "Page",
+          "LocatorType": "Objects"
+        },
+        "MoveFolderPages": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!movepages",
+          "UriDescription": "Move pages into folder",
+          "EndpointType": "MoveFolderPages"
+        },
+        "SortFolderPages": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!sortpages",
+          "UriDescription": "Change the ordering of pages in a manually-ordered folder",
+          "EndpointType": "SortFolderPages"
+        },
+        "FolderGrants": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!grants",
+          "UriDescription": "Grants for the Folder",
+          "EndpointType": "FolderGrants",
+          "Locator": "Grant",
+          "LocatorType": "Objects"
+        },
+        "Size": {
+          "Uri": "/api/v2/folder/user/mlhartme/Folder!size",
+          "UriDescription": "Size of folder",
+          "EndpointType": "Size",
+          "Locator": "Size",
+          "LocatorType": "Object"
+        }
+      }
+    }
+  },
+  "Code": 201,
+  "Message": "Created"
+}

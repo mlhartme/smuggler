@@ -3,6 +3,7 @@ package net.mlhartme.smuggler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.sun.jersey.api.client.WebResource;
 import net.oneandone.sushi.util.Strings;
@@ -56,9 +57,11 @@ public class Folder {
         return result;
     }
 
-    public void createFolder(Smugmug smugmug, String name) {
+    public Folder createFolder(Smugmug smugmug, String name) {
         WebResource.Builder resource;
         JsonObject obj;
+        JsonObject created;
+        String response;
 
         resource = smugmug.resource("https://api.smugmug.com" + uri + "!folders");
         resource.header("Content-Type", "application/json");
@@ -66,19 +69,28 @@ public class Folder {
         obj.add("Name", new JsonPrimitive(name));
         obj.add("UrlName", new JsonPrimitive(Strings.capitalize(name)));
        // obj.add("Privacy", new JsonPrimitive("Public"));
-        resource.post(obj.toString());
+        response = resource.post(String.class, obj.toString());
+        created = new JsonParser().parse(response).getAsJsonObject().get("Response").getAsJsonObject().get("Folder").getAsJsonObject();
+        return new Folder(created.get("Uri").getAsString(), created.get("NodeID").getAsString(), created.get("UrlPath").getAsString());
     }
 
-    public void createAlbum(Smugmug smugmug, String foo) {
+    public void createAlbum(Smugmug smugmug, String name) {
         WebResource.Builder resource;
         JsonObject obj;
 
-        resource = smugmug.resource("https://api.smugmug.com" + uri + "!albums?_verbosity=1&Name=" + foo + "&UrlName=" + foo);
+        resource = smugmug.resource("https://api.smugmug.com" + uri + "!albums");
         resource.header("Content-Type", "application/json");
         obj = new JsonObject();
-        obj.add("Name", new JsonPrimitive(foo));
-        obj.add("UrlName", new JsonPrimitive(Strings.capitalize(foo)));
+        obj.add("Name", new JsonPrimitive(name));
+        obj.add("UrlName", new JsonPrimitive(Strings.capitalize(name)));
         // obj.add("Privacy", new JsonPrimitive("Public"));
         resource.post(obj.toString());
+    }
+
+    public void delete(Smugmug smugmug) {
+        WebResource.Builder resource;
+
+        resource = smugmug.resource("https://api.smugmug.com/api/v2/node/" + nodeId);
+        resource.delete();
     }
 }

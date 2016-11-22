@@ -6,25 +6,12 @@ import net.oneandone.sushi.util.Strings;
 
 import java.io.*;
 import java.util.List;
-import java.util.Properties;
 
 public class Main {
-	private static String get(Properties p, String key) {
-		String value;
-
-		value = p.getProperty(key);
-		if (value == null) {
-			throw new IllegalArgumentException("property not found: " + key);
-		}
-		return value;
-	}
-
 	public static void main(String[] args) throws IOException {
-		Properties p;
+		Config config;
 		World world;
 		Smugmug smugmug;
-		String userName;
-		String albumName;
 
 		if (args.length != 1) {
 			System.out.println("usage:");
@@ -33,38 +20,22 @@ public class Main {
 			return;
 		}
 		world = World.create();
-		p = world.getHome().join(".smuggler.properties").readProperties();
-		userName = get(p, "user");
-		albumName = get(p, "album");
-		smugmug = new Smugmug(get(p, "consumer.key"), get(p, "consumer.secret"), get(p, "token.id"), get(p, "token.secret"));
+		config = Config.load(world);
+		smugmug = config.newSmugmug();
 		try (PrintStream dest = new PrintStream(new FileOutputStream("wire.log"))) {
 			smugmug.wirelog(dest);
 			switch (args[0]) {
 				case "sync":
-					sync(world, smugmug, userName, albumName);
+					sync(world, smugmug, config.user, config.album);
 					break;
 				case "tree":
-					tree(smugmug, userName);
-					break;
-				case "test":
-					test(smugmug, userName);
+					tree(smugmug, config.user);
 					break;
 				default:
 					throw new IOException("unknown command: " + args[0]);
 			}
 		}
 	}
-
-	public static void test(Smugmug smugmug, String userName) throws IOException {
-		User user;
-		Folder f;
-
-		user = smugmug.user(userName);
-		f = user.folder(smugmug);
-		System.out.println("create in " + f.uri);
-		f.createFolder(smugmug, "bar");
-	}
-
 
 	public static void tree(Smugmug smugmug, String userName) throws IOException {
 		User user;
