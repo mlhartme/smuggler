@@ -48,20 +48,20 @@ public class Folder {
         String uri;
 
         result = new ArrayList<>();
-        response = smugmug.get("api/v2/node/" + nodeId + "!children").getAsJsonObject().get("Response").getAsJsonObject();
+        response = Json.object(smugmug.get("api/v2/node/" + nodeId + "!children").getAsJsonObject(), "Response");
         if (response.get("Node") != null) {
             array = response.get("Node").getAsJsonArray();
             for (JsonElement e : array) {
                 node = e.getAsJsonObject();
-                id = node.get("NodeID").getAsString();
-                type = node.get("Type").getAsString();
+                id = Json.string(node, "NodeID");
+                type = Json.string(node, "Type");
                 switch (type) {
                     case "Folder":
-                        result.add(new Folder(node.get("Uri").getAsString(), id, node.get("UrlPath").getAsString()));
+                        result.add(new Folder(Json.string(node, "Uri"), id, Json.string(node, "UrlPath")));
                         break;
                     case "Album":
-                        uri = node.get("Uris").getAsJsonObject().get("Album").getAsJsonObject().get("Uri").getAsString();
-                        result.add(new Album(id, uri.substring(uri.lastIndexOf('/') + 1), node.get("Name").getAsString()));
+                        uri = Json.string(node, "Uris", "Album", "Uri");
+                        result.add(new Album(id, uri.substring(uri.lastIndexOf('/') + 1), Json.string(node, "Name")));
                         break;
                     default:
                         throw new IOException("unexpected type: " + type);
@@ -85,8 +85,8 @@ public class Folder {
         obj.add("UrlName", new JsonPrimitive(Strings.capitalize(name)));
        // obj.add("Privacy", new JsonPrimitive("Public"));
         response = resource.post(String.class, obj.toString());
-        created = new JsonParser().parse(response).getAsJsonObject().get("Response").getAsJsonObject().get("Folder").getAsJsonObject();
-        return new Folder(created.get("Uri").getAsString(), created.get("NodeID").getAsString(), created.get("UrlPath").getAsString());
+        created = Json.object(new JsonParser().parse(response).getAsJsonObject(), "Response", "Folder");
+        return new Folder(Json.string(created, "Uri"), Json.string(created, "NodeID"), Json.string(created, "UrlPath"));
     }
 
     public Album createAlbum(Smugmug smugmug, String name) {
@@ -102,8 +102,8 @@ public class Folder {
         obj.add("UrlName", new JsonPrimitive(Strings.capitalize(name)));
         // obj.add("Privacy", new JsonPrimitive("Public"));
         response = resource.post(String.class, obj.toString());
-        created = new JsonParser().parse(response).getAsJsonObject().get("Response").getAsJsonObject().get("Album").getAsJsonObject();
-        return new Album(created.get("NodeID").getAsString(), created.get("AlbumKey").getAsString(), created.get("Name").getAsString());
+        created = Json.object(new JsonParser().parse(response).getAsJsonObject(), "Response", "Album");
+        return new Album(Json.string(created, "NodeID"), Json.string(created, "AlbumKey"), Json.string(created, "Name"));
     }
 
     public void delete(Smugmug smugmug) {

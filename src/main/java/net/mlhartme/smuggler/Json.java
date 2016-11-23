@@ -19,6 +19,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public class Json {
+    public static String string(JsonObject obj, String name, String sub, String subsub) {
+        return string(object(obj, name, sub), subsub);
+    }
     public static String string(JsonObject obj, String name, String sub) {
         return string(object(obj, name), sub);
     }
@@ -32,6 +35,10 @@ public class Json {
         } else {
             throw new IllegalArgumentException("field '" + name + "' is not a string: " + obj);
         }
+    }
+
+    public static JsonObject object(JsonObject obj, String name, String sub) {
+        return object(object(obj, name), sub);
     }
 
     public static JsonObject object(JsonObject obj, String name) {
@@ -48,7 +55,7 @@ public class Json {
     public static JsonElement element(JsonObject obj, String name) {
         JsonElement e;
 
-        e = obj.get("name");
+        e = obj.get(name);
         if (e == null) {
             throw new IllegalArgumentException("field '" + name + "' not found: " + obj);
         }
