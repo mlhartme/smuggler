@@ -28,6 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Folder {
+    public static Folder create(JsonObject created) {
+        return new Folder(Json.string(created, "Uri"), Json.string(created, "NodeID"), Json.string(created, "UrlPath"));
+    }
+
     public final String uri;
     public final String nodeId;
     public final String urlPath;
@@ -57,7 +61,7 @@ public class Folder {
                 type = Json.string(node, "Type");
                 switch (type) {
                     case "Folder":
-                        result.add(new Folder(Json.string(node, "Uri"), id, Json.string(node, "UrlPath")));
+                        result.add(Folder.create(node));
                         break;
                     case "Album":
                         uri = Json.string(node, "Uris", "Album", "Uri");
@@ -79,7 +83,7 @@ public class Folder {
         resource = smugmug.api(uri + "!folders");
         resource.header("Content-Type", "application/json");
         created = Json.object(Json.post(resource, "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Folder");
-        return new Folder(Json.string(created, "Uri"), Json.string(created, "NodeID"), Json.string(created, "UrlPath"));
+        return Folder.create(created);
     }
 
     public Album createAlbum(Smugmug smugmug, String name) {
