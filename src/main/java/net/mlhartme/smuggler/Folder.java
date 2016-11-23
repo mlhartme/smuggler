@@ -95,7 +95,7 @@ public class Folder {
         String response;
         JsonObject created;
 
-        resource = smugmug.resource("https://api.smugmug.com" + uri + "!albums");
+        resource = smugmug.resource(Smugmug.API + uri + "!albums");
         resource.header("Content-Type", "application/json");
         obj = new JsonObject();
         obj.add("Name", new JsonPrimitive(name));
@@ -109,7 +109,7 @@ public class Folder {
     public void delete(Smugmug smugmug) {
         WebResource.Builder resource;
 
-        resource = smugmug.resource("https://api.smugmug.com/api/v2/node/" + nodeId);
+        resource = smugmug.resource(Smugmug.API + "/api/v2/node/" + nodeId);
         resource.delete();
     }
 }

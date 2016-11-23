@@ -30,6 +30,8 @@ import java.util.UUID;
 
 /** https://smugmug.atlassian.net/wiki/display/API/Home */
 public class Smugmug {
+	public static final String API = "https://api.smugmug.com";
+
 	//--
 
 	private final Client client;
@@ -57,7 +59,7 @@ public class Smugmug {
 	public JsonElement get(String path) throws IOException {
 		WebResource.Builder builder;
 
-		builder = resource("https://api.smugmug.com/" + path);
+		builder = resource(Smugmug.API + "/" + path);
 		return new JsonParser().parse(builder.get(String.class));
 	}
 

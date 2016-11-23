@@ -38,6 +38,6 @@ public class Image {
     }
 
     public void delete(Smugmug smugmug) {
-        smugmug.resource("https://api.smugmug.com/api/v2/image/" + key).delete();
+        smugmug.resource(Smugmug.API + "/api/v2/image/" + key).delete();
     }
 }

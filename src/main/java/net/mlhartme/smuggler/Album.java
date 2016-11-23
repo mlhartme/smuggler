@@ -83,7 +83,7 @@ public class Album {
     public void delete(Smugmug smugmug) {
         WebResource.Builder resource;
 
-        resource = smugmug.resource("https://api.smugmug.com/api/v2/node/" + nodeId);
+        resource = smugmug.resource(Smugmug.API + "/api/v2/node/" + nodeId);
         resource.delete();
     }
 }
