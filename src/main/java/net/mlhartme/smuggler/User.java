@@ -31,11 +31,11 @@ public class User {
     }
 
     public Folder folder(Smugmug smugmug) throws IOException {
-        JsonElement result;
+        JsonObject obj;
         JsonObject folder;
 
-        result = smugmug.get("/api/v2/folder/user/" + nickName);
-        folder = result.getAsJsonObject().get("Response").getAsJsonObject().get("Folder").getAsJsonObject();
+        obj = smugmug.get("/api/v2/folder/user/" + nickName);
+        folder = Json.object(obj, "Response", "Folder");
         return new Folder(Json.string(folder, "Uri"), Json.string(folder, "NodeID"), Json.string(folder, "UrlPath"));
     }
 
@@ -45,7 +45,7 @@ public class User {
         List<Album> result;
         JsonObject sub;
 
-        obj = smugmug.get("/api/v2/user/" + nickName + "!albums").getAsJsonObject();
+        obj = smugmug.get("/api/v2/user/" + nickName + "!albums");
         array = Json.object(obj, "Response").getAsJsonArray();
         result = new ArrayList<>();
         for (JsonElement e : array) {

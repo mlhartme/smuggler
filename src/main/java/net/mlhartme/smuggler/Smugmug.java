@@ -16,6 +16,7 @@
 package net.mlhartme.smuggler;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
@@ -56,11 +57,11 @@ public class Smugmug {
 		return new User(id);
 	}
 
-	public JsonElement get(String path) throws IOException {
+	public JsonObject get(String path) throws IOException {
 		WebResource.Builder builder;
 
 		builder = api(path);
-		return new JsonParser().parse(builder.get(String.class));
+		return new JsonParser().parse(builder.get(String.class)).getAsJsonObject();
 	}
 
 	public WebResource.Builder api(String path) {

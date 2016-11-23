@@ -48,7 +48,7 @@ public class Folder {
         String uri;
 
         result = new ArrayList<>();
-        response = Json.object(smugmug.get("/api/v2/node/" + nodeId + "!children").getAsJsonObject(), "Response");
+        response = Json.object(smugmug.get("/api/v2/node/" + nodeId + "!children"), "Response");
         if (response.get("Node") != null) {
             array = response.get("Node").getAsJsonArray();
             for (JsonElement e : array) {

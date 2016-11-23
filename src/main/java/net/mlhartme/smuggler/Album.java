@@ -43,7 +43,7 @@ public class Album {
         List<Image> result;
         JsonObject object;
 
-        obj = smugmug.get("/api/v2/album/" + key + "!images").getAsJsonObject();
+        obj = smugmug.get("/api/v2/album/" + key + "!images");
         array = Json.element(Json.object(obj, "Response"), "AlbumImage").getAsJsonArray();
         result = new ArrayList<>();
         for (JsonElement e : array) {
