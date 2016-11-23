@@ -36,20 +36,21 @@ public class User {
 
         result = smugmug.get("api/v2/folder/user/" + nickName);
         folder = result.getAsJsonObject().get("Response").getAsJsonObject().get("Folder").getAsJsonObject();
-        return new Folder(folder.get("Uri").getAsString(),
-                folder.get("NodeID").getAsString(), folder.get("UrlPath").getAsString());
+        return new Folder(Json.string(folder, "Uri"), Json.string(folder, "NodeID"), Json.string(folder, "UrlPath"));
     }
 
     public List<Album> listAlbums(Smugmug smugmug) throws IOException {
         JsonObject obj;
         JsonArray array;
         List<Album> result;
+        JsonObject sub;
 
         obj = smugmug.get("api/v2/user/" + nickName + "!albums").getAsJsonObject();
-        array = obj.get("Response").getAsJsonObject().get("Album").getAsJsonArray();
+        array = Json.object(obj, "Response").getAsJsonArray();
         result = new ArrayList<>();
         for (JsonElement e : array) {
-            result.add(new Album(e.getAsJsonObject().get("NodeID").getAsString(), e.getAsJsonObject().get("AlbumKey").getAsString(), e.getAsJsonObject().get("Name").getAsString()));
+            sub = e.getAsJsonObject();
+            result.add(new Album(Json.string(sub, "NodeID"), Json.string(sub, "AlbumKey"), Json.string(sub, "Name")));
         }
         return result;
     }
