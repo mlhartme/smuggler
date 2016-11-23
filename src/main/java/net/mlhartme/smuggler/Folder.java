@@ -89,7 +89,7 @@ public class Folder {
         resource = smugmug.api(uri + "!albums");
         resource.header("Content-Type", "application/json");
         created = Json.object(Json.post(resource, "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Album");
-        return new Album(Json.string(created, "NodeID"), Json.string(created, "AlbumKey"), Json.string(created, "Name"));
+        return Album.create(created);
     }
 
     public void delete(Smugmug smugmug) {

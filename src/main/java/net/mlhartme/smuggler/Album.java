@@ -27,6 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Album {
+    public static Album create(JsonObject created) {
+        return new Album(Json.string(created, "NodeID"), Json.string(created, "AlbumKey"), Json.string(created, "Name"));
+    }
+
     public final String nodeId;
     public final String key;
     public final String name;

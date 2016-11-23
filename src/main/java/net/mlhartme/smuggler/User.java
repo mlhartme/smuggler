@@ -50,7 +50,7 @@ public class User {
         result = new ArrayList<>();
         for (JsonElement e : array) {
             sub = e.getAsJsonObject();
-            result.add(new Album(Json.string(sub, "NodeID"), Json.string(sub, "AlbumKey"), Json.string(sub, "Name")));
+            result.add(Album.create(sub));
         }
         return result;
     }
