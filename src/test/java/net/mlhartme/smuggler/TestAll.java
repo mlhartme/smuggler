@@ -46,6 +46,7 @@ public class TestAll {
 
             album = root.createAlbum(smugmug, "album4");
             System.out.println("created " + album.name);
+            album.upload(smugmug, world.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
             album.delete(smugmug);
         }
     }
