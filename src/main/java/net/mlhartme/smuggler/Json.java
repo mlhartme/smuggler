@@ -17,6 +17,9 @@ package net.mlhartme.smuggler;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+import com.sun.jersey.api.client.WebResource;
 
 public class Json {
     public static String string(JsonObject obj, String name, String sub, String subsub) {
@@ -60,5 +63,19 @@ public class Json {
             throw new IllegalArgumentException("field '" + name + "' not found: " + obj);
         }
         return e;
+    }
+
+    //--
+
+    public static JsonObject post(WebResource.Builder resource, String ... keyValues) {
+        JsonObject obj;
+        String response;
+
+        obj = new JsonObject();
+        for (int i = 0; i < keyValues.length; i += 2) {
+            obj.add(keyValues[i], new JsonPrimitive(keyValues[i + 1]));
+        }
+        response = resource.post(String.class, obj.toString());
+        return new JsonParser().parse(response).getAsJsonObject();
     }
 }

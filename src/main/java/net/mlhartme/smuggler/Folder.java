@@ -74,35 +74,21 @@ public class Folder {
 
     public Folder createFolder(Smugmug smugmug, String name) {
         WebResource.Builder resource;
-        JsonObject obj;
         JsonObject created;
-        String response;
 
         resource = smugmug.api(uri + "!folders");
         resource.header("Content-Type", "application/json");
-        obj = new JsonObject();
-        obj.add("Name", new JsonPrimitive(name));
-        obj.add("UrlName", new JsonPrimitive(Strings.capitalize(name)));
-       // obj.add("Privacy", new JsonPrimitive("Public"));
-        response = resource.post(String.class, obj.toString());
-        created = Json.object(new JsonParser().parse(response).getAsJsonObject(), "Response", "Folder");
+        created = Json.object(Json.post(resource, "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Folder");
         return new Folder(Json.string(created, "Uri"), Json.string(created, "NodeID"), Json.string(created, "UrlPath"));
     }
 
     public Album createAlbum(Smugmug smugmug, String name) {
         WebResource.Builder resource;
-        JsonObject obj;
-        String response;
         JsonObject created;
 
         resource = smugmug.api(uri + "!albums");
         resource.header("Content-Type", "application/json");
-        obj = new JsonObject();
-        obj.add("Name", new JsonPrimitive(name));
-        obj.add("UrlName", new JsonPrimitive(Strings.capitalize(name)));
-        // obj.add("Privacy", new JsonPrimitive("Public"));
-        response = resource.post(String.class, obj.toString());
-        created = Json.object(new JsonParser().parse(response).getAsJsonObject(), "Response", "Album");
+        created = Json.object(Json.post(resource, "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Album");
         return new Album(Json.string(created, "NodeID"), Json.string(created, "AlbumKey"), Json.string(created, "Name"));
     }
 
