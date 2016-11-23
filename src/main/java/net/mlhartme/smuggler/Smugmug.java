@@ -70,7 +70,11 @@ public class Smugmug {
 		return resource(API + path);
 	}
 
-	public WebResource.Builder resource(String url) {
+	public WebResource.Builder upload() {
+		return resource("http://upload.smugmug.com/");
+	}
+
+	private WebResource.Builder resource(String url) {
 		OAuthSecrets secrets;
 		OAuthParameters params;
 		WebResource resource;

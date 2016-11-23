@@ -62,7 +62,7 @@ public class Album {
         int idx;
 
         image = file.readBytes();
-        builder = smugmug.resource("http://upload.smugmug.com/");
+        builder = smugmug.upload();
         md5 = file.md5();
         builder = builder.header("Content-Length", image.length);
         builder = builder.header("Content-MD5", md5);
