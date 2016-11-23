@@ -15,5 +15,43 @@
  */
 package net.mlhartme.smuggler;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 public class Json {
+    public static String string(JsonObject obj, String name, String sub) {
+        return string(object(obj, name), sub);
+    }
+
+    public static String string(JsonObject obj, String name) {
+        JsonElement e;
+
+        e = element(obj, name);
+        if (e.isJsonPrimitive()) {
+            return e.getAsString();
+        } else {
+            throw new IllegalArgumentException("field '" + name + "' is not a string: " + obj);
+        }
+    }
+
+    public static JsonObject object(JsonObject obj, String name) {
+        JsonElement e;
+
+        e = element(obj, name);
+        if (e.isJsonObject()) {
+            return e.getAsJsonObject();
+        } else {
+            throw new IllegalArgumentException("field '" + name + "' is not an object: " + obj);
+        }
+    }
+
+    public static JsonElement element(JsonObject obj, String name) {
+        JsonElement e;
+
+        e = obj.get("name");
+        if (e == null) {
+            throw new IllegalArgumentException("field '" + name + "' not found: " + obj);
+        }
+        return e;
+    }
 }

@@ -44,11 +44,11 @@ public class Album {
         JsonObject object;
 
         obj = smugmug.get("api/v2/album/" + key + "!images").getAsJsonObject();
-        array = obj.get("Response").getAsJsonObject().get("AlbumImage").getAsJsonArray();
+        array = Json.element(Json.object(obj, "Response"), "AlbumImage").getAsJsonArray();
         result = new ArrayList<>();
         for (JsonElement e : array) {
             object = e.getAsJsonObject();
-            result.add(new Image(object.get("ImageKey").getAsString(), object.get("FileName").getAsString()));
+            result.add(new Image(Json.string(object, "ImageKey"), Json.string(object, "FileName")));
         }
         return result;
     }
@@ -72,10 +72,10 @@ public class Album {
         builder = builder.header("X-Smug-Version", "v2");
 
         response = new JsonParser().parse(builder.post(String.class, image)).getAsJsonObject();
-        if (!"ok".equals(response.get("stat").getAsString())) {
+        if (!"ok".equals(Json.string(response, "stat"))) {
             throw new IOException("not ok: " + response);
         }
-        uri = response.get("Image").getAsJsonObject().get("ImageUri").getAsString();
+        uri = Json.string(response, "Image", "ImageUri");
         idx = uri.lastIndexOf('/');
         return new Image(uri.substring(idx + 1), file.getName());
     }
