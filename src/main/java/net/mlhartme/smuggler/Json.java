@@ -82,6 +82,12 @@ public class Json {
         String response;
 
         response = resource.post(String.class, body);
-        return new JsonParser().parse(response).getAsJsonObject();
+        return parse(response).getAsJsonObject();
     }
+
+    public static JsonObject parse(String str) {
+        return parser.parse(str).getAsJsonObject();
+    }
+
+    private static final JsonParser parser = new JsonParser();
 }

@@ -58,10 +58,7 @@ public class Smugmug {
 	}
 
 	public JsonObject get(String path) throws IOException {
-		WebResource.Builder builder;
-
-		builder = api(path);
-		return new JsonParser().parse(builder.get(String.class)).getAsJsonObject();
+		return Json.parse(api(path).get(String.class)).getAsJsonObject();
 	}
 
 	public WebResource.Builder api(String path) {
