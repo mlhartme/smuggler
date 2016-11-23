@@ -57,21 +57,21 @@ public class Album {
         JsonObject response;
         byte[] image;
         String md5;
-        WebResource.Builder builder;
+        WebResource.Builder resource;
         String uri;
         int idx;
 
         image = file.readBytes();
-        builder = smugmug.upload();
+        resource = smugmug.upload();
         md5 = file.md5();
-        builder = builder.header("Content-Length", image.length);
-        builder = builder.header("Content-MD5", md5);
-        builder = builder.header("X-Smug-ResponseType", "JSON");
-        builder = builder.header("X-Smug-FileName", file.getName());
-        builder = builder.header("X-Smug-AlbumUri", "/api/v2/album/" + key);
-        builder = builder.header("X-Smug-Version", "v2");
+        resource.header("Content-Length", image.length);
+        resource.header("Content-MD5", md5);
+        resource.header("X-Smug-ResponseType", "JSON");
+        resource.header("X-Smug-FileName", file.getName());
+        resource.header("X-Smug-AlbumUri", "/api/v2/album/" + key);
+        resource.header("X-Smug-Version", "v2");
 
-        response = new JsonParser().parse(builder.post(String.class, image)).getAsJsonObject();
+        response = Json.post(resource, image);
         if (!"ok".equals(Json.string(response, "stat"))) {
             throw new IOException("not ok: " + response);
         }

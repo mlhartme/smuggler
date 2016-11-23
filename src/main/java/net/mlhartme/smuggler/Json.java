@@ -69,13 +69,19 @@ public class Json {
 
     public static JsonObject post(WebResource.Builder resource, String ... keyValues) {
         JsonObject obj;
-        String response;
 
         obj = new JsonObject();
         for (int i = 0; i < keyValues.length; i += 2) {
             obj.add(keyValues[i], new JsonPrimitive(keyValues[i + 1]));
         }
-        response = resource.post(String.class, obj.toString());
+        return post(resource, obj.toString());
+    }
+
+
+    public static JsonObject post(WebResource.Builder resource, Object body) {
+        String response;
+
+        response = resource.post(String.class, body);
         return new JsonParser().parse(response).getAsJsonObject();
     }
 }
