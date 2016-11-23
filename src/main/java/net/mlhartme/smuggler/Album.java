@@ -43,7 +43,7 @@ public class Album {
         List<Image> result;
         JsonObject object;
 
-        obj = smugmug.get("api/v2/album/" + key + "!images").getAsJsonObject();
+        obj = smugmug.get("/api/v2/album/" + key + "!images").getAsJsonObject();
         array = Json.element(Json.object(obj, "Response"), "AlbumImage").getAsJsonArray();
         result = new ArrayList<>();
         for (JsonElement e : array) {
@@ -83,7 +83,7 @@ public class Album {
     public void delete(Smugmug smugmug) {
         WebResource.Builder resource;
 
-        resource = smugmug.resource(Smugmug.API + "/api/v2/node/" + nodeId);
+        resource = smugmug.api("/api/v2/node/" + nodeId);
         resource.delete();
     }
 }

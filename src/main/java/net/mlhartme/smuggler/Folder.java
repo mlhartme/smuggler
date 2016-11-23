@@ -48,7 +48,7 @@ public class Folder {
         String uri;
 
         result = new ArrayList<>();
-        response = Json.object(smugmug.get("api/v2/node/" + nodeId + "!children").getAsJsonObject(), "Response");
+        response = Json.object(smugmug.get("/api/v2/node/" + nodeId + "!children").getAsJsonObject(), "Response");
         if (response.get("Node") != null) {
             array = response.get("Node").getAsJsonArray();
             for (JsonElement e : array) {
@@ -78,7 +78,7 @@ public class Folder {
         JsonObject created;
         String response;
 
-        resource = smugmug.resource("https://api.smugmug.com" + uri + "!folders");
+        resource = smugmug.api(uri + "!folders");
         resource.header("Content-Type", "application/json");
         obj = new JsonObject();
         obj.add("Name", new JsonPrimitive(name));
@@ -95,7 +95,7 @@ public class Folder {
         String response;
         JsonObject created;
 
-        resource = smugmug.resource(Smugmug.API + uri + "!albums");
+        resource = smugmug.api(uri + "!albums");
         resource.header("Content-Type", "application/json");
         obj = new JsonObject();
         obj.add("Name", new JsonPrimitive(name));
@@ -109,7 +109,7 @@ public class Folder {
     public void delete(Smugmug smugmug) {
         WebResource.Builder resource;
 
-        resource = smugmug.resource(Smugmug.API + "/api/v2/node/" + nodeId);
+        resource = smugmug.api("/api/v2/node/" + nodeId);
         resource.delete();
     }
 }

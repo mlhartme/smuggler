@@ -59,8 +59,15 @@ public class Smugmug {
 	public JsonElement get(String path) throws IOException {
 		WebResource.Builder builder;
 
-		builder = resource(Smugmug.API + "/" + path);
+		builder = api(path);
 		return new JsonParser().parse(builder.get(String.class));
+	}
+
+	public WebResource.Builder api(String path) {
+		if (!path.startsWith("/")) {
+			throw new IllegalArgumentException();
+		}
+		return resource(API + path);
 	}
 
 	public WebResource.Builder resource(String url) {

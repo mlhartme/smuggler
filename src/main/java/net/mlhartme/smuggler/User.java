@@ -34,7 +34,7 @@ public class User {
         JsonElement result;
         JsonObject folder;
 
-        result = smugmug.get("api/v2/folder/user/" + nickName);
+        result = smugmug.get("/api/v2/folder/user/" + nickName);
         folder = result.getAsJsonObject().get("Response").getAsJsonObject().get("Folder").getAsJsonObject();
         return new Folder(Json.string(folder, "Uri"), Json.string(folder, "NodeID"), Json.string(folder, "UrlPath"));
     }
@@ -45,7 +45,7 @@ public class User {
         List<Album> result;
         JsonObject sub;
 
-        obj = smugmug.get("api/v2/user/" + nickName + "!albums").getAsJsonObject();
+        obj = smugmug.get("/api/v2/user/" + nickName + "!albums").getAsJsonObject();
         array = Json.object(obj, "Response").getAsJsonArray();
         result = new ArrayList<>();
         for (JsonElement e : array) {
