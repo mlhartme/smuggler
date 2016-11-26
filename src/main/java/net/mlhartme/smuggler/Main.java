@@ -93,13 +93,15 @@ public class Main {
 		for (FileNode file : local) {
 			if (AlbumImage.lookupFileName(remote, file.getName()) == null) {
 				System.out.print("A " + file);
-				System.out.println(album.upload(smugmug, file));
+				album.upload(smugmug, file);
+				System.out.println();
 			}
 		}
 		for (AlbumImage image : remote) {
 			if (lookup(local, image.fileName) == null) {
 				System.out.print("D " + image.fileName);
 				image.delete(smugmug);
+				System.out.println();
 			}
 		}
 	}

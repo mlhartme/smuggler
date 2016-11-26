@@ -41,12 +41,14 @@ public class User {
 
     public List<Album> listAlbums(Smugmug smugmug) throws IOException {
         JsonObject obj;
+        JsonObject response;
         JsonArray array;
         List<Album> result;
         JsonObject sub;
 
         obj = smugmug.get("/api/v2/user/" + nickName + "!albums");
-        array = Json.object(obj, "Response").getAsJsonArray();
+        response = Json.object(obj, "Response");
+        array = Json.element(response, "Album").getAsJsonArray();
         result = new ArrayList<>();
         for (JsonElement e : array) {
             sub = e.getAsJsonObject();
