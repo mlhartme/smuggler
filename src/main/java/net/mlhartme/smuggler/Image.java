@@ -15,9 +15,15 @@
  */
 package net.mlhartme.smuggler;
 
+import com.google.gson.JsonObject;
+
 import java.util.List;
 
 public class Image {
+    public static Image create(JsonObject image) {
+        return new Image(Json.string(image, "ImageKey"), Json.string(image, "FileName"));
+    }
+
     public static Image lookupFileName(List<Image> images, String fileName) {
         for (Image image : images) {
             if (image.fileName.equals(fileName)) {

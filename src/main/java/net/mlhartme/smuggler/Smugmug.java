@@ -86,6 +86,21 @@ public class Smugmug {
 		return resource.accept("application/json");
 	}
 
+	//--
+
+	public Image image(String uri) throws IOException {
+		return Image.create(Json.object(get(uri), "Response", "Image"));
+	}
+
+	public Album album(String uri) throws IOException {
+		return Album.create(get(uri));
+	}
+
+	public AlbumImage albumImage(String uri) throws IOException {
+		return AlbumImage.create(Json.object(get(uri), "Response", "AlbumImage"));
+	}
+
+
 	//-- TODO
 
 	public void addOauth(WebResource.Builder dest) {

@@ -1,0 +1,177 @@
+{
+  "Response": {
+    "Uri": "/api/v2/album/74p29G/image/NQ634Ph-0",
+    "UriDescription": "Image from album",
+    "EndpointType": "AlbumImage",
+    "Locator": "AlbumImage",
+    "LocatorType": "Object",
+    "DocUri": "https://api.smugmug.com/api/v2/doc/reference/album-image.html",
+    "AlbumImage": {
+      "Uri": "/api/v2/album/74p29G/image/NQ634Ph-0",
+      "WebUri": "https://mlhartme.smugmug.com/Album4/i-NQ634Ph",
+      "UriDescription": "Image from album",
+      "Title": "",
+      "Caption": "",
+      "Keywords": "",
+      "KeywordArray": [],
+      "Watermark": "No",
+      "Latitude": "0.00000000000000",
+      "Longitude": "0.00000000000000",
+      "Altitude": 0,
+      "Hidden": false,
+      "ThumbnailUrl": "https://photos.smugmug.com/Album4/i-NQ634Ph/0/Th/mhm-Th.jpg",
+      "FileName": "mhm.jpg",
+      "Processing": false,
+      "UploadKey": "5524159062",
+      "Date": "2016-11-26T22:11:19+00:00",
+      "Format": "JPG",
+      "OriginalHeight": 150,
+      "OriginalWidth": 200,
+      "OriginalSize": 5551,
+      "LastUpdated": "2016-11-26T22:11:20+00:00",
+      "Collectable": true,
+      "IsArchive": false,
+      "IsVideo": false,
+      "CanEdit": true,
+      "Protected": false,
+      "Watermarked": false,
+      "ImageKey": "NQ634Ph",
+      "ArchivedUri": "https://photos.smugmug.com/Album4/i-NQ634Ph/0/D/mhm-D.jpg",
+      "ArchivedSize": 5551,
+      "ArchivedMD5": "35951d96ee6c16d0e8b891b3227a955a",
+      "FormattedValues": {
+        "Caption": {
+          "html": "",
+          "text": ""
+        }
+      },
+      "Uris": {
+        "LargestImage": {
+          "Uri": "/api/v2/image/NQ634Ph-0!largestimage",
+          "UriDescription": "Largest size available for image",
+          "EndpointType": "LargestImage",
+          "Locator": "LargestImage",
+          "LocatorType": "Object"
+        },
+        "ImageSizes": {
+          "Uri": "/api/v2/image/NQ634Ph-0!sizes",
+          "UriDescription": "Sizes available for image",
+          "EndpointType": "ImageSizes",
+          "Locator": "ImageSizes",
+          "LocatorType": "Object"
+        },
+        "ImageSizeDetails": {
+          "Uri": "/api/v2/image/NQ634Ph-0!sizedetails",
+          "UriDescription": "Detailed size information for image",
+          "EndpointType": "ImageSizeDetails",
+          "Locator": "ImageSizeDetails",
+          "LocatorType": "Object"
+        },
+        "PointOfInterest": {
+          "Uri": "/api/v2/image/NQ634Ph!pointofinterest",
+          "UriDescription": "Point of interest for image",
+          "EndpointType": "PointOfInterest",
+          "Locator": "PointOfInterest",
+          "LocatorType": "Object"
+        },
+        "PointOfInterestCrops": {
+          "Uri": "/api/v2/image/NQ634Ph!poicrops",
+          "UriDescription": "PointOfInterest Crops for image",
+          "EndpointType": "PointOfInterestCrops",
+          "Locator": "PointOfInterestCrops",
+          "LocatorType": "List"
+        },
+        "Regions": {
+          "Uri": "/api/v2/image/NQ634Ph!regions",
+          "UriDescription": "Regions for image",
+          "EndpointType": "Regions",
+          "Locator": "Region",
+          "LocatorType": "Objects"
+        },
+        "ImageAlbum": {
+          "Uri": "/api/v2/album/74p29G",
+          "UriDescription": "Album by key",
+          "EndpointType": "Album",
+          "Locator": "Album",
+          "LocatorType": "Object"
+        },
+        "ImageDownload": {
+          "Uri": "/api/v2/image/NQ634Ph!download",
+          "UriDescription": "Download image",
+          "EndpointType": "ImageDownload",
+          "Locator": "ImageDownload",
+          "LocatorType": "Object"
+        },
+        "ImageOwner": {
+          "Uri": "/api/v2/user/mlhartme",
+          "UriDescription": "User By Nickname",
+          "EndpointType": "User",
+          "Locator": "User",
+          "LocatorType": "Object"
+        },
+        "ImageComments": {
+          "Uri": "/api/v2/image/NQ634Ph!comments",
+          "UriDescription": "Comments on image",
+          "EndpointType": "ImageComments",
+          "Locator": "Comment",
+          "LocatorType": "Objects"
+        },
+        "RotateImage": {
+          "Uri": "/api/v2/image/NQ634Ph!rotate",
+          "UriDescription": "Rotate an image",
+          "EndpointType": "RotateImage"
+        },
+        "ColorImage": {
+          "Uri": "/api/v2/image/NQ634Ph!color",
+          "UriDescription": "Color an image",
+          "EndpointType": "ColorImage",
+          "Locator": "ColorImage",
+          "LocatorType": "Object"
+        },
+        "CropImage": {
+          "Uri": "/api/v2/image/NQ634Ph!crop",
+          "UriDescription": "Crop an image",
+          "EndpointType": "CropImage"
+        },
+        "ImageMetadata": {
+          "Uri": "/api/v2/image/NQ634Ph!metadata",
+          "UriDescription": "Metadata for image",
+          "EndpointType": "ImageMetadata",
+          "Locator": "ImageMetadata",
+          "LocatorType": "Object"
+        },
+        "ImagePrices": {
+          "Uri": "/api/v2/image/NQ634Ph!prices",
+          "UriDescription": "Purchasable Skus",
+          "EndpointType": "ImagePrices",
+          "Locator": "CatalogSkuPrice",
+          "LocatorType": "Objects"
+        },
+        "Image": {
+          "Uri": "/api/v2/image/NQ634Ph-0",
+          "UriDescription": "Image by key",
+          "EndpointType": "Image",
+          "Locator": "Image",
+          "LocatorType": "Object"
+        },
+        "Album": {
+          "Uri": "/api/v2/album/74p29G",
+          "UriDescription": "Album by key",
+          "EndpointType": "Album",
+          "Locator": "Album",
+          "LocatorType": "Object"
+        },
+        "AlbumImageShareUris": {
+          "Uri": "/api/v2/album/74p29G/image/NQ634Ph-0!shareuris",
+          "UriDescription": "URIs that are useful for sharing",
+          "EndpointType": "AlbumImageShareUris",
+          "Locator": "AlbumImageShareUris",
+          "LocatorType": "Object"
+        }
+      },
+      "Movable": true
+    }
+  },
+  "Code": 200,
+  "Message": "Ok"
+}

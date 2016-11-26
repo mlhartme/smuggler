@@ -18,7 +18,6 @@ package net.mlhartme.smuggler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.sun.jersey.api.client.WebResource;
 import net.oneandone.sushi.fs.file.FileNode;
 
@@ -27,8 +26,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Album {
-    public static Album create(JsonObject created) {
-        return new Album(Json.string(created, "NodeID"), Json.string(created, "AlbumKey"), Json.string(created, "Name"));
+    public static Album create(JsonObject album) {
+        return new Album(Json.string(album, "NodeID"), Json.string(album, "AlbumKey"), Json.string(album, "Name"));
+    }
+
+    public static Object fromNode(JsonObject node) {
+        String uri;
+
+        uri = Json.string(node, "Uris", "Album", "Uri");
+        return new Album(Json.string(node, "Type"),
+                uri.substring(uri.lastIndexOf('/') + 1), Json.string(node, "Name"));
     }
 
     public final String nodeId;
@@ -57,13 +64,12 @@ public class Album {
         return result;
     }
 
-    public Image upload(Smugmug smugmug, FileNode file) throws IOException {
+    /** @return albumImageUri */
+    public String upload(Smugmug smugmug, FileNode file) throws IOException {
         JsonObject response;
         byte[] image;
         String md5;
         WebResource.Builder resource;
-        String uri;
-        int idx;
 
         image = file.readBytes();
         resource = smugmug.upload();
@@ -79,9 +85,7 @@ public class Album {
         if (!"ok".equals(Json.string(response, "stat"))) {
             throw new IOException("not ok: " + response);
         }
-        uri = Json.string(response, "Image", "ImageUri");
-        idx = uri.lastIndexOf('/');
-        return new Image(uri.substring(idx + 1), file.getName());
+        return Json.string(response, "Image", "AlbumImageUri");
     }
 
     public void delete(Smugmug smugmug) {

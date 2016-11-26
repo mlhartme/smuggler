@@ -31,6 +31,8 @@ public class TestAll {
         Folder root;
         Folder created;
         Album album;
+        String aiUri;
+        AlbumImage ai;
         Image image;
 
         world = World.create();
@@ -40,15 +42,17 @@ public class TestAll {
             smugmug.wirelog(dest);
             user = smugmug.user(config.user);
             root = user.folder(smugmug);
-            System.out.println("create in " + root.uri);
+            System.out.println("fromAlbum in " + root.uri);
             created = root.createFolder(smugmug, "folder2");
             System.out.println("created folder " + created.nodeId);
             created.delete(smugmug);
 
             album = root.createAlbum(smugmug, "album4");
             System.out.println("created album " + album.name);
-            image = album.upload(smugmug, world.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
-            System.out.println("created image " + image.key);
+            aiUri = album.upload(smugmug, world.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
+            System.out.println("created image " + aiUri);
+            ai = smugmug.albumImage(aiUri);
+            image = ai.image(smugmug);
             image.delete(smugmug);
             System.out.println("deleted image");
             album.delete(smugmug);
