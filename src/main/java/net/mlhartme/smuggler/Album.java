@@ -55,11 +55,13 @@ public class Album {
         JsonObject object;
 
         obj = smugmug.get("/api/v2/album/" + key + "!images");
-        array = Json.element(Json.object(obj, "Response"), "AlbumImage").getAsJsonArray();
         result = new ArrayList<>();
-        for (JsonElement e : array) {
-            object = e.getAsJsonObject();
-            result.add(AlbumImage.create(object));
+        array = Json.arrayOpt(Json.object(obj, "Response"), "AlbumImage");
+        if (array != null) {
+            for (JsonElement e : array) {
+                object = e.getAsJsonObject();
+                result.add(AlbumImage.create(object));
+            }
         }
         return result;
     }
