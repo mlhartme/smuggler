@@ -82,7 +82,9 @@ public class Main {
 		User user;
 		Album album;
 		List<AlbumImage> remote;
+		int errors;
 
+		errors = 0;
 		local = world.getHome().join("timeline").list();
 		user = new User(userNickName);
 		album = user.lookupAlbum(smugmug, albumName);
@@ -93,8 +95,13 @@ public class Main {
 		for (FileNode file : local) {
 			if (AlbumImage.lookupFileName(remote, file.getName()) == null) {
 				System.out.print("A " + file);
-				album.upload(smugmug, file);
-				System.out.println();
+				try {
+					album.upload(smugmug, file);
+					System.out.println();
+				} catch (IOException e) {
+					System.out.println(" " + e.getMessage());
+					errors++;
+				}
 			}
 		}
 		for (AlbumImage image : remote) {
@@ -104,7 +111,11 @@ public class Main {
 				System.out.println();
 			}
 		}
+		if (errors > 0) {
+			System.out.println("failed with errors: " + errors);
+		}
 	}
+
 	private static FileNode lookup(List<FileNode> local, String fileName) {
 		for (FileNode file : local) {
 			if (file.getName().equals(fileName)) {
