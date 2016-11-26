@@ -32,6 +32,7 @@ public class Image {
         this.fileName = fileName;
     }
 
+    /* deletes the image from all album */
     public void delete(Smugmug smugmug) {
         smugmug.api(uri).delete();
     }

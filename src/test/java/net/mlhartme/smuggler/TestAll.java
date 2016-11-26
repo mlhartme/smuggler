@@ -52,6 +52,7 @@ public class TestAll {
             aiUri = album.upload(smugmug, world.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
             System.out.println("created image " + aiUri);
             ai = smugmug.albumImage(aiUri);
+            ai.delete(smugmug);
             image = ai.image(smugmug);
             image.delete(smugmug);
             System.out.println("deleted image");

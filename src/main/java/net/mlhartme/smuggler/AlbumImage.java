@@ -46,6 +46,7 @@ public class AlbumImage {
         this.fileName = fileName;
     }
 
+    /* also deletes the image if this is the last album it is contained in */
     public void delete(Smugmug smugmug) {
         smugmug.api(albumImageUri).delete();
     }
