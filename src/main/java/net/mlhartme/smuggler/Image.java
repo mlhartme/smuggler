@@ -17,33 +17,22 @@ package net.mlhartme.smuggler;
 
 import com.google.gson.JsonObject;
 
-import java.util.List;
-
 public class Image {
     public static Image create(JsonObject image) {
-        return new Image(Json.string(image, "ImageKey"), Json.string(image, "FileName"));
-    }
-
-    public static Image lookupFileName(List<Image> images, String fileName) {
-        for (Image image : images) {
-            if (image.fileName.equals(fileName)) {
-                return image;
-            }
-        }
-        return null;
+        return new Image(Json.string(image, "Uri"), Json.string(image, "FileName"));
     }
 
     //--
 
-    public final String key;
+    public final String uri;
     public final String fileName;
 
-    public Image(String key, String fileName) {
-        this.key = key;
+    public Image(String uri, String fileName) {
+        this.uri = uri;
         this.fileName = fileName;
     }
 
     public void delete(Smugmug smugmug) {
-        smugmug.api("/api/v2/image/" + key).delete();
+        smugmug.api(uri).delete();
     }
 }

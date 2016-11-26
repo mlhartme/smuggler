@@ -1,0 +1,1217 @@
+{
+  "Options": {
+    "Methods": [
+      "GET"
+    ],
+    "ParameterDescription": {
+      "Select": "Select MIN_COUNT to MAX_COUNT options.  Options should pass only the \"Value\".  When passing more then one value, use an array.",
+      "Integer": "Integer value in the range MIN_VALUE to MAX_VALUE, inclusive"
+    },
+    "Parameters": {
+      "GET": [
+        {
+          "Name": "Order",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "",
+          "Description": "Order Albums By",
+          "Type": "Select",
+          "OPTIONS": [
+            "Album Settings",
+            "Position",
+            "Last Updated (Descending)",
+            "Last Updated (Ascending)",
+            "Date Added (Descending)",
+            "Date Added (Ascending)"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": 1
+        },
+        {
+          "Name": "MinimumImages",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": 0,
+          "Type": "Integer",
+          "MIN_VALUE": 0,
+          "MAX_VALUE": 16777215
+        }
+      ]
+    }
+  },
+  "Response": {
+    "Uri": "/api/v2/user/mlhartme!albums",
+    "UriDescription": "All of user's albums",
+    "EndpointType": "UserAlbums",
+    "Locator": "Album",
+    "LocatorType": "Objects",
+    "Album": [
+      {
+        "ResponseLevel": "Full",
+        "Uri": "/api/v2/album/fHRvtz",
+        "WebUri": "https://mlhartme.smugmug.com/Timeline/n-n9P9C4",
+        "UriDescription": "Album by key",
+        "NiceName": "Timeline",
+        "UrlName": "Timeline",
+        "Title": "Timeline",
+        "Name": "Timeline",
+        "AllowDownloads": false,
+        "Backprinting": "",
+        "BoutiquePackaging": "Inherit from User",
+        "CanRank": true,
+        "Clean": false,
+        "Comments": true,
+        "Description": "",
+        "EXIF": true,
+        "External": true,
+        "FamilyEdit": false,
+        "Filenames": false,
+        "FriendEdit": false,
+        "Geography": true,
+        "Header": "Custom",
+        "HideOwner": false,
+        "InterceptShipping": "Inherit from User",
+        "Keywords": "",
+        "LargestSize": "X3Large",
+        "PackagingBranding": true,
+        "Password": "",
+        "PasswordHint": "",
+        "Printable": true,
+        "Privacy": "Unlisted",
+        "ProofDays": 0,
+        "Protected": false,
+        "Share": true,
+        "Slideshow": true,
+        "SmugSearchable": "Inherit from User",
+        "SortDirection": "Ascending",
+        "SortMethod": "Position",
+        "SquareThumbs": true,
+        "Watermark": false,
+        "WorldSearchable": true,
+        "SecurityType": "None",
+        "AlbumKey": "fHRvtz",
+        "Date": "2016-11-17T19:02:26+00:00",
+        "LastUpdated": "2016-11-17T19:02:26+00:00",
+        "ImagesLastUpdated": "2016-11-17T19:02:26+00:00",
+        "NodeID": "n9P9C4",
+        "OriginalSizes": 0,
+        "TotalSizes": 0,
+        "ImageCount": 0,
+        "UrlPath": "/Timeline",
+        "CanShare": true,
+        "HasDownloadPassword": false,
+        "Uris": {
+          "AlbumShareUris": {
+            "Uri": "/api/v2/album/fHRvtz!shareuris",
+            "UriDescription": "URIs that are useful for sharing",
+            "EndpointType": "AlbumShareUris",
+            "Locator": "AlbumShareUris",
+            "LocatorType": "Object"
+          },
+          "Node": {
+            "Uri": "/api/v2/node/n9P9C4",
+            "UriDescription": "Node with the given id.",
+            "EndpointType": "Node",
+            "Locator": "Node",
+            "LocatorType": "Object"
+          },
+          "NodeCoverImage": {
+            "Uri": "/api/v2/node/n9P9C4!cover",
+            "UriDescription": "Cover image for a folder, album, or page",
+            "EndpointType": "NodeCoverImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "User": {
+            "Uri": "/api/v2/user/mlhartme",
+            "UriDescription": "User By Nickname",
+            "EndpointType": "User",
+            "Locator": "User",
+            "LocatorType": "Object"
+          },
+          "Folder": {
+            "Uri": "/api/v2/folder/user/mlhartme",
+            "UriDescription": "A folder or legacy (sub)category by UrlPath",
+            "EndpointType": "Folder",
+            "Locator": "Folder",
+            "LocatorType": "Object"
+          },
+          "ParentFolders": {
+            "Uri": "/api/v2/folder/user/mlhartme!parents",
+            "UriDescription": "The sequence of parent folders, from the given folder to the root",
+            "EndpointType": "ParentFolders",
+            "Locator": "Folder",
+            "LocatorType": "Objects"
+          },
+          "HighlightImage": {
+            "Uri": "/api/v2/highlight/node/n9P9C4",
+            "UriDescription": "Highlight image for a folder, album, or page",
+            "EndpointType": "HighlightImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "AlbumHighlightImage": {
+            "Uri": "/api/v2/album/fHRvtz!highlightimage",
+            "UriDescription": "Highlight image for album",
+            "EndpointType": "AlbumHighlightImage",
+            "Locator": "AlbumImage",
+            "LocatorType": "Object"
+          },
+          "AlbumImages": {
+            "Uri": "/api/v2/album/fHRvtz!images",
+            "UriDescription": "Images from album",
+            "EndpointType": "AlbumImages",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumPopularMedia": {
+            "Uri": "/api/v2/album/fHRvtz!popularmedia",
+            "UriDescription": "Popular images from album",
+            "EndpointType": "AlbumPopularMedia",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumGeoMedia": {
+            "Uri": "/api/v2/album/fHRvtz!geomedia",
+            "UriDescription": "Geotagged images from album",
+            "EndpointType": "AlbumGeoMedia",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumComments": {
+            "Uri": "/api/v2/album/fHRvtz!comments",
+            "UriDescription": "Comments on album",
+            "EndpointType": "AlbumComments",
+            "Locator": "Comment",
+            "LocatorType": "Objects"
+          },
+          "SortAlbumImages": {
+            "Uri": "/api/v2/album/fHRvtz!sortimages",
+            "UriDescription": "Change the ordering of images in a manually-ordered album",
+            "EndpointType": "SortAlbumImages"
+          },
+          "MoveAlbumImages": {
+            "Uri": "/api/v2/album/fHRvtz!moveimages",
+            "UriDescription": "Move images into album",
+            "EndpointType": "MoveAlbumImages"
+          },
+          "CollectImages": {
+            "Uri": "/api/v2/album/fHRvtz!collectimages",
+            "UriDescription": "Collect images into album",
+            "EndpointType": "CollectImages"
+          },
+          "ApplyAlbumTemplate": {
+            "Uri": "/api/v2/album/fHRvtz!applyalbumtemplate",
+            "UriDescription": "Apply an album template",
+            "EndpointType": "ApplyAlbumTemplate",
+            "Locator": "ApplyAlbumTemplate",
+            "LocatorType": "Object"
+          },
+          "DeleteAlbumImages": {
+            "Uri": "/api/v2/album/fHRvtz!deleteimages",
+            "UriDescription": "Delete album images",
+            "EndpointType": "DeleteAlbumImages"
+          },
+          "UploadFromUri": {
+            "Uri": "/api/v2/album/fHRvtz!uploadfromuri",
+            "UriDescription": "Upload a photo or video from elsewhere on the web",
+            "EndpointType": "UploadFromUri"
+          },
+          "AlbumGrants": {
+            "Uri": "/api/v2/album/fHRvtz!grants",
+            "UriDescription": "Grants for the Album",
+            "EndpointType": "AlbumGrants",
+            "Locator": "Grant",
+            "LocatorType": "Objects"
+          },
+          "AlbumDownload": {
+            "Uri": "/api/v2/album/fHRvtz!download",
+            "UriDescription": "Download album",
+            "EndpointType": "AlbumDownload",
+            "Locator": "Download",
+            "LocatorType": "Objects"
+          },
+          "AlbumPrices": {
+            "Uri": "/api/v2/album/fHRvtz!prices",
+            "UriDescription": "Purchasable Skus",
+            "EndpointType": "AlbumPrices",
+            "Locator": "CatalogSkuPrice",
+            "LocatorType": "Objects"
+          }
+        }
+      },
+      {
+        "ResponseLevel": "Full",
+        "Uri": "/api/v2/album/hL9WDJ",
+        "WebUri": "https://mlhartme.smugmug.com/Privat/All/n-2PvMtj",
+        "UriDescription": "Album by key",
+        "NiceName": "All",
+        "UrlName": "All",
+        "Title": "All",
+        "Name": "All",
+        "TemplateUri": "/api/v2/template/3",
+        "AllowDownloads": false,
+        "Backprinting": "",
+        "BoutiquePackaging": "Inherit from User",
+        "CanRank": true,
+        "Clean": false,
+        "Comments": true,
+        "Description": "",
+        "EXIF": true,
+        "External": true,
+        "FamilyEdit": false,
+        "Filenames": false,
+        "FriendEdit": false,
+        "Geography": true,
+        "Header": "Custom",
+        "HideOwner": false,
+        "InterceptShipping": "Inherit from User",
+        "Keywords": "",
+        "LargestSize": "X3Large",
+        "PackagingBranding": true,
+        "Password": "",
+        "PasswordHint": "",
+        "Printable": true,
+        "Privacy": "Unlisted",
+        "ProofDays": 0,
+        "Protected": false,
+        "Share": true,
+        "Slideshow": true,
+        "SmugSearchable": "Inherit from User",
+        "SortDirection": "Ascending",
+        "SortMethod": "Date Taken",
+        "SquareThumbs": true,
+        "Watermark": false,
+        "WorldSearchable": true,
+        "SecurityType": "None",
+        "AlbumKey": "hL9WDJ",
+        "Date": "2016-11-14T19:40:16+00:00",
+        "LastUpdated": "2016-11-14T19:46:44+00:00",
+        "ImagesLastUpdated": "2016-11-14T19:49:01+00:00",
+        "NodeID": "2PvMtj",
+        "OriginalSizes": 424021341,
+        "TotalSizes": 655257098,
+        "ImageCount": 323,
+        "UrlPath": "/Privat/All",
+        "CanShare": true,
+        "HasDownloadPassword": false,
+        "Uris": {
+          "AlbumShareUris": {
+            "Uri": "/api/v2/album/hL9WDJ!shareuris",
+            "UriDescription": "URIs that are useful for sharing",
+            "EndpointType": "AlbumShareUris",
+            "Locator": "AlbumShareUris",
+            "LocatorType": "Object"
+          },
+          "Node": {
+            "Uri": "/api/v2/node/2PvMtj",
+            "UriDescription": "Node with the given id.",
+            "EndpointType": "Node",
+            "Locator": "Node",
+            "LocatorType": "Object"
+          },
+          "NodeCoverImage": {
+            "Uri": "/api/v2/node/2PvMtj!cover",
+            "UriDescription": "Cover image for a folder, album, or page",
+            "EndpointType": "NodeCoverImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "User": {
+            "Uri": "/api/v2/user/mlhartme",
+            "UriDescription": "User By Nickname",
+            "EndpointType": "User",
+            "Locator": "User",
+            "LocatorType": "Object"
+          },
+          "Folder": {
+            "Uri": "/api/v2/folder/user/mlhartme/Privat",
+            "UriDescription": "A folder or legacy (sub)category by UrlPath",
+            "EndpointType": "Folder",
+            "Locator": "Folder",
+            "LocatorType": "Object"
+          },
+          "ParentFolders": {
+            "Uri": "/api/v2/folder/user/mlhartme/Privat!parents",
+            "UriDescription": "The sequence of parent folders, from the given folder to the root",
+            "EndpointType": "ParentFolders",
+            "Locator": "Folder",
+            "LocatorType": "Objects"
+          },
+          "HighlightImage": {
+            "Uri": "/api/v2/highlight/node/2PvMtj",
+            "UriDescription": "Highlight image for a folder, album, or page",
+            "EndpointType": "HighlightImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "AlbumHighlightImage": {
+            "Uri": "/api/v2/album/hL9WDJ!highlightimage",
+            "UriDescription": "Highlight image for album",
+            "EndpointType": "AlbumHighlightImage",
+            "Locator": "AlbumImage",
+            "LocatorType": "Object"
+          },
+          "AlbumImages": {
+            "Uri": "/api/v2/album/hL9WDJ!images",
+            "UriDescription": "Images from album",
+            "EndpointType": "AlbumImages",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumPopularMedia": {
+            "Uri": "/api/v2/album/hL9WDJ!popularmedia",
+            "UriDescription": "Popular images from album",
+            "EndpointType": "AlbumPopularMedia",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumGeoMedia": {
+            "Uri": "/api/v2/album/hL9WDJ!geomedia",
+            "UriDescription": "Geotagged images from album",
+            "EndpointType": "AlbumGeoMedia",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumComments": {
+            "Uri": "/api/v2/album/hL9WDJ!comments",
+            "UriDescription": "Comments on album",
+            "EndpointType": "AlbumComments",
+            "Locator": "Comment",
+            "LocatorType": "Objects"
+          },
+          "MoveAlbumImages": {
+            "Uri": "/api/v2/album/hL9WDJ!moveimages",
+            "UriDescription": "Move images into album",
+            "EndpointType": "MoveAlbumImages"
+          },
+          "CollectImages": {
+            "Uri": "/api/v2/album/hL9WDJ!collectimages",
+            "UriDescription": "Collect images into album",
+            "EndpointType": "CollectImages"
+          },
+          "ApplyAlbumTemplate": {
+            "Uri": "/api/v2/album/hL9WDJ!applyalbumtemplate",
+            "UriDescription": "Apply an album template",
+            "EndpointType": "ApplyAlbumTemplate",
+            "Locator": "ApplyAlbumTemplate",
+            "LocatorType": "Object"
+          },
+          "DeleteAlbumImages": {
+            "Uri": "/api/v2/album/hL9WDJ!deleteimages",
+            "UriDescription": "Delete album images",
+            "EndpointType": "DeleteAlbumImages"
+          },
+          "UploadFromUri": {
+            "Uri": "/api/v2/album/hL9WDJ!uploadfromuri",
+            "UriDescription": "Upload a photo or video from elsewhere on the web",
+            "EndpointType": "UploadFromUri"
+          },
+          "AlbumGrants": {
+            "Uri": "/api/v2/album/hL9WDJ!grants",
+            "UriDescription": "Grants for the Album",
+            "EndpointType": "AlbumGrants",
+            "Locator": "Grant",
+            "LocatorType": "Objects"
+          },
+          "AlbumDownload": {
+            "Uri": "/api/v2/album/hL9WDJ!download",
+            "UriDescription": "Download album",
+            "EndpointType": "AlbumDownload",
+            "Locator": "Download",
+            "LocatorType": "Objects"
+          },
+          "AlbumPrices": {
+            "Uri": "/api/v2/album/hL9WDJ!prices",
+            "UriDescription": "Purchasable Skus",
+            "EndpointType": "AlbumPrices",
+            "Locator": "CatalogSkuPrice",
+            "LocatorType": "Objects"
+          }
+        }
+      },
+      {
+        "ResponseLevel": "Full",
+        "Uri": "/api/v2/album/pqQxWr",
+        "WebUri": "https://mlhartme.smugmug.com/Privat/Timeline/n-qPWM9C",
+        "UriDescription": "Album by key",
+        "NiceName": "Timeline",
+        "UrlName": "Timeline",
+        "Title": "Timeline",
+        "Name": "Timeline",
+        "AllowDownloads": false,
+        "Backprinting": "",
+        "BoutiquePackaging": "Inherit from User",
+        "CanRank": true,
+        "Clean": false,
+        "Comments": true,
+        "Description": "",
+        "EXIF": true,
+        "External": true,
+        "FamilyEdit": false,
+        "Filenames": false,
+        "FriendEdit": false,
+        "Geography": true,
+        "Header": "Custom",
+        "HideOwner": false,
+        "InterceptShipping": "Inherit from User",
+        "Keywords": "",
+        "LargestSize": "X3Large",
+        "PackagingBranding": true,
+        "Password": "",
+        "PasswordHint": "",
+        "Printable": true,
+        "Privacy": "Unlisted",
+        "ProofDays": 0,
+        "Protected": false,
+        "Share": true,
+        "Slideshow": true,
+        "SmugSearchable": "Inherit from User",
+        "SortDirection": "Ascending",
+        "SortMethod": "Position",
+        "SquareThumbs": true,
+        "Watermark": false,
+        "WorldSearchable": true,
+        "SecurityType": "None",
+        "AlbumKey": "pqQxWr",
+        "Date": "2016-11-14T19:31:37+00:00",
+        "LastUpdated": "2016-11-14T19:36:39+00:00",
+        "ImagesLastUpdated": "2016-11-14T19:37:47+00:00",
+        "NodeID": "qPWM9C",
+        "OriginalSizes": 127160808,
+        "TotalSizes": 406313765,
+        "ImageCount": 169,
+        "UrlPath": "/Privat/Timeline",
+        "CanShare": true,
+        "HasDownloadPassword": false,
+        "Uris": {
+          "AlbumShareUris": {
+            "Uri": "/api/v2/album/pqQxWr!shareuris",
+            "UriDescription": "URIs that are useful for sharing",
+            "EndpointType": "AlbumShareUris",
+            "Locator": "AlbumShareUris",
+            "LocatorType": "Object"
+          },
+          "Node": {
+            "Uri": "/api/v2/node/qPWM9C",
+            "UriDescription": "Node with the given id.",
+            "EndpointType": "Node",
+            "Locator": "Node",
+            "LocatorType": "Object"
+          },
+          "NodeCoverImage": {
+            "Uri": "/api/v2/node/qPWM9C!cover",
+            "UriDescription": "Cover image for a folder, album, or page",
+            "EndpointType": "NodeCoverImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "User": {
+            "Uri": "/api/v2/user/mlhartme",
+            "UriDescription": "User By Nickname",
+            "EndpointType": "User",
+            "Locator": "User",
+            "LocatorType": "Object"
+          },
+          "Folder": {
+            "Uri": "/api/v2/folder/user/mlhartme/Privat",
+            "UriDescription": "A folder or legacy (sub)category by UrlPath",
+            "EndpointType": "Folder",
+            "Locator": "Folder",
+            "LocatorType": "Object"
+          },
+          "ParentFolders": {
+            "Uri": "/api/v2/folder/user/mlhartme/Privat!parents",
+            "UriDescription": "The sequence of parent folders, from the given folder to the root",
+            "EndpointType": "ParentFolders",
+            "Locator": "Folder",
+            "LocatorType": "Objects"
+          },
+          "HighlightImage": {
+            "Uri": "/api/v2/highlight/node/qPWM9C",
+            "UriDescription": "Highlight image for a folder, album, or page",
+            "EndpointType": "HighlightImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "AlbumHighlightImage": {
+            "Uri": "/api/v2/album/pqQxWr!highlightimage",
+            "UriDescription": "Highlight image for album",
+            "EndpointType": "AlbumHighlightImage",
+            "Locator": "AlbumImage",
+            "LocatorType": "Object"
+          },
+          "AlbumImages": {
+            "Uri": "/api/v2/album/pqQxWr!images",
+            "UriDescription": "Images from album",
+            "EndpointType": "AlbumImages",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumPopularMedia": {
+            "Uri": "/api/v2/album/pqQxWr!popularmedia",
+            "UriDescription": "Popular images from album",
+            "EndpointType": "AlbumPopularMedia",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumGeoMedia": {
+            "Uri": "/api/v2/album/pqQxWr!geomedia",
+            "UriDescription": "Geotagged images from album",
+            "EndpointType": "AlbumGeoMedia",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumComments": {
+            "Uri": "/api/v2/album/pqQxWr!comments",
+            "UriDescription": "Comments on album",
+            "EndpointType": "AlbumComments",
+            "Locator": "Comment",
+            "LocatorType": "Objects"
+          },
+          "SortAlbumImages": {
+            "Uri": "/api/v2/album/pqQxWr!sortimages",
+            "UriDescription": "Change the ordering of images in a manually-ordered album",
+            "EndpointType": "SortAlbumImages"
+          },
+          "MoveAlbumImages": {
+            "Uri": "/api/v2/album/pqQxWr!moveimages",
+            "UriDescription": "Move images into album",
+            "EndpointType": "MoveAlbumImages"
+          },
+          "CollectImages": {
+            "Uri": "/api/v2/album/pqQxWr!collectimages",
+            "UriDescription": "Collect images into album",
+            "EndpointType": "CollectImages"
+          },
+          "ApplyAlbumTemplate": {
+            "Uri": "/api/v2/album/pqQxWr!applyalbumtemplate",
+            "UriDescription": "Apply an album template",
+            "EndpointType": "ApplyAlbumTemplate",
+            "Locator": "ApplyAlbumTemplate",
+            "LocatorType": "Object"
+          },
+          "DeleteAlbumImages": {
+            "Uri": "/api/v2/album/pqQxWr!deleteimages",
+            "UriDescription": "Delete album images",
+            "EndpointType": "DeleteAlbumImages"
+          },
+          "UploadFromUri": {
+            "Uri": "/api/v2/album/pqQxWr!uploadfromuri",
+            "UriDescription": "Upload a photo or video from elsewhere on the web",
+            "EndpointType": "UploadFromUri"
+          },
+          "AlbumGrants": {
+            "Uri": "/api/v2/album/pqQxWr!grants",
+            "UriDescription": "Grants for the Album",
+            "EndpointType": "AlbumGrants",
+            "Locator": "Grant",
+            "LocatorType": "Objects"
+          },
+          "AlbumDownload": {
+            "Uri": "/api/v2/album/pqQxWr!download",
+            "UriDescription": "Download album",
+            "EndpointType": "AlbumDownload",
+            "Locator": "Download",
+            "LocatorType": "Objects"
+          },
+          "AlbumPrices": {
+            "Uri": "/api/v2/album/pqQxWr!prices",
+            "UriDescription": "Purchasable Skus",
+            "EndpointType": "AlbumPrices",
+            "Locator": "CatalogSkuPrice",
+            "LocatorType": "Objects"
+          }
+        }
+      },
+      {
+        "ResponseLevel": "Full",
+        "Uri": "/api/v2/album/5wkHXz",
+        "WebUri": "https://mlhartme.smugmug.com/Feli-10/n-55LZZq",
+        "UriDescription": "Album by key",
+        "NiceName": "Feli-10",
+        "UrlName": "Feli-10",
+        "Title": "Feli 10",
+        "Name": "Feli 10",
+        "AllowDownloads": true,
+        "Backprinting": "",
+        "BoutiquePackaging": "Inherit from User",
+        "CanRank": true,
+        "Clean": false,
+        "Comments": true,
+        "Description": "",
+        "EXIF": true,
+        "External": true,
+        "FamilyEdit": false,
+        "Filenames": false,
+        "FriendEdit": false,
+        "Geography": true,
+        "Header": "Custom",
+        "HideOwner": false,
+        "InterceptShipping": "Inherit from User",
+        "Keywords": "",
+        "LargestSize": "X3Large",
+        "PackagingBranding": true,
+        "Password": "",
+        "PasswordHint": "",
+        "Printable": false,
+        "Privacy": "Unlisted",
+        "ProofDays": 0,
+        "Protected": false,
+        "Share": true,
+        "Slideshow": true,
+        "SmugSearchable": "No",
+        "SortDirection": "Ascending",
+        "SortMethod": "Date Taken",
+        "SquareThumbs": true,
+        "Watermark": false,
+        "WorldSearchable": false,
+        "SecurityType": "None",
+        "HighlightAlbumImageUri": "/api/v2/album/5wkHXz/image/nmGTBNv-0",
+        "AlbumKey": "5wkHXz",
+        "Date": "2016-11-13T21:21:12+00:00",
+        "LastUpdated": "2016-11-13T22:14:15+00:00",
+        "ImagesLastUpdated": "2016-11-14T19:55:49+00:00",
+        "NodeID": "55LZZq",
+        "OriginalSizes": 299057443,
+        "TotalSizes": 424485939,
+        "ImageCount": 168,
+        "UrlPath": "/Feli-10",
+        "CanShare": true,
+        "HasDownloadPassword": false,
+        "Uris": {
+          "AlbumShareUris": {
+            "Uri": "/api/v2/album/5wkHXz!shareuris",
+            "UriDescription": "URIs that are useful for sharing",
+            "EndpointType": "AlbumShareUris",
+            "Locator": "AlbumShareUris",
+            "LocatorType": "Object"
+          },
+          "Node": {
+            "Uri": "/api/v2/node/55LZZq",
+            "UriDescription": "Node with the given id.",
+            "EndpointType": "Node",
+            "Locator": "Node",
+            "LocatorType": "Object"
+          },
+          "NodeCoverImage": {
+            "Uri": "/api/v2/node/55LZZq!cover",
+            "UriDescription": "Cover image for a folder, album, or page",
+            "EndpointType": "NodeCoverImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "User": {
+            "Uri": "/api/v2/user/mlhartme",
+            "UriDescription": "User By Nickname",
+            "EndpointType": "User",
+            "Locator": "User",
+            "LocatorType": "Object"
+          },
+          "Folder": {
+            "Uri": "/api/v2/folder/user/mlhartme",
+            "UriDescription": "A folder or legacy (sub)category by UrlPath",
+            "EndpointType": "Folder",
+            "Locator": "Folder",
+            "LocatorType": "Object"
+          },
+          "ParentFolders": {
+            "Uri": "/api/v2/folder/user/mlhartme!parents",
+            "UriDescription": "The sequence of parent folders, from the given folder to the root",
+            "EndpointType": "ParentFolders",
+            "Locator": "Folder",
+            "LocatorType": "Objects"
+          },
+          "HighlightImage": {
+            "Uri": "/api/v2/highlight/node/55LZZq",
+            "UriDescription": "Highlight image for a folder, album, or page",
+            "EndpointType": "HighlightImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "AlbumHighlightImage": {
+            "Uri": "/api/v2/album/5wkHXz!highlightimage",
+            "UriDescription": "Highlight image for album",
+            "EndpointType": "AlbumHighlightImage",
+            "Locator": "AlbumImage",
+            "LocatorType": "Object"
+          },
+          "AlbumImages": {
+            "Uri": "/api/v2/album/5wkHXz!images",
+            "UriDescription": "Images from album",
+            "EndpointType": "AlbumImages",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumPopularMedia": {
+            "Uri": "/api/v2/album/5wkHXz!popularmedia",
+            "UriDescription": "Popular images from album",
+            "EndpointType": "AlbumPopularMedia",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumGeoMedia": {
+            "Uri": "/api/v2/album/5wkHXz!geomedia",
+            "UriDescription": "Geotagged images from album",
+            "EndpointType": "AlbumGeoMedia",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumComments": {
+            "Uri": "/api/v2/album/5wkHXz!comments",
+            "UriDescription": "Comments on album",
+            "EndpointType": "AlbumComments",
+            "Locator": "Comment",
+            "LocatorType": "Objects"
+          },
+          "MoveAlbumImages": {
+            "Uri": "/api/v2/album/5wkHXz!moveimages",
+            "UriDescription": "Move images into album",
+            "EndpointType": "MoveAlbumImages"
+          },
+          "CollectImages": {
+            "Uri": "/api/v2/album/5wkHXz!collectimages",
+            "UriDescription": "Collect images into album",
+            "EndpointType": "CollectImages"
+          },
+          "ApplyAlbumTemplate": {
+            "Uri": "/api/v2/album/5wkHXz!applyalbumtemplate",
+            "UriDescription": "Apply an album template",
+            "EndpointType": "ApplyAlbumTemplate",
+            "Locator": "ApplyAlbumTemplate",
+            "LocatorType": "Object"
+          },
+          "DeleteAlbumImages": {
+            "Uri": "/api/v2/album/5wkHXz!deleteimages",
+            "UriDescription": "Delete album images",
+            "EndpointType": "DeleteAlbumImages"
+          },
+          "UploadFromUri": {
+            "Uri": "/api/v2/album/5wkHXz!uploadfromuri",
+            "UriDescription": "Upload a photo or video from elsewhere on the web",
+            "EndpointType": "UploadFromUri"
+          },
+          "AlbumGrants": {
+            "Uri": "/api/v2/album/5wkHXz!grants",
+            "UriDescription": "Grants for the Album",
+            "EndpointType": "AlbumGrants",
+            "Locator": "Grant",
+            "LocatorType": "Objects"
+          },
+          "AlbumDownload": {
+            "Uri": "/api/v2/album/5wkHXz!download",
+            "UriDescription": "Download album",
+            "EndpointType": "AlbumDownload",
+            "Locator": "Download",
+            "LocatorType": "Objects"
+          },
+          "AlbumPrices": {
+            "Uri": "/api/v2/album/5wkHXz!prices",
+            "UriDescription": "Purchasable Skus",
+            "EndpointType": "AlbumPrices",
+            "Locator": "CatalogSkuPrice",
+            "LocatorType": "Objects"
+          }
+        }
+      },
+      {
+        "ResponseLevel": "Full",
+        "Uri": "/api/v2/album/5BdC5S",
+        "WebUri": "https://mlhartme.smugmug.com/Sc87d44329be21adfee9a1ee/n-7kBRxD",
+        "UriDescription": "Album by key",
+        "NiceName": "Sc87d44329be21adfee9a1ee",
+        "UrlName": "Sc87d44329be21adfee9a1ee",
+        "Title": "Profile Images",
+        "Name": "Profile Images",
+        "AllowDownloads": false,
+        "Backprinting": "",
+        "BoutiquePackaging": "Inherit from User",
+        "CanRank": true,
+        "Clean": false,
+        "Comments": true,
+        "Description": "",
+        "EXIF": true,
+        "External": true,
+        "FamilyEdit": false,
+        "Filenames": false,
+        "FriendEdit": false,
+        "Geography": true,
+        "Header": "Custom",
+        "HideOwner": false,
+        "InterceptShipping": "Inherit from User",
+        "Keywords": "",
+        "LargestSize": "X3Large",
+        "PackagingBranding": true,
+        "Password": "",
+        "PasswordHint": "",
+        "Printable": true,
+        "Privacy": "Unlisted",
+        "ProofDays": 0,
+        "Protected": false,
+        "Share": true,
+        "Slideshow": true,
+        "SmugSearchable": "Inherit from User",
+        "SortDirection": "Ascending",
+        "SortMethod": "Position",
+        "SquareThumbs": true,
+        "Watermark": false,
+        "WorldSearchable": true,
+        "SecurityType": "None",
+        "AlbumKey": "5BdC5S",
+        "Date": "2016-11-13T18:42:35+00:00",
+        "LastUpdated": "2016-11-13T18:42:35+00:00",
+        "ImagesLastUpdated": "2016-11-13T18:42:35+00:00",
+        "NodeID": "7kBRxD",
+        "OriginalSizes": 0,
+        "TotalSizes": 0,
+        "ImageCount": 0,
+        "UrlPath": "/Sc87d44329be21adfee9a1ee",
+        "CanShare": true,
+        "HasDownloadPassword": false,
+        "Uris": {
+          "AlbumShareUris": {
+            "Uri": "/api/v2/album/5BdC5S!shareuris",
+            "UriDescription": "URIs that are useful for sharing",
+            "EndpointType": "AlbumShareUris",
+            "Locator": "AlbumShareUris",
+            "LocatorType": "Object"
+          },
+          "Node": {
+            "Uri": "/api/v2/node/7kBRxD",
+            "UriDescription": "Node with the given id.",
+            "EndpointType": "Node",
+            "Locator": "Node",
+            "LocatorType": "Object"
+          },
+          "NodeCoverImage": {
+            "Uri": "/api/v2/node/7kBRxD!cover",
+            "UriDescription": "Cover image for a folder, album, or page",
+            "EndpointType": "NodeCoverImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "User": {
+            "Uri": "/api/v2/user/mlhartme",
+            "UriDescription": "User By Nickname",
+            "EndpointType": "User",
+            "Locator": "User",
+            "LocatorType": "Object"
+          },
+          "Folder": {
+            "Uri": "/api/v2/folder/user/mlhartme",
+            "UriDescription": "A folder or legacy (sub)category by UrlPath",
+            "EndpointType": "Folder",
+            "Locator": "Folder",
+            "LocatorType": "Object"
+          },
+          "ParentFolders": {
+            "Uri": "/api/v2/folder/user/mlhartme!parents",
+            "UriDescription": "The sequence of parent folders, from the given folder to the root",
+            "EndpointType": "ParentFolders",
+            "Locator": "Folder",
+            "LocatorType": "Objects"
+          },
+          "HighlightImage": {
+            "Uri": "/api/v2/highlight/node/7kBRxD",
+            "UriDescription": "Highlight image for a folder, album, or page",
+            "EndpointType": "HighlightImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "AlbumHighlightImage": {
+            "Uri": "/api/v2/album/5BdC5S!highlightimage",
+            "UriDescription": "Highlight image for album",
+            "EndpointType": "AlbumHighlightImage",
+            "Locator": "AlbumImage",
+            "LocatorType": "Object"
+          },
+          "AlbumImages": {
+            "Uri": "/api/v2/album/5BdC5S!images",
+            "UriDescription": "Images from album",
+            "EndpointType": "AlbumImages",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumPopularMedia": {
+            "Uri": "/api/v2/album/5BdC5S!popularmedia",
+            "UriDescription": "Popular images from album",
+            "EndpointType": "AlbumPopularMedia",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumGeoMedia": {
+            "Uri": "/api/v2/album/5BdC5S!geomedia",
+            "UriDescription": "Geotagged images from album",
+            "EndpointType": "AlbumGeoMedia",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumComments": {
+            "Uri": "/api/v2/album/5BdC5S!comments",
+            "UriDescription": "Comments on album",
+            "EndpointType": "AlbumComments",
+            "Locator": "Comment",
+            "LocatorType": "Objects"
+          },
+          "SortAlbumImages": {
+            "Uri": "/api/v2/album/5BdC5S!sortimages",
+            "UriDescription": "Change the ordering of images in a manually-ordered album",
+            "EndpointType": "SortAlbumImages"
+          },
+          "MoveAlbumImages": {
+            "Uri": "/api/v2/album/5BdC5S!moveimages",
+            "UriDescription": "Move images into album",
+            "EndpointType": "MoveAlbumImages"
+          },
+          "CollectImages": {
+            "Uri": "/api/v2/album/5BdC5S!collectimages",
+            "UriDescription": "Collect images into album",
+            "EndpointType": "CollectImages"
+          },
+          "ApplyAlbumTemplate": {
+            "Uri": "/api/v2/album/5BdC5S!applyalbumtemplate",
+            "UriDescription": "Apply an album template",
+            "EndpointType": "ApplyAlbumTemplate",
+            "Locator": "ApplyAlbumTemplate",
+            "LocatorType": "Object"
+          },
+          "DeleteAlbumImages": {
+            "Uri": "/api/v2/album/5BdC5S!deleteimages",
+            "UriDescription": "Delete album images",
+            "EndpointType": "DeleteAlbumImages"
+          },
+          "UploadFromUri": {
+            "Uri": "/api/v2/album/5BdC5S!uploadfromuri",
+            "UriDescription": "Upload a photo or video from elsewhere on the web",
+            "EndpointType": "UploadFromUri"
+          },
+          "AlbumGrants": {
+            "Uri": "/api/v2/album/5BdC5S!grants",
+            "UriDescription": "Grants for the Album",
+            "EndpointType": "AlbumGrants",
+            "Locator": "Grant",
+            "LocatorType": "Objects"
+          },
+          "AlbumDownload": {
+            "Uri": "/api/v2/album/5BdC5S!download",
+            "UriDescription": "Download album",
+            "EndpointType": "AlbumDownload",
+            "Locator": "Download",
+            "LocatorType": "Objects"
+          },
+          "AlbumPrices": {
+            "Uri": "/api/v2/album/5BdC5S!prices",
+            "UriDescription": "Purchasable Skus",
+            "EndpointType": "AlbumPrices",
+            "Locator": "CatalogSkuPrice",
+            "LocatorType": "Objects"
+          }
+        }
+      },
+      {
+        "ResponseLevel": "Full",
+        "Uri": "/api/v2/album/fk482p",
+        "WebUri": "https://mlhartme.smugmug.com/Sb178a0b0db31a1a70ab643c/n-gq3NDT",
+        "UriDescription": "Album by key",
+        "NiceName": "Sb178a0b0db31a1a70ab643c",
+        "UrlName": "Sb178a0b0db31a1a70ab643c",
+        "Title": "Cover Images",
+        "Name": "Cover Images",
+        "AllowDownloads": false,
+        "Backprinting": "",
+        "BoutiquePackaging": "Inherit from User",
+        "CanRank": true,
+        "Clean": false,
+        "Comments": true,
+        "Description": "",
+        "EXIF": true,
+        "External": true,
+        "FamilyEdit": false,
+        "Filenames": false,
+        "FriendEdit": false,
+        "Geography": true,
+        "Header": "Custom",
+        "HideOwner": false,
+        "InterceptShipping": "Inherit from User",
+        "Keywords": "",
+        "LargestSize": "X3Large",
+        "PackagingBranding": true,
+        "Password": "",
+        "PasswordHint": "",
+        "Printable": true,
+        "Privacy": "Unlisted",
+        "ProofDays": 0,
+        "Protected": false,
+        "Share": true,
+        "Slideshow": true,
+        "SmugSearchable": "Inherit from User",
+        "SortDirection": "Ascending",
+        "SortMethod": "Position",
+        "SquareThumbs": true,
+        "Watermark": false,
+        "WorldSearchable": true,
+        "SecurityType": "None",
+        "AlbumKey": "fk482p",
+        "Date": "2016-11-13T18:42:35+00:00",
+        "LastUpdated": "2016-11-13T18:42:35+00:00",
+        "ImagesLastUpdated": "2016-11-13T18:42:35+00:00",
+        "NodeID": "gq3NDT",
+        "OriginalSizes": 0,
+        "TotalSizes": 0,
+        "ImageCount": 0,
+        "UrlPath": "/Sb178a0b0db31a1a70ab643c",
+        "CanShare": true,
+        "HasDownloadPassword": false,
+        "Uris": {
+          "AlbumShareUris": {
+            "Uri": "/api/v2/album/fk482p!shareuris",
+            "UriDescription": "URIs that are useful for sharing",
+            "EndpointType": "AlbumShareUris",
+            "Locator": "AlbumShareUris",
+            "LocatorType": "Object"
+          },
+          "Node": {
+            "Uri": "/api/v2/node/gq3NDT",
+            "UriDescription": "Node with the given id.",
+            "EndpointType": "Node",
+            "Locator": "Node",
+            "LocatorType": "Object"
+          },
+          "NodeCoverImage": {
+            "Uri": "/api/v2/node/gq3NDT!cover",
+            "UriDescription": "Cover image for a folder, album, or page",
+            "EndpointType": "NodeCoverImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "User": {
+            "Uri": "/api/v2/user/mlhartme",
+            "UriDescription": "User By Nickname",
+            "EndpointType": "User",
+            "Locator": "User",
+            "LocatorType": "Object"
+          },
+          "Folder": {
+            "Uri": "/api/v2/folder/user/mlhartme",
+            "UriDescription": "A folder or legacy (sub)category by UrlPath",
+            "EndpointType": "Folder",
+            "Locator": "Folder",
+            "LocatorType": "Object"
+          },
+          "ParentFolders": {
+            "Uri": "/api/v2/folder/user/mlhartme!parents",
+            "UriDescription": "The sequence of parent folders, from the given folder to the root",
+            "EndpointType": "ParentFolders",
+            "Locator": "Folder",
+            "LocatorType": "Objects"
+          },
+          "HighlightImage": {
+            "Uri": "/api/v2/highlight/node/gq3NDT",
+            "UriDescription": "Highlight image for a folder, album, or page",
+            "EndpointType": "HighlightImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "AlbumHighlightImage": {
+            "Uri": "/api/v2/album/fk482p!highlightimage",
+            "UriDescription": "Highlight image for album",
+            "EndpointType": "AlbumHighlightImage",
+            "Locator": "AlbumImage",
+            "LocatorType": "Object"
+          },
+          "AlbumImages": {
+            "Uri": "/api/v2/album/fk482p!images",
+            "UriDescription": "Images from album",
+            "EndpointType": "AlbumImages",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumPopularMedia": {
+            "Uri": "/api/v2/album/fk482p!popularmedia",
+            "UriDescription": "Popular images from album",
+            "EndpointType": "AlbumPopularMedia",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumGeoMedia": {
+            "Uri": "/api/v2/album/fk482p!geomedia",
+            "UriDescription": "Geotagged images from album",
+            "EndpointType": "AlbumGeoMedia",
+            "Locator": "AlbumImage",
+            "LocatorType": "Objects"
+          },
+          "AlbumComments": {
+            "Uri": "/api/v2/album/fk482p!comments",
+            "UriDescription": "Comments on album",
+            "EndpointType": "AlbumComments",
+            "Locator": "Comment",
+            "LocatorType": "Objects"
+          },
+          "SortAlbumImages": {
+            "Uri": "/api/v2/album/fk482p!sortimages",
+            "UriDescription": "Change the ordering of images in a manually-ordered album",
+            "EndpointType": "SortAlbumImages"
+          },
+          "MoveAlbumImages": {
+            "Uri": "/api/v2/album/fk482p!moveimages",
+            "UriDescription": "Move images into album",
+            "EndpointType": "MoveAlbumImages"
+          },
+          "CollectImages": {
+            "Uri": "/api/v2/album/fk482p!collectimages",
+            "UriDescription": "Collect images into album",
+            "EndpointType": "CollectImages"
+          },
+          "ApplyAlbumTemplate": {
+            "Uri": "/api/v2/album/fk482p!applyalbumtemplate",
+            "UriDescription": "Apply an album template",
+            "EndpointType": "ApplyAlbumTemplate",
+            "Locator": "ApplyAlbumTemplate",
+            "LocatorType": "Object"
+          },
+          "DeleteAlbumImages": {
+            "Uri": "/api/v2/album/fk482p!deleteimages",
+            "UriDescription": "Delete album images",
+            "EndpointType": "DeleteAlbumImages"
+          },
+          "UploadFromUri": {
+            "Uri": "/api/v2/album/fk482p!uploadfromuri",
+            "UriDescription": "Upload a photo or video from elsewhere on the web",
+            "EndpointType": "UploadFromUri"
+          },
+          "AlbumGrants": {
+            "Uri": "/api/v2/album/fk482p!grants",
+            "UriDescription": "Grants for the Album",
+            "EndpointType": "AlbumGrants",
+            "Locator": "Grant",
+            "LocatorType": "Objects"
+          },
+          "AlbumDownload": {
+            "Uri": "/api/v2/album/fk482p!download",
+            "UriDescription": "Download album",
+            "EndpointType": "AlbumDownload",
+            "Locator": "Download",
+            "LocatorType": "Objects"
+          },
+          "AlbumPrices": {
+            "Uri": "/api/v2/album/fk482p!prices",
+            "UriDescription": "Purchasable Skus",
+            "EndpointType": "AlbumPrices",
+            "Locator": "CatalogSkuPrice",
+            "LocatorType": "Objects"
+          }
+        }
+      }
+    ],
+    "Pages": {
+      "Total": 6,
+      "Start": 1,
+      "Count": 6,
+      "RequestedCount": 50,
+      "FirstPage": "/api/v2/user/mlhartme!albums?start=1&count=50",
+      "LastPage": "/api/v2/user/mlhartme!albums?start=1&count=50"
+    }
+  },
+  "Code": 200,
+  "Message": "Ok"
+}

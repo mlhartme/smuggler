@@ -18,18 +18,32 @@ package net.mlhartme.smuggler;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AlbumImage {
     public static AlbumImage create(JsonObject ai) {
-        return new AlbumImage(Json.string(ai, "Uri"), Json.string(ai, "Uris", "Image", "Uri"));
+        return new AlbumImage(Json.string(ai, "Uri"), Json.string(ai, "Uris", "Image", "Uri"),
+                Json.string(ai, "FileName"));
     }
+
+    public static AlbumImage lookupFileName(List<AlbumImage> images, String fileName) {
+        for (AlbumImage ai : images) {
+            if (ai.fileName.equals(fileName)) {
+                return ai;
+            }
+        }
+        return null;
+    }
+
 
     public final String albumImageUri;
     public final String imageUri;
+    public final String fileName;
 
-    public AlbumImage(String albumImageUri, String imageUri) {
+    public AlbumImage(String albumImageUri, String imageUri, String fileName) {
         this.albumImageUri = albumImageUri;
         this.imageUri = imageUri;
+        this.fileName = fileName;
     }
 
     public void delete(Smugmug smugmug) {

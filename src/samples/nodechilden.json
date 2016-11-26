@@ -1,0 +1,377 @@
+{
+  "Options": {
+    "Methods": [
+      "GET"
+    ],
+    "ParameterDescription": {
+      "Select": "Select MIN_COUNT to MAX_COUNT options.  Options should pass only the \"Value\".  When passing more then one value, use an array."
+    },
+    "Parameters": {
+      "GET": [
+        {
+          "Name": "Type",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "All",
+          "Type": "Select",
+          "OPTIONS": [
+            "All",
+            "Folder",
+            "Album",
+            "Page",
+            "System Album"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": "ALL"
+        },
+        {
+          "Name": "SortMethod",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "Organizer",
+          "Type": "Select",
+          "OPTIONS": [
+            "DateAdded",
+            "DateModified",
+            "Name",
+            "Organizer"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": 1
+        },
+        {
+          "Name": "SortDirection",
+          "Required": false,
+          "ReadOnly": false,
+          "Default": "Ascending",
+          "Type": "Select",
+          "OPTIONS": [
+            "Ascending",
+            "Descending"
+          ],
+          "MIN_COUNT": 1,
+          "MAX_COUNT": 1
+        }
+      ]
+    }
+  },
+  "Response": {
+    "Uri": "/api/v2/node/TkQBcF!children",
+    "UriDescription": "Child nodes of the given node.",
+    "EndpointType": "ChildNodes",
+    "Locator": "Node",
+    "LocatorType": "Objects",
+    "Node": [
+      {
+        "ResponseLevel": "Full",
+        "Uri": "/api/v2/node/MCjJGs",
+        "WebUri": "https://mlhartme.smugmug.com/Privat",
+        "UriDescription": "Node with the given id.",
+        "Description": "",
+        "HideOwner": false,
+        "Name": "Privat",
+        "Keywords": [],
+        "Password": "",
+        "PasswordHint": "",
+        "Privacy": "Public",
+        "SecurityType": "None",
+        "ShowCoverImage": false,
+        "SmugSearchable": "Inherit from User",
+        "SortDirection": "Descending",
+        "SortMethod": "DateModified",
+        "Type": "Folder",
+        "UrlName": "Privat",
+        "WorldSearchable": "Inherit from User",
+        "DateAdded": "2016-11-14T20:41:17+00:00",
+        "DateModified": "2016-11-14T20:41:17+00:00",
+        "EffectivePrivacy": "Public",
+        "EffectiveSecurityType": "None",
+        "FormattedValues": {
+          "Name": {
+            "html": "Privat"
+          },
+          "Description": {
+            "html": "",
+            "text": ""
+          }
+        },
+        "HasChildren": true,
+        "IsRoot": false,
+        "NodeID": "MCjJGs",
+        "UrlPath": "/Privat",
+        "Uris": {
+          "FolderByID": {
+            "Uri": "/api/v2/folder/id/MCjJGs",
+            "UriDescription": "Get folder by its ID",
+            "EndpointType": "FolderByID",
+            "Locator": "Folder",
+            "LocatorType": "Object"
+          },
+          "ParentNode": {
+            "Uri": "/api/v2/node/MCjJGs!parent",
+            "UriDescription": "Parent node of the given node.",
+            "EndpointType": "ParentNode",
+            "Locator": "Node",
+            "LocatorType": "Object"
+          },
+          "ParentNodes": {
+            "Uri": "/api/v2/node/MCjJGs!parents",
+            "UriDescription": "Hierarchy of nodes from the given node (inclusive) to the root node.",
+            "EndpointType": "ParentNodes",
+            "Locator": "Node",
+            "LocatorType": "Objects"
+          },
+          "User": {
+            "Uri": "/api/v2/user/mlhartme",
+            "UriDescription": "User By Nickname",
+            "EndpointType": "User",
+            "Locator": "User",
+            "LocatorType": "Object"
+          },
+          "NodeCoverImage": {
+            "Uri": "/api/v2/node/MCjJGs!cover",
+            "UriDescription": "Cover image for a folder, album, or page",
+            "EndpointType": "NodeCoverImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "HighlightImage": {
+            "Uri": "/api/v2/highlight/node/MCjJGs",
+            "UriDescription": "Highlight image for a folder, album, or page",
+            "EndpointType": "HighlightImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "NodeComments": {
+            "Uri": "/api/v2/node/MCjJGs!comments",
+            "UriDescription": "Comments on a Node",
+            "EndpointType": "NodeComments",
+            "Locator": "Comment",
+            "LocatorType": "Objects"
+          },
+          "ChildNodes": {
+            "Uri": "/api/v2/node/MCjJGs!children",
+            "UriDescription": "Child nodes of the given node.",
+            "EndpointType": "ChildNodes",
+            "Locator": "Node",
+            "LocatorType": "Objects"
+          },
+          "MoveNodes": {
+            "Uri": "/api/v2/node/MCjJGs!movenodes",
+            "UriDescription": "Moves one or more nodes into a folder node.",
+            "EndpointType": "MoveNodes"
+          },
+          "NodeGrants": {
+            "Uri": "/api/v2/node/MCjJGs!grants",
+            "UriDescription": "Grants for this node.",
+            "EndpointType": "NodeGrants",
+            "Locator": "Grant",
+            "LocatorType": "Objects"
+          }
+        }
+      },
+      {
+        "ResponseLevel": "Full",
+        "Uri": "/api/v2/node/n9P9C4",
+        "WebUri": "https://mlhartme.smugmug.com/Timeline/n-n9P9C4",
+        "UriDescription": "Node with the given id.",
+        "Description": "",
+        "HideOwner": false,
+        "Name": "Timeline",
+        "Keywords": [],
+        "Password": "",
+        "PasswordHint": "",
+        "Privacy": "Unlisted",
+        "SecurityType": "None",
+        "ShowCoverImage": false,
+        "SmugSearchable": "Inherit from User",
+        "SortDirection": "Descending",
+        "SortMethod": "DateModified",
+        "Type": "Album",
+        "UrlName": "Timeline",
+        "WorldSearchable": "Inherit from User",
+        "DateAdded": "2016-11-17T19:02:26+00:00",
+        "DateModified": "2016-11-18T21:07:40+00:00",
+        "EffectivePrivacy": "Unlisted",
+        "EffectiveSecurityType": "None",
+        "FormattedValues": {
+          "Name": {
+            "html": "Timeline"
+          },
+          "Description": {
+            "html": "",
+            "text": ""
+          }
+        },
+        "HasChildren": false,
+        "IsRoot": false,
+        "NodeID": "n9P9C4",
+        "UrlPath": "/Timeline",
+        "Uris": {
+          "Album": {
+            "Uri": "/api/v2/album/fHRvtz",
+            "UriDescription": "Album by key",
+            "EndpointType": "Album",
+            "Locator": "Album",
+            "LocatorType": "Object"
+          },
+          "ParentNode": {
+            "Uri": "/api/v2/node/n9P9C4!parent",
+            "UriDescription": "Parent node of the given node.",
+            "EndpointType": "ParentNode",
+            "Locator": "Node",
+            "LocatorType": "Object"
+          },
+          "ParentNodes": {
+            "Uri": "/api/v2/node/n9P9C4!parents",
+            "UriDescription": "Hierarchy of nodes from the given node (inclusive) to the root node.",
+            "EndpointType": "ParentNodes",
+            "Locator": "Node",
+            "LocatorType": "Objects"
+          },
+          "User": {
+            "Uri": "/api/v2/user/mlhartme",
+            "UriDescription": "User By Nickname",
+            "EndpointType": "User",
+            "Locator": "User",
+            "LocatorType": "Object"
+          },
+          "NodeCoverImage": {
+            "Uri": "/api/v2/node/n9P9C4!cover",
+            "UriDescription": "Cover image for a folder, album, or page",
+            "EndpointType": "NodeCoverImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "HighlightImage": {
+            "Uri": "/api/v2/highlight/node/n9P9C4",
+            "UriDescription": "Highlight image for a folder, album, or page",
+            "EndpointType": "HighlightImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "NodeComments": {
+            "Uri": "/api/v2/node/n9P9C4!comments",
+            "UriDescription": "Comments on a Node",
+            "EndpointType": "NodeComments",
+            "Locator": "Comment",
+            "LocatorType": "Objects"
+          },
+          "NodeGrants": {
+            "Uri": "/api/v2/node/n9P9C4!grants",
+            "UriDescription": "Grants for this node.",
+            "EndpointType": "NodeGrants",
+            "Locator": "Grant",
+            "LocatorType": "Objects"
+          }
+        }
+      },
+      {
+        "ResponseLevel": "Full",
+        "Uri": "/api/v2/node/55LZZq",
+        "WebUri": "https://mlhartme.smugmug.com/Feli-10/n-55LZZq",
+        "UriDescription": "Node with the given id.",
+        "Description": "",
+        "HideOwner": false,
+        "Name": "Feli 10",
+        "Keywords": [],
+        "Password": "",
+        "PasswordHint": "",
+        "Privacy": "Unlisted",
+        "SecurityType": "None",
+        "ShowCoverImage": false,
+        "SmugSearchable": "No",
+        "SortDirection": "Descending",
+        "SortMethod": "DateModified",
+        "Type": "Album",
+        "UrlName": "Feli-10",
+        "WorldSearchable": "No",
+        "DateAdded": "2016-11-13T21:21:12+00:00",
+        "DateModified": "2016-11-13T22:14:15+00:00",
+        "EffectivePrivacy": "Unlisted",
+        "EffectiveSecurityType": "None",
+        "FormattedValues": {
+          "Name": {
+            "html": "Feli 10"
+          },
+          "Description": {
+            "html": "",
+            "text": ""
+          }
+        },
+        "HasChildren": false,
+        "IsRoot": false,
+        "NodeID": "55LZZq",
+        "UrlPath": "/Feli-10",
+        "Uris": {
+          "Album": {
+            "Uri": "/api/v2/album/5wkHXz",
+            "UriDescription": "Album by key",
+            "EndpointType": "Album",
+            "Locator": "Album",
+            "LocatorType": "Object"
+          },
+          "ParentNode": {
+            "Uri": "/api/v2/node/55LZZq!parent",
+            "UriDescription": "Parent node of the given node.",
+            "EndpointType": "ParentNode",
+            "Locator": "Node",
+            "LocatorType": "Object"
+          },
+          "ParentNodes": {
+            "Uri": "/api/v2/node/55LZZq!parents",
+            "UriDescription": "Hierarchy of nodes from the given node (inclusive) to the root node.",
+            "EndpointType": "ParentNodes",
+            "Locator": "Node",
+            "LocatorType": "Objects"
+          },
+          "User": {
+            "Uri": "/api/v2/user/mlhartme",
+            "UriDescription": "User By Nickname",
+            "EndpointType": "User",
+            "Locator": "User",
+            "LocatorType": "Object"
+          },
+          "NodeCoverImage": {
+            "Uri": "/api/v2/node/55LZZq!cover",
+            "UriDescription": "Cover image for a folder, album, or page",
+            "EndpointType": "NodeCoverImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "HighlightImage": {
+            "Uri": "/api/v2/highlight/node/55LZZq",
+            "UriDescription": "Highlight image for a folder, album, or page",
+            "EndpointType": "HighlightImage",
+            "Locator": "Image",
+            "LocatorType": "Object"
+          },
+          "NodeComments": {
+            "Uri": "/api/v2/node/55LZZq!comments",
+            "UriDescription": "Comments on a Node",
+            "EndpointType": "NodeComments",
+            "Locator": "Comment",
+            "LocatorType": "Objects"
+          },
+          "NodeGrants": {
+            "Uri": "/api/v2/node/55LZZq!grants",
+            "UriDescription": "Grants for this node.",
+            "EndpointType": "NodeGrants",
+            "Locator": "Grant",
+            "LocatorType": "Objects"
+          }
+        }
+      }
+    ],
+    "Pages": {
+      "Total": 3,
+      "Start": 1,
+      "Count": 3,
+      "RequestedCount": 10,
+      "FirstPage": "/api/v2/node/TkQBcF!children?start=1&count=10",
+      "LastPage": "/api/v2/node/TkQBcF!children?start=1&count=10"
+    }
+  },
+  "Code": 200,
+  "Message": "Ok"
+}

@@ -1,0 +1,10 @@
+{
+  "stat": "ok",
+  "method": "smugmug.images.upload",
+  "Image": {
+    "StatusImageReplaceUri": null,
+    "ImageUri": "/api/v2/image/RW3qD72-0",
+    "AlbumImageUri": "/api/v2/album/fHRvtz/image/RW3qD72-0",
+    "URL": "https://mlhartme.smugmug.com/Timeline/n-n9P9C4/i-RW3qD72"
+  }
+}

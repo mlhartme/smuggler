@@ -81,7 +81,7 @@ public class Main {
 		List<FileNode> local;
 		User user;
 		Album album;
-		List<Image> remote;
+		List<AlbumImage> remote;
 
 		local = world.getHome().join("timeline").list();
 		user = new User(userNickName);
@@ -91,12 +91,12 @@ public class Main {
 		}
 		remote = album.list(smugmug);
 		for (FileNode file : local) {
-			if (Image.lookupFileName(remote, file.getName()) == null) {
+			if (AlbumImage.lookupFileName(remote, file.getName()) == null) {
 				System.out.print("A " + file);
 				System.out.println(album.upload(smugmug, file));
 			}
 		}
-		for (Image image : remote) {
+		for (AlbumImage image : remote) {
 			if (lookup(local, image.fileName) == null) {
 				System.out.print("D " + image.fileName);
 				image.delete(smugmug);

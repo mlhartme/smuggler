@@ -48,10 +48,10 @@ public class Album {
         this.name = name;
     }
 
-    public List<Image> list(Smugmug smugmug) throws IOException {
+    public List<AlbumImage> list(Smugmug smugmug) throws IOException {
         JsonObject obj;
         JsonArray array;
-        List<Image> result;
+        List<AlbumImage> result;
         JsonObject object;
 
         obj = smugmug.get("/api/v2/album/" + key + "!images");
@@ -59,7 +59,7 @@ public class Album {
         result = new ArrayList<>();
         for (JsonElement e : array) {
             object = e.getAsJsonObject();
-            result.add(new Image(Json.string(object, "ImageKey"), Json.string(object, "FileName")));
+            result.add(AlbumImage.create(object));
         }
         return result;
     }

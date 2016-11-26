@@ -1,0 +1,113 @@
+{
+  "Response": {
+    "Uri": "/api/v2/node/TkQBcF",
+    "UriDescription": "Node with the given id.",
+    "EndpointType": "Node",
+    "Locator": "Node",
+    "LocatorType": "Object",
+    "ResponseLevel": "Full",
+    "Node": {
+      "ResponseLevel": "Full",
+      "Uri": "/api/v2/node/TkQBcF",
+      "WebUri": "https://mlhartme.smugmug.com",
+      "UriDescription": "Node with the given id.",
+      "Description": "",
+      "HideOwner": false,
+      "Name": "",
+      "Keywords": [],
+      "Password": "",
+      "PasswordHint": "",
+      "Privacy": "Public",
+      "SecurityType": "None",
+      "ShowCoverImage": false,
+      "SmugSearchable": "Yes",
+      "SortDirection": "Descending",
+      "SortMethod": "DateModified",
+      "Type": "Folder",
+      "UrlName": "",
+      "WorldSearchable": "Yes",
+      "DateAdded": "2016-11-13T16:52:45+00:00",
+      "DateModified": "2016-11-13T16:52:45+00:00",
+      "EffectivePrivacy": "Public",
+      "EffectiveSecurityType": "None",
+      "FormattedValues": {
+        "Name": {
+          "html": ""
+        },
+        "Description": {
+          "html": "",
+          "text": ""
+        }
+      },
+      "HasChildren": true,
+      "IsRoot": true,
+      "NodeID": "TkQBcF",
+      "UrlPath": "/",
+      "Uris": {
+        "FolderByID": {
+          "Uri": "/api/v2/folder/id/TkQBcF",
+          "UriDescription": "Get folder by its ID",
+          "EndpointType": "FolderByID",
+          "Locator": "Folder",
+          "LocatorType": "Object"
+        },
+        "ParentNodes": {
+          "Uri": "/api/v2/node/TkQBcF!parents",
+          "UriDescription": "Hierarchy of nodes from the given node (inclusive) to the root node.",
+          "EndpointType": "ParentNodes",
+          "Locator": "Node",
+          "LocatorType": "Objects"
+        },
+        "User": {
+          "Uri": "/api/v2/user/mlhartme",
+          "UriDescription": "User By Nickname",
+          "EndpointType": "User",
+          "Locator": "User",
+          "LocatorType": "Object"
+        },
+        "NodeCoverImage": {
+          "Uri": "/api/v2/node/TkQBcF!cover",
+          "UriDescription": "Cover image for a folder, album, or page",
+          "EndpointType": "NodeCoverImage",
+          "Locator": "Image",
+          "LocatorType": "Object"
+        },
+        "HighlightImage": {
+          "Uri": "/api/v2/highlight/node/TkQBcF",
+          "UriDescription": "Highlight image for a folder, album, or page",
+          "EndpointType": "HighlightImage",
+          "Locator": "Image",
+          "LocatorType": "Object"
+        },
+        "NodeComments": {
+          "Uri": "/api/v2/node/TkQBcF!comments",
+          "UriDescription": "Comments on a Node",
+          "EndpointType": "NodeComments",
+          "Locator": "Comment",
+          "LocatorType": "Objects"
+        },
+        "ChildNodes": {
+          "Uri": "/api/v2/node/TkQBcF!children",
+          "UriDescription": "Child nodes of the given node.",
+          "EndpointType": "ChildNodes",
+          "Locator": "Node",
+          "LocatorType": "Objects"
+        },
+        "MoveNodes": {
+          "Uri": "/api/v2/node/TkQBcF!movenodes",
+          "UriDescription": "Moves one or more nodes into a folder node.",
+          "EndpointType": "MoveNodes"
+        },
+        "NodeGrants": {
+          "Uri": "/api/v2/node/TkQBcF!grants",
+          "UriDescription": "Grants for this node.",
+          "EndpointType": "NodeGrants",
+          "Locator": "Grant",
+          "LocatorType": "Objects"
+        }
+      }
+    }
+  },
+  "Code": 200,
+  "Message": "Ok"
+}
