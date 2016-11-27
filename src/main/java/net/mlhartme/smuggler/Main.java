@@ -98,7 +98,7 @@ public class Main {
 				try {
 					album.upload(smugmug, file);
 					System.out.println();
-				} catch (IOException e) {
+				} catch (Exception e) {
 					System.out.println(" " + e.getMessage());
 					errors++;
 				}

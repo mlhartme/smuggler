@@ -53,8 +53,6 @@ public class TestAll {
             System.out.println("created image " + aiUri);
             ai = smugmug.albumImage(aiUri);
             ai.delete(smugmug);
-            image = ai.image(smugmug);
-            image.delete(smugmug);
             System.out.println("deleted image");
             album.delete(smugmug);
         }

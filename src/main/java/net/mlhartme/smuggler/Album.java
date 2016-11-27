@@ -49,18 +49,25 @@ public class Album {
     }
 
     public List<AlbumImage> list(Smugmug smugmug) throws IOException {
+        int i;
         JsonObject obj;
         JsonArray array;
         List<AlbumImage> result;
         JsonObject object;
 
-        obj = smugmug.get("/api/v2/album/" + key + "!images");
         result = new ArrayList<>();
-        array = Json.arrayOpt(Json.object(obj, "Response"), "AlbumImage");
-        if (array != null) {
-            for (JsonElement e : array) {
-                object = e.getAsJsonObject();
-                result.add(AlbumImage.create(object));
+        i = 0;
+        while (true) {
+            obj = smugmug.get("/api/v2/album/" + key + "!images?start=" + i + "&count=100&_pretty=");
+            array = Json.arrayOpt(Json.object(obj, "Response"), "AlbumImage");
+            if (array == null || array.size() == 0) {
+                break;
+            } else {
+                for (JsonElement e : array) {
+                    object = e.getAsJsonObject();
+                    result.add(AlbumImage.create(object));
+                    i++;
+                }
             }
         }
         return result;
