@@ -24,6 +24,7 @@ import org.junit.Test;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
@@ -66,20 +67,20 @@ public class TestAll {
 
     @Test
     public void folders() throws Exception {
-        Folder created;
         Folder sub;
-        List<Object> lst;
+        Folder subsub;
+        List<Folder> lst;
 
-        created = TEST.createFolder(SMUGMUG, "a");
-        assertEquals("/Test/A", created.urlPath);
-        assertTrue(created.list(SMUGMUG).isEmpty());
-        lst = TEST.list(SMUGMUG);
-        assertEquals(1, lst.size());
-        assertEquals(created.name, ((Folder) lst.get(0)).name);
-        sub = created.createFolder(SMUGMUG, "sub");
-        assertEquals("/Test/A/Sub", sub.urlPath);
-        System.out.println(sub);
-        created.delete(SMUGMUG);
+        sub = TEST.createFolder(SMUGMUG, "a");
+        assertEquals("/Test/A", sub.urlPath);
+        assertTrue(sub.listFolders(SMUGMUG).isEmpty());
+        //assertEquals(TEST, sub.parentFolder(SMUGMUG));
+        lst = TEST.listFolders(SMUGMUG);
+        assertEquals(Arrays.asList(sub), lst);
+        subsub = sub.createFolder(SMUGMUG, "sub");
+        assertEquals("/Test/A/Sub", subsub.urlPath);
+        System.out.println(subsub);
+        sub.delete(SMUGMUG);
     }
 
     @Test

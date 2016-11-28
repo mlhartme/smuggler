@@ -36,7 +36,7 @@ public class User {
 
         obj = smugmug.get("/api/v2/folder/user/" + nickName);
         folder = Json.object(obj, "Response", "Folder");
-        return Folder.fromNode(folder);
+        return Folder.create(folder);
     }
 
     public List<Album> listAlbums(Smugmug smugmug) throws IOException {

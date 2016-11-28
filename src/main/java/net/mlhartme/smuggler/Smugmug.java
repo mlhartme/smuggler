@@ -15,6 +15,7 @@
  */
 package net.mlhartme.smuggler;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -27,6 +28,8 @@ import com.sun.jersey.oauth.signature.OAuthSecrets;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /** https://smugmug.atlassian.net/wiki/display/API/Home */
@@ -59,6 +62,30 @@ public class Smugmug {
 
 	public JsonObject get(String path) throws IOException {
 		return Json.parse(api(path).get(String.class)).getAsJsonObject();
+	}
+
+	public List<JsonObject> getList(String path, String type) throws IOException {
+		int i;
+		JsonObject obj;
+		JsonArray array;
+		List<JsonObject> result;
+		JsonObject object;
+
+		result = new ArrayList<>();
+		i = 0;
+		while (true) {
+			obj = get(path +"?start=" + (i + 1) + "&count=10&_pretty=");
+			array = Json.arrayOpt(Json.object(obj, "Response"), type);
+			if (array == null || array.size() == 0) {
+				return result;
+			} else {
+				for (JsonElement e : array) {
+					object = e.getAsJsonObject();
+					result.add(object);
+					i++;
+				}
+			}
+		}
 	}
 
 	public WebResource.Builder api(String path) {
@@ -95,6 +122,11 @@ public class Smugmug {
 	public Album album(String uri) throws IOException {
 		return Album.create(get(uri));
 	}
+
+	public Folder folder(String uri) throws IOException {
+		return Folder.create(get(uri));
+	}
+
 
 	public AlbumImage albumImage(String uri) throws IOException {
 		return AlbumImage.create(Json.object(get(uri), "Response", "AlbumImage"));
