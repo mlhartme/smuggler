@@ -100,7 +100,7 @@ public class Smugmug {
 		} else {
 			url = url + "?";
 		}
-		url = url + "_pretty=&verbosity=1";
+		url = url + "_pretty=&_verbosity=3";
 		return resource(url);
 	}
 
