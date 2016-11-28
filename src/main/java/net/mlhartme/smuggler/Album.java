@@ -23,16 +23,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Album {
+public class Album extends Base {
     public static Album create(JsonObject album) {
-        return new Album(Json.string(album, "NodeID"), Json.string(album, "AlbumKey"), Json.string(album, "Name"));
+        return new Album(Json.string(album, "Uri"), Json.string(album, "NodeID"), Json.string(album, "AlbumKey"), Json.string(album, "Name"));
     }
 
     public static Object fromNode(JsonObject node) {
         String uri;
 
         uri = Json.string(node, "Uris", "Album", "Uri");
-        return new Album(Json.string(node, "Type"),
+        return new Album(Json.string(node, "Uris", "Album", "Uri"), Json.string(node, "Type"),
                 uri.substring(uri.lastIndexOf('/') + 1), Json.string(node, "Name"));
     }
 
@@ -40,7 +40,8 @@ public class Album {
     public final String key;
     public final String name;
 
-    public Album(String nodeId, String key, String name) {
+    public Album(String uri, String nodeId, String key, String name) {
+        super(uri);
         this.nodeId = nodeId;
         this.key = key;
         this.name = name;
