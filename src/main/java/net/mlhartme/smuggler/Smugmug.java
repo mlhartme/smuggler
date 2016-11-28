@@ -89,10 +89,19 @@ public class Smugmug {
 	}
 
 	public WebResource.Builder api(String path) {
+		String url;
+
 		if (!path.startsWith("/")) {
 			throw new IllegalArgumentException();
 		}
-		return resource(API + path);
+		url = API + path;
+		if (url.contains("?")) {
+			url = url + "&";
+		} else {
+			url = url + "?";
+		}
+		url = url + "_pretty=&verbosity=1";
+		return resource(url);
 	}
 
 	public WebResource.Builder upload() {
@@ -105,8 +114,6 @@ public class Smugmug {
 		WebResource resource;
 
 		resource = client.resource(url);
-		resource.queryParam("_pretty", "");
-		resource.queryParam("_verbosity", "2");
 		secrets = new OAuthSecrets().consumerSecret(consumerSecret);
 		secrets.setTokenSecret(oauthTokenSecret);
 		params = new OAuthParameters().consumerKey(consumerKey).signatureMethod("HMAC-SHA1").version("1.0");
