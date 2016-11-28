@@ -106,6 +106,7 @@ public class Smugmug {
 
 		resource = client.resource(url);
 		resource.queryParam("_pretty", "");
+		resource.queryParam("_verbosity", "2");
 		secrets = new OAuthSecrets().consumerSecret(consumerSecret);
 		secrets.setTokenSecret(oauthTokenSecret);
 		params = new OAuthParameters().consumerKey(consumerKey).signatureMethod("HMAC-SHA1").version("1.0");
