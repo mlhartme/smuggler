@@ -74,7 +74,7 @@ public class Smugmug {
 		result = new ArrayList<>();
 		i = 0;
 		while (true) {
-			obj = get(path +"?start=" + (i + 1) + "&count=10&_pretty=");
+			obj = get(path +"?start=" + (i + 1) + "&count=1&_pretty=");
 			array = Json.arrayOpt(Json.object(obj, "Response"), type);
 			if (array == null || array.size() == 0) {
 				return result;
