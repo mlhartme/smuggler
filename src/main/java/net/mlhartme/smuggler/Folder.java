@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Folder {
+public class Folder extends Base {
     public static Folder fromNode(JsonObject node) {
         return new Folder(Json.string(node, "Uri"), Json.string(node, "Name"), Json.string(node, "NodeID"), Json.string(node, "UrlPath"), "TODO");
     }
@@ -36,14 +36,13 @@ public class Folder {
     }
 
 
-    public final String uri;
     public final String name;
     public final String nodeId;
     public final String urlPath;
     public final String parentUri;
 
     public Folder(String uri, String name, String nodeId, String urlPath, String parentUri) {
-        this.uri = uri;
+        super(uri);
         this.name = name;
         this.nodeId = nodeId;
         this.urlPath = urlPath;
@@ -133,26 +132,5 @@ public class Folder {
 
         resource = smugmug.api("/api/v2/node/" + nodeId);
         resource.delete();
-    }
-
-    //--
-
-    @Override
-    public String toString() {
-        return uri;
-    }
-
-    @Override
-    public int hashCode() {
-        return uri.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Folder) {
-            return uri.equals(((Folder) obj).uri);
-        } else {
-            return false;
-        }
     }
 }
