@@ -74,7 +74,7 @@ public class Smugmug {
 		result = new ArrayList<>();
 		i = 0;
 		while (true) {
-			obj = get(path +"?start=" + (i + 1) + "&count=1&_pretty=");
+			obj = get(path +"?start=" + (i + 1) + "&count=1");
 			array = Json.arrayOpt(Json.object(obj, "Response"), type);
 			if (array == null || array.size() == 0) {
 				return result;
@@ -105,6 +105,7 @@ public class Smugmug {
 		WebResource resource;
 
 		resource = client.resource(url);
+		resource.queryParam("_pretty", "");
 		secrets = new OAuthSecrets().consumerSecret(consumerSecret);
 		secrets.setTokenSecret(oauthTokenSecret);
 		params = new OAuthParameters().consumerKey(consumerKey).signatureMethod("HMAC-SHA1").version("1.0");
