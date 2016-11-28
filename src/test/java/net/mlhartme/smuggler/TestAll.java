@@ -67,13 +67,18 @@ public class TestAll {
     @Test
     public void folders() throws Exception {
         Folder created;
+        Folder sub;
         List<Object> lst;
 
         created = TEST.createFolder(SMUGMUG, "a");
+        assertEquals("/Test/A", created.urlPath);
         assertTrue(created.list(SMUGMUG).isEmpty());
         lst = TEST.list(SMUGMUG);
         assertEquals(1, lst.size());
         assertEquals(created.name, ((Folder) lst.get(0)).name);
+        sub = created.createFolder(SMUGMUG, "sub");
+        assertEquals("/Test/A/Sub", sub.urlPath);
+        System.out.println(sub);
         created.delete(SMUGMUG);
     }
 
