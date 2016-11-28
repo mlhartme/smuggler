@@ -126,11 +126,4 @@ public class Folder extends Base {
         created = Json.object(Json.post(resource, "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Album");
         return Album.create(created);
     }
-
-    public void delete(Smugmug smugmug) {
-        WebResource.Builder resource;
-
-        resource = smugmug.api("/api/v2/node/" + nodeId);
-        resource.delete();
-    }
 }

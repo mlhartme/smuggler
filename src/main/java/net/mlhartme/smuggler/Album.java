@@ -80,11 +80,4 @@ public class Album extends Base {
         }
         return Json.string(response, "Image", "AlbumImageUri");
     }
-
-    public void delete(Smugmug smugmug) {
-        WebResource.Builder resource;
-
-        resource = smugmug.api("/api/v2/node/" + nodeId);
-        resource.delete();
-    }
 }

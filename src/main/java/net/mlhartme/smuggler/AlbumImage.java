@@ -20,7 +20,7 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.util.List;
 
-public class AlbumImage {
+public class AlbumImage extends Base {
     public static AlbumImage create(JsonObject ai) {
         return new AlbumImage(Json.string(ai, "Uri"), Json.string(ai, "Uris", "Image", "Uri"),
                 Json.string(ai, "FileName"));
@@ -36,25 +36,19 @@ public class AlbumImage {
     }
 
 
-    public final String albumImageUri;
     public final String imageUri;
     public final String fileName;
 
     public AlbumImage(String albumImageUri, String imageUri, String fileName) {
-        this.albumImageUri = albumImageUri;
+        super(albumImageUri);
         this.imageUri = imageUri;
         this.fileName = fileName;
-    }
-
-    /* also deletes the image if this is the last album it is contained in */
-    public void delete(Smugmug smugmug) {
-        smugmug.api(albumImageUri).delete();
     }
 
     public Album album(Smugmug smugmug) throws IOException {
         String albumUri;
 
-        albumUri = albumImageUri.substring(0, albumImageUri.indexOf("/image"));
+        albumUri = uri.substring(0, uri.indexOf("/image"));
         return smugmug.album(albumUri);
     }
 
