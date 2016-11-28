@@ -17,23 +17,17 @@ package net.mlhartme.smuggler;
 
 import com.google.gson.JsonObject;
 
-public class Image {
+public class Image extends Base {
     public static Image create(JsonObject image) {
         return new Image(Json.string(image, "Uri"), Json.string(image, "FileName"));
     }
 
     //--
 
-    public final String uri;
     public final String fileName;
 
     public Image(String uri, String fileName) {
-        this.uri = uri;
+        super(uri);
         this.fileName = fileName;
-    }
-
-    /* deletes the image from all album */
-    public void delete(Smugmug smugmug) {
-        smugmug.api(uri).delete();
     }
 }
