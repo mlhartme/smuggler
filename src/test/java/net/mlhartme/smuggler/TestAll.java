@@ -24,25 +24,30 @@ import org.junit.Test;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.List;
+
+import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestAll {
     private static World WORLD;
-    private static Config CONFIG;
     private static Smugmug SMUGMUG;
     private static PrintStream LOG;
-    private static User USER;
     private static Folder ROOT;
     private Folder TEST;
 
     @BeforeClass
     public static void init() throws IOException {
+        User user;
+        Config config;
+
         WORLD = World.create();
-        CONFIG = Config.load(WORLD);
-        SMUGMUG = CONFIG.newSmugmug();
+        config = Config.load(WORLD);
+        SMUGMUG = config.newSmugmug();
         LOG = new PrintStream(new FileOutputStream("wire.log"));
         SMUGMUG.wirelog(LOG);
-        USER = SMUGMUG.user(CONFIG.user);
-        ROOT = USER.folder(SMUGMUG);
+        user = SMUGMUG.user(config.user);
+        ROOT = user.folder(SMUGMUG);
     }
 
     @AfterClass
@@ -60,17 +65,25 @@ public class TestAll {
     }
 
     @Test
-    public void roundtrip() throws Exception {
+    public void folders() throws Exception {
         Folder created;
+        List<Object> lst;
+
+        created = TEST.createFolder(SMUGMUG, "a");
+        assertTrue(created.list(SMUGMUG).isEmpty());
+        lst = TEST.list(SMUGMUG);
+        assertEquals(1, lst.size());
+        assertEquals(created.name, ((Folder) lst.get(0)).name);
+        created.delete(SMUGMUG);
+    }
+
+    @Test
+    public void albums() throws Exception {
         Album album;
         String aiUri;
         AlbumImage ai;
 
-        created = TEST.createFolder(SMUGMUG, "folder");
-        System.out.println("created folder " + created.nodeId);
-        created.delete(SMUGMUG);
-
-        album = TEST.createAlbum(SMUGMUG, "test-album");
+        album = TEST.createAlbum(SMUGMUG, "album");
         System.out.println("created album " + album.name);
         aiUri = album.upload(SMUGMUG, WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
         System.out.println("created image " + aiUri);
