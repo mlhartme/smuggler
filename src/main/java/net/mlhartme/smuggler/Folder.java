@@ -26,16 +26,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Folder {
-    public static Folder fromNode(JsonObject created) {
-        return new Folder(Json.string(created, "Uri"), Json.string(created, "NodeID"), Json.string(created, "UrlPath"));
+    public static Folder fromNode(JsonObject node) {
+        return new Folder(Json.string(node, "Uri"), Json.string(node, "Name"), Json.string(node, "NodeID"), Json.string(node, "UrlPath"));
     }
 
     public final String uri;
+    public final String name;
     public final String nodeId;
     public final String urlPath;
 
-    public Folder(String uri, String nodeId, String urlPath) {
+    public Folder(String uri, String name, String nodeId, String urlPath) {
         this.uri = uri;
+        this.name = name;
         this.nodeId = nodeId;
         this.urlPath = urlPath;
     }
@@ -68,6 +70,20 @@ public class Folder {
         }
 
         return result;
+    }
+
+    public Folder lookupFolder(Smugmug smugmug, String name) throws IOException {
+        Folder folder;
+
+        for (Object obj : list(smugmug)) {
+            if (obj instanceof Folder) {
+                folder = (Folder) obj;
+                if (name.equals(folder.name)) {
+                    return folder;
+                }
+            }
+        }
+        return null;
     }
 
     public Folder createFolder(Smugmug smugmug, String name) {

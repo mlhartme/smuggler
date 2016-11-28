@@ -16,45 +16,67 @@
 package net.mlhartme.smuggler;
 
 import net.oneandone.sushi.fs.World;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 public class TestAll {
+    private static World WORLD;
+    private static Config CONFIG;
+    private static Smugmug SMUGMUG;
+    private static PrintStream LOG;
+    private static User USER;
+    private static Folder ROOT;
+    private Folder TEST;
+
+    @BeforeClass
+    public static void init() throws IOException {
+        WORLD = World.create();
+        CONFIG = Config.load(WORLD);
+        SMUGMUG = CONFIG.newSmugmug();
+        LOG = new PrintStream(new FileOutputStream("wire.log"));
+        SMUGMUG.wirelog(LOG);
+        USER = SMUGMUG.user(CONFIG.user);
+        ROOT = USER.folder(SMUGMUG);
+    }
+
+    @AfterClass
+    public static void tearDown() throws IOException {
+        LOG.close();
+    }
+
+    @Before
+    public void before() throws Exception {
+        TEST = ROOT.lookupFolder(SMUGMUG, "test");
+        if (TEST != null) {
+            TEST.delete(SMUGMUG);
+        }
+        TEST = ROOT.createFolder(SMUGMUG, "test");
+    }
+
     @Test
     public void roundtrip() throws Exception {
-        World world;
-        Config config;
-        Smugmug smugmug;
-        User user;
-        Folder root;
         Folder created;
         Album album;
         String aiUri;
         AlbumImage ai;
-        Image image;
 
-        world = World.create();
-        config = Config.load(world);
-        smugmug = config.newSmugmug();
-        try (PrintStream dest = new PrintStream(new FileOutputStream("wire.log"))) {
-            smugmug.wirelog(dest);
-            user = smugmug.user(config.user);
-            root = user.folder(smugmug);
-            System.out.println("fromAlbum in " + root.uri);
-            created = root.createFolder(smugmug, "folder2");
-            System.out.println("created folder " + created.nodeId);
-            created.delete(smugmug);
+        created = TEST.createFolder(SMUGMUG, "folder");
+        System.out.println("created folder " + created.nodeId);
+        created.delete(SMUGMUG);
 
-            album = root.createAlbum(smugmug, "album4");
-            System.out.println("created album " + album.name);
-            aiUri = album.upload(smugmug, world.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
-            System.out.println("created image " + aiUri);
-            ai = smugmug.albumImage(aiUri);
-            ai.delete(smugmug);
-            System.out.println("deleted image");
-            album.delete(smugmug);
-        }
+        album = TEST.createAlbum(SMUGMUG, "test-album");
+        System.out.println("created album " + album.name);
+        aiUri = album.upload(SMUGMUG, WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
+        System.out.println("created image " + aiUri);
+        ai = SMUGMUG.albumImage(aiUri);
+        ai.delete(SMUGMUG);
+        System.out.println("deleted image");
+        album.delete(SMUGMUG);
     }
 }
