@@ -29,7 +29,7 @@ public class User {
     }
 
     public Folder folder(Smugmug smugmug) throws IOException {
-        return Folder.create(smugmug.getObject("/api/v2/folder/user/" + nickName,"Folder"));
+        return Folder.create(smugmug, smugmug.getObject("/api/v2/folder/user/" + nickName,"Folder"));
     }
 
     public List<Album> listAlbums(Smugmug smugmug) throws IOException {
@@ -37,7 +37,7 @@ public class User {
 
         result = new ArrayList<>();
         for (JsonObject album : smugmug.getList("/api/v2/user/" + nickName + "!albums", "Album")) {
-            result.add(Album.create(album));
+            result.add(Album.create(smugmug, album));
         }
         return result;
     }

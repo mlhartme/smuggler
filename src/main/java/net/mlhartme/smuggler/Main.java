@@ -61,10 +61,10 @@ public class Main {
 
 	public static void tree(Smugmug smugmug, int indent, Folder folder) throws IOException {
 		System.out.println(Strings.times(' ', indent) + "F " + folder.urlPath + " (" + folder.uri + "@" + folder.uri + ")");
-		for (Folder child : folder.listFolders(smugmug)) {
+		for (Folder child : folder.listFolders()) {
 			tree(smugmug, indent + 2, child);
 		}
-		for (Album album : folder.listAlbums(smugmug)) {
+		for (Album album : folder.listAlbums()) {
 			System.out.println(Strings.times(' ', indent + 2) + "A " + album.name + " (" + album.toString() + ")");
 			/*
 			for (Image image : album.list(smugmug)) {
@@ -87,12 +87,12 @@ public class Main {
 		if (album == null) {
 			throw new IOException("no such album: " + albumName);
 		}
-		remote = album.listImages(smugmug);
+		remote = album.listImages();
 		for (FileNode file : local) {
 			if (AlbumImage.lookupFileName(remote, file.getName()) == null) {
 				System.out.print("A " + file);
 				try {
-					album.upload(smugmug, file);
+					album.upload(file);
 					System.out.println();
 				} catch (Exception e) {
 					System.out.println(" " + e.getMessage());
@@ -103,7 +103,7 @@ public class Main {
 		for (AlbumImage image : remote) {
 			if (lookup(local, image.fileName) == null) {
 				System.out.print("D " + image.fileName);
-				image.delete(smugmug);
+				image.delete();
 				System.out.println();
 			}
 		}

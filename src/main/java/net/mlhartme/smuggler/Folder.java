@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Folder extends Base {
-    public static Folder create(JsonObject folder) {
-        return new Folder(Json.string(folder, "Uri") /*Json.uris(folder, "FolderByID")*/,
+    public static Folder create(Smugmug smugmug, JsonObject folder) {
+        return new Folder(smugmug, Json.string(folder, "Uri") /*Json.uris(folder, "FolderByID")*/,
                 Json.string(folder, "Name"), Json.uris(folder, "Node"), Json.string(folder, "UrlPath"));
     }
 
@@ -34,33 +34,33 @@ public class Folder extends Base {
     public final String nodeUri;
     public final String urlPath;
 
-    public Folder(String uri, String name, String nodeUri, String urlPath) {
-        super(uri);
+    public Folder(Smugmug smugmug, String uri, String name, String nodeUri, String urlPath) {
+        super(smugmug, uri);
         this.name = name;
         this.nodeUri = nodeUri;
         this.urlPath = urlPath;
     }
 
-    public Node node(Smugmug smugmug) throws IOException {
+    public Node node() throws IOException {
         return smugmug.node(nodeUri);
     }
 
-    public Folder parent(Smugmug smugmug) throws IOException {
-        return Folder.create(smugmug.getObject(uri + "!parent", "Folder"));
+    public Folder parent() throws IOException {
+        return Folder.create(smugmug, smugmug.getObject(uri + "!parent", "Folder"));
     }
 
-    public List<Folder> listFolders(Smugmug smugmug) throws IOException {
+    public List<Folder> listFolders() throws IOException {
         List<Folder> result;
 
         result = new ArrayList<>();
         for (JsonObject object : smugmug.getList(uri + "!folders", "Folder")) {
-            result.add(Folder.create(object));
+            result.add(Folder.create(smugmug, object));
         }
         return result;
     }
 
-    public Folder lookupFolder(Smugmug smugmug, String name) throws IOException {
-        for (Folder folder : listFolders(smugmug)) {
+    public Folder lookupFolder(String name) throws IOException {
+        for (Folder folder : listFolders()) {
             if (name.equals(folder.name)) {
                 return folder;
             }
@@ -68,18 +68,18 @@ public class Folder extends Base {
         return null;
     }
 
-    public List<Album> listAlbums(Smugmug smugmug) throws IOException {
+    public List<Album> listAlbums() throws IOException {
         List<Album> result;
 
         result = new ArrayList<>();
         for (JsonObject object : smugmug.getList(uri + "!folderalbums", "Album")) {
-            result.add(Album.create(object));
+            result.add(Album.create(smugmug, object));
         }
         return result;
     }
 
-    public Album lookupAlbum(Smugmug smugmug, String name) throws IOException {
-        for (Album album : listAlbums(smugmug)) {
+    public Album lookupAlbum(String name) throws IOException {
+        for (Album album : listAlbums()) {
             if (name.equals(album.name)) {
                 return album;
             }
@@ -87,23 +87,23 @@ public class Folder extends Base {
         return null;
     }
 
-    public Folder createFolder(Smugmug smugmug, String name) {
+    public Folder createFolder(String name) {
         WebResource.Builder resource;
         JsonObject created;
 
         resource = smugmug.api(uri + "!folders");
         resource.header("Content-Type", "application/json");
         created = Json.object(Json.post(resource, "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Folder");
-        return Folder.create(created);
+        return Folder.create(smugmug, created);
     }
 
-    public Album createAlbum(Smugmug smugmug, String name) {
+    public Album createAlbum(String name) {
         WebResource.Builder resource;
         JsonObject created;
 
         resource = smugmug.api(uri + "!albums");
         resource.header("Content-Type", "application/json");
         created = Json.object(Json.post(resource, "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Album");
-        return Album.create(created);
+        return Album.create(smugmug, created);
     }
 }

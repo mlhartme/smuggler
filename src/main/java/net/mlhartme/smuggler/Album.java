@@ -24,31 +24,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Album extends Base {
-    public static Album create(JsonObject album) {
-        return new Album(Json.string(album, "Uri"), Json.string(album, "Name"), Json.uris(album, "Node"));
+    public static Album create(Smugmug smugmug, JsonObject album) {
+        return new Album(smugmug, Json.string(album, "Uri"), Json.string(album, "Name"), Json.uris(album, "Node"));
     }
 
     public final String name;
     public final String nodeUri;
 
-    public Album(String uri, String name, String nodeUri) {
-        super(uri);
+    public Album(Smugmug smugmug, String uri, String name, String nodeUri) {
+        super(smugmug, uri);
         this.name = name;
         this.nodeUri = nodeUri;
     }
 
-    public List<AlbumImage> listImages(Smugmug smugmug) throws IOException {
+    public List<AlbumImage> listImages() throws IOException {
         List<AlbumImage> result;
 
         result = new ArrayList<>();
         for (JsonObject object : smugmug.getList(uri + "!images", "AlbumImage")) {
-            result.add(AlbumImage.create(object));
+            result.add(AlbumImage.create(smugmug, object));
         }
         return result;
     }
 
     /** @return albumImageUri */
-    public String upload(Smugmug smugmug, FileNode file) throws IOException {
+    public String upload(FileNode file) throws IOException {
         JsonObject response;
         byte[] image;
         String md5;

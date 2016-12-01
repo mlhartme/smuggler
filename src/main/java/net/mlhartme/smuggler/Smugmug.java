@@ -128,24 +128,24 @@ public class Smugmug {
 	//--
 
 	public Image image(String uri) throws IOException {
-		return Image.create(getObject(uri, "Image"));
+		return Image.create(this, getObject(uri, "Image"));
 	}
 
 	public Node node(String uri) throws IOException {
-		return Node.create(getObject(uri, "Node"));
+		return Node.create(this, getObject(uri, "Node"));
 	}
 
 	public Album album(String uri) throws IOException {
-		return Album.create(getObject(uri, "Album"));
+		return Album.create(this, getObject(uri, "Album"));
 	}
 
 	public Folder folder(String uri) throws IOException {
-		return Folder.create(getObject(uri, "Folder"));
+		return Folder.create(this, getObject(uri, "Folder"));
 	}
 
 
 	public AlbumImage albumImage(String uri) throws IOException {
-		return AlbumImage.create(getObject(uri, "AlbumImage"));
+		return AlbumImage.create(this, getObject(uri, "AlbumImage"));
 	}
 
 

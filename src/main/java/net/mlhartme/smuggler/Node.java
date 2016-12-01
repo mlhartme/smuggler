@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node extends Base {
-    public static Node create(JsonObject node) {
+    public static Node create(Smugmug smugmug, JsonObject node) {
         String type;
         String folderUri;
         String albumUri;
@@ -40,7 +40,7 @@ public class Node extends Base {
             default:
                 throw new IllegalArgumentException("unknown type: " + type);
         }
-        return new Node(Json.string(node, "Uri"), Json.uris(node, "ParentNode"), folderUri, albumUri);
+        return new Node(smugmug, Json.string(node, "Uri"), Json.uris(node, "ParentNode"), folderUri, albumUri);
     }
 
     //--
@@ -52,14 +52,14 @@ public class Node extends Base {
     /** may be null */
     public final String albumUri;
 
-    public Node(String uri, String parentUri, String folderUri, String albumUri) {
-        super(uri);
+    public Node(Smugmug smugmug, String uri, String parentUri, String folderUri, String albumUri) {
+        super(smugmug, uri);
         this.parentUri = parentUri;
         this.folderUri = folderUri;
         this.albumUri = albumUri;
     }
 
-    public Node parent(Smugmug smugmug) throws IOException {
+    public Node parent() throws IOException {
         return smugmug.node(parentUri);
     }
 
@@ -71,20 +71,20 @@ public class Node extends Base {
         return albumUri != null;
     }
 
-    public Folder folder(Smugmug smugmug) throws IOException {
+    public Folder folder() throws IOException {
         return smugmug.folder(folderUri);
     }
 
-    public Album album(Smugmug smugmug) throws IOException {
+    public Album album() throws IOException {
         return smugmug.album(albumUri);
     }
 
-    public List<Node> list(Smugmug smugmug) throws IOException {
+    public List<Node> list() throws IOException {
         List<Node> result;
 
         result = new ArrayList<>();
         for (JsonObject object : smugmug.getList(uri + "!children", "Node")) {
-            result.add(Node.create(object));
+            result.add(Node.create(smugmug, object));
         }
         return result;
     }

@@ -59,11 +59,11 @@ public class TestAll {
 
     @Before
     public void before() throws Exception {
-        TEST = ROOT.lookupFolder(SMUGMUG, "test");
+        TEST = ROOT.lookupFolder("test");
         if (TEST != null) {
-            TEST.delete(SMUGMUG);
+            TEST.delete();
         }
-        TEST = ROOT.createFolder(SMUGMUG, "test");
+        TEST = ROOT.createFolder("test");
     }
 
     @Test
@@ -72,27 +72,27 @@ public class TestAll {
         Folder subsub;
         List<Folder> lst;
 
-        sub = TEST.createFolder(SMUGMUG, "a");
+        sub = TEST.createFolder("a");
         assertEquals("/Test/A", sub.urlPath);
-        assertEquals(TEST, sub.parent(SMUGMUG));
-        assertEquals(TEST.node(SMUGMUG), sub.node(SMUGMUG).parent(SMUGMUG));
+        assertEquals(TEST, sub.parent());
+        assertEquals(TEST.node(), sub.node().parent());
 
-        assertTrue(sub.listFolders(SMUGMUG).isEmpty());
+        assertTrue(sub.listFolders().isEmpty());
         try { // TODO
-            assertTrue(sub.listAlbums(SMUGMUG).isEmpty());
+            assertTrue(sub.listAlbums().isEmpty());
             System.out.println("ok");
         } catch (UniformInterfaceException e) {
             System.out.println("failed: " + e.getMessage());
 //            assertEquals(404, e.getResponse().getStatus());
         }
-        assertTrue(sub.node(SMUGMUG).list(SMUGMUG).isEmpty());
+        assertTrue(sub.node().list().isEmpty());
 
-        lst = TEST.listFolders(SMUGMUG);
+        lst = TEST.listFolders();
         assertEquals(Arrays.asList(sub), lst);
-        subsub = sub.createFolder(SMUGMUG, "sub");
+        subsub = sub.createFolder("sub");
         assertEquals("/Test/A/Sub", subsub.urlPath);
         System.out.println(subsub);
-        sub.delete(SMUGMUG);
+        sub.delete();
     }
 
     @Test
@@ -101,13 +101,13 @@ public class TestAll {
         String aiUri;
         AlbumImage ai;
 
-        album = TEST.createAlbum(SMUGMUG, "album");
+        album = TEST.createAlbum("album");
         System.out.println("created album " + album.name);
-        aiUri = album.upload(SMUGMUG, WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
+        aiUri = album.upload(WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
         System.out.println("created image " + aiUri);
         ai = SMUGMUG.albumImage(aiUri);
-        ai.delete(SMUGMUG);
+        ai.delete();
         System.out.println("deleted image");
-        album.delete(SMUGMUG);
+        album.delete();
     }
 }
