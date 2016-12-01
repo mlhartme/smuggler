@@ -15,8 +15,6 @@
  */
 package net.mlhartme.smuggler;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sun.jersey.api.client.WebResource;
 import net.oneandone.sushi.util.Strings;
@@ -26,31 +24,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Folder extends Base {
-    public static Folder fromNode(JsonObject node) {
-        return new Folder(Json.string(node, "Uri"), Json.string(node, "Name"), Json.string(node, "NodeID"), Json.string(node, "UrlPath"), "TODO");
-    }
-
     public static Folder create(JsonObject folder) {
-        return new Folder(Json.string(folder, "Uri"), Json.string(folder, "Name"), Json.string(folder, "NodeID"), Json.string(folder, "UrlPath"), "TODO"/*
-                Json.string(folder, "Uris", "ParentFolder", "Uri")*/);
+        return new Folder(Json.string(folder, "Uri"), Json.string(folder, "Name"), Json.string(folder, "Uris", "Node", "Uri"),
+                Json.string(folder, "UrlPath"));
     }
 
 
     public final String name;
-    public final String nodeId;
+    public final String nodeUri;
     public final String urlPath;
-    public final String parentUri;
 
-    public Folder(String uri, String name, String nodeId, String urlPath, String parentUri) {
+    public Folder(String uri, String name, String nodeUri, String urlPath) {
         super(uri);
         this.name = name;
-        this.nodeId = nodeId;
+        this.nodeUri = nodeUri;
         this.urlPath = urlPath;
-        this.parentUri = parentUri;
     }
 
-    public Folder parentFolder(Smugmug smugmug) throws IOException {
-        return smugmug.folder(uri);
+    public Node node(Smugmug smugmug) throws IOException {
+        return smugmug.node(nodeUri);
+    }
+
+    public Folder parent(Smugmug smugmug) throws IOException {
+        return Folder.create(smugmug.getObject(uri + "!parent", "Folder"));
     }
 
     public List<Folder> listFolders(Smugmug smugmug) throws IOException {
@@ -63,45 +59,29 @@ public class Folder extends Base {
         return result;
     }
 
-    public List<Object> list(Smugmug smugmug) throws IOException {
-        JsonObject response;
-        List<Object> result;
-        JsonArray array;
-        String type;
-        JsonObject node;
-
-        result = new ArrayList<>();
-        response = Json.object(smugmug.get("/api/v2/node/" + nodeId + "!children"), "Response");
-        if (response.get("Node") != null) {
-            array = response.get("Node").getAsJsonArray();
-            for (JsonElement e : array) {
-                node = e.getAsJsonObject();
-                type = Json.string(node, "Type");
-                switch (type) {
-                    case "Folder":
-                        result.add(Folder.fromNode(node));
-                        break;
-                    case "Album":
-                        result.add(Album.fromNode(node));
-                        break;
-                    default:
-                        throw new IOException("unexpected type: " + type);
-                }
+    public Folder lookupFolder(Smugmug smugmug, String name) throws IOException {
+        for (Folder folder : listFolders(smugmug)) {
+            if (name.equals(folder.name)) {
+                return folder;
             }
         }
+        return null;
+    }
 
+    public List<Album> listAlbums(Smugmug smugmug) throws IOException {
+        List<Album> result;
+
+        result = new ArrayList<>();
+        for (JsonObject object : smugmug.getList(uri + "!folderalbums", "Album")) {
+            result.add(Album.create(object));
+        }
         return result;
     }
 
-    public Folder lookupFolder(Smugmug smugmug, String name) throws IOException {
-        Folder folder;
-
-        for (Object obj : list(smugmug)) {
-            if (obj instanceof Folder) {
-                folder = (Folder) obj;
-                if (name.equals(folder.name)) {
-                    return folder;
-                }
+    public Album lookupAlbum(Smugmug smugmug, String name) throws IOException {
+        for (Album album : listAlbums(smugmug)) {
+            if (name.equals(album.name)) {
+                return album;
             }
         }
         return null;

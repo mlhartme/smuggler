@@ -60,20 +60,16 @@ public class Main {
 	}
 
 	public static void tree(Smugmug smugmug, int indent, Folder folder) throws IOException {
-		Album album;
-
-		System.out.println(Strings.times(' ', indent) + "F " + folder.urlPath + " (" + folder.nodeId + "@" + folder.uri + ")");
-		for (Object obj : folder.list(smugmug)) {
-			if (obj instanceof Folder) {
-				tree(smugmug, indent + 2, (Folder) obj);
-			} else {
-				album = (Album) obj;
-				System.out.println(Strings.times(' ', indent + 2) + "A " + album.name + " (" + album.nodeId + ")");
-				/*
-				for (Image image : album.list(smugmug)) {
-					System.out.println(Strings.times(' ', indent + 4) + image.fileName);
-				}*/
-			}
+		System.out.println(Strings.times(' ', indent) + "F " + folder.urlPath + " (" + folder.uri + "@" + folder.uri + ")");
+		for (Folder child : folder.listFolders(smugmug)) {
+			tree(smugmug, indent + 2, child);
+		}
+		for (Album album : folder.listAlbums(smugmug)) {
+			System.out.println(Strings.times(' ', indent + 2) + "A " + album.name + " (" + album.toString() + ")");
+			/*
+			for (Image image : album.list(smugmug)) {
+				System.out.println(Strings.times(' ', indent + 4) + image.fileName);
+			}*/
 		}
 	}
 
@@ -91,7 +87,7 @@ public class Main {
 		if (album == null) {
 			throw new IOException("no such album: " + albumName);
 		}
-		remote = album.list(smugmug);
+		remote = album.listImages(smugmug);
 		for (FileNode file : local) {
 			if (AlbumImage.lookupFileName(remote, file.getName()) == null) {
 				System.out.print("A " + file);

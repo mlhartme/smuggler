@@ -18,7 +18,6 @@ package net.mlhartme.smuggler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.LoggingFilter;
@@ -58,6 +57,10 @@ public class Smugmug {
 
 	public User user(String id) {
 		return new User(id);
+	}
+
+	public JsonObject getObject(String path, String type) throws IOException {
+		return Json.object(get(path), "Response", type);
 	}
 
 	public JsonObject get(String path) throws IOException {
@@ -125,20 +128,24 @@ public class Smugmug {
 	//--
 
 	public Image image(String uri) throws IOException {
-		return Image.create(Json.object(get(uri), "Response", "Image"));
+		return Image.create(getObject(uri, "Image"));
+	}
+
+	public Node node(String uri) throws IOException {
+		return Node.create(getObject(uri, "Node"));
 	}
 
 	public Album album(String uri) throws IOException {
-		return Album.create(get(uri));
+		return Album.create(getObject(uri, "Album"));
 	}
 
 	public Folder folder(String uri) throws IOException {
-		return Folder.create(get(uri));
+		return Folder.create(getObject(uri, "Folder"));
 	}
 
 
 	public AlbumImage albumImage(String uri) throws IOException {
-		return AlbumImage.create(Json.object(get(uri), "Response", "AlbumImage"));
+		return AlbumImage.create(getObject(uri, "AlbumImage"));
 	}
 
 

@@ -25,33 +25,23 @@ import java.util.List;
 
 public class Album extends Base {
     public static Album create(JsonObject album) {
-        return new Album(Json.string(album, "Uri"), Json.string(album, "NodeID"), Json.string(album, "AlbumKey"), Json.string(album, "Name"));
+        return new Album(Json.string(album, "Uri"), Json.string(album, "Name"), Json.string(album, "Uris", "Node", "Uri"));
     }
 
-    public static Object fromNode(JsonObject node) {
-        String uri;
-
-        uri = Json.string(node, "Uris", "Album", "Uri");
-        return new Album(Json.string(node, "Uris", "Album", "Uri"), Json.string(node, "Type"),
-                uri.substring(uri.lastIndexOf('/') + 1), Json.string(node, "Name"));
-    }
-
-    public final String nodeId;
-    public final String key;
     public final String name;
+    public final String nodeUri;
 
-    public Album(String uri, String nodeId, String key, String name) {
+    public Album(String uri, String name, String nodeUri) {
         super(uri);
-        this.nodeId = nodeId;
-        this.key = key;
         this.name = name;
+        this.nodeUri = nodeUri;
     }
 
-    public List<AlbumImage> list(Smugmug smugmug) throws IOException {
+    public List<AlbumImage> listImages(Smugmug smugmug) throws IOException {
         List<AlbumImage> result;
 
         result = new ArrayList<>();
-        for (JsonObject object : smugmug.getList("/api/v2/album/" + key + "!images", "AlbumImage")) {
+        for (JsonObject object : smugmug.getList(uri + "!images", "AlbumImage")) {
             result.add(AlbumImage.create(object));
         }
         return result;
@@ -71,7 +61,7 @@ public class Album extends Base {
         resource.header("Content-MD5", md5);
         resource.header("X-Smug-ResponseType", "JSON");
         resource.header("X-Smug-FileName", file.getName());
-        resource.header("X-Smug-AlbumUri", "/api/v2/album/" + key);
+        resource.header("X-Smug-AlbumUri", uri);
         resource.header("X-Smug-Version", "v2");
 
         response = Json.post(resource, image);

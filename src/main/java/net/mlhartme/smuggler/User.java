@@ -15,8 +15,6 @@
  */
 package net.mlhartme.smuggler;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -31,28 +29,15 @@ public class User {
     }
 
     public Folder folder(Smugmug smugmug) throws IOException {
-        JsonObject obj;
-        JsonObject folder;
-
-        obj = smugmug.get("/api/v2/folder/user/" + nickName);
-        folder = Json.object(obj, "Response", "Folder");
-        return Folder.create(folder);
+        return Folder.create(smugmug.getObject("/api/v2/folder/user/" + nickName,"Folder"));
     }
 
     public List<Album> listAlbums(Smugmug smugmug) throws IOException {
-        JsonObject obj;
-        JsonObject response;
-        JsonArray array;
         List<Album> result;
-        JsonObject sub;
 
-        obj = smugmug.get("/api/v2/user/" + nickName + "!albums");
-        response = Json.object(obj, "Response");
-        array = Json.element(response, "Album").getAsJsonArray();
         result = new ArrayList<>();
-        for (JsonElement e : array) {
-            sub = e.getAsJsonObject();
-            result.add(Album.create(sub));
+        for (JsonObject album : smugmug.getList("/api/v2/user/" + nickName + "!albums", "Album")) {
+            result.add(Album.create(album));
         }
         return result;
     }

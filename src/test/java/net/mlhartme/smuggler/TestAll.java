@@ -73,8 +73,14 @@ public class TestAll {
 
         sub = TEST.createFolder(SMUGMUG, "a");
         assertEquals("/Test/A", sub.urlPath);
+        assertEquals(TEST, sub.parent(SMUGMUG));
+        assertEquals(sub, sub.node(SMUGMUG).parent(SMUGMUG));
+        assertEquals(TEST.node(SMUGMUG), sub.node(SMUGMUG).parent(SMUGMUG));
+
         assertTrue(sub.listFolders(SMUGMUG).isEmpty());
-        //assertEquals(TEST, sub.parentFolder(SMUGMUG));
+        assertTrue(sub.listAlbums(SMUGMUG).isEmpty());
+        assertTrue(sub.node(SMUGMUG).list(SMUGMUG).isEmpty());
+
         lst = TEST.listFolders(SMUGMUG);
         assertEquals(Arrays.asList(sub), lst);
         subsub = sub.createFolder(SMUGMUG, "sub");
