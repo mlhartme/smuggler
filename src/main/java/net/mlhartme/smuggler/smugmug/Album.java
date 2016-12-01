@@ -24,14 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Album extends Handle {
-    public static Album create(Smugmug smugmug, JsonObject album) {
+    public static Album create(Account smugmug, JsonObject album) {
         return new Album(smugmug, Json.string(album, "Uri"), Json.string(album, "Name"), Json.uris(album, "Node"));
     }
 
     public final String name;
     public final String nodeUri;
 
-    public Album(Smugmug smugmug, String uri, String name, String nodeUri) {
+    public Album(Account smugmug, String uri, String name, String nodeUri) {
         super(smugmug, uri);
         this.name = name;
         this.nodeUri = nodeUri;

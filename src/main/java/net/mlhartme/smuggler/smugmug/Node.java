@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node extends Handle {
-    public static Node create(Smugmug smugmug, JsonObject node) {
+    public static Node create(Account smugmug, JsonObject node) {
         String type;
         String folderUri;
         String albumUri;
@@ -52,7 +52,7 @@ public class Node extends Handle {
     /** may be null */
     public final String albumUri;
 
-    public Node(Smugmug smugmug, String uri, String parentUri, String folderUri, String albumUri) {
+    public Node(Account smugmug, String uri, String parentUri, String folderUri, String albumUri) {
         super(smugmug, uri);
         this.parentUri = parentUri;
         this.folderUri = folderUri;

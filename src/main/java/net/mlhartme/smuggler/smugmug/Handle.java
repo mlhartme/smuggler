@@ -16,10 +16,10 @@
 package net.mlhartme.smuggler.smugmug;
 
 public class Handle {
-    public final Smugmug smugmug;
+    public final Account smugmug;
     public final String uri;
 
-    public Handle(Smugmug smugmug, String uri) {
+    public Handle(Account smugmug, String uri) {
         this.smugmug = smugmug;
         this.uri = uri;
     }

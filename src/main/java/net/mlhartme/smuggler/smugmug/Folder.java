@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Folder extends Handle {
-    public static Folder create(Smugmug smugmug, JsonObject folder) {
+    public static Folder create(Account smugmug, JsonObject folder) {
         return new Folder(smugmug, Json.string(folder, "Uri") /*Json.uris(folder, "FolderByID")*/,
                 Json.string(folder, "Name"), Json.uris(folder, "Node"), Json.string(folder, "UrlPath"));
     }
@@ -34,7 +34,7 @@ public class Folder extends Handle {
     public final String nodeUri;
     public final String urlPath;
 
-    public Folder(Smugmug smugmug, String uri, String name, String nodeUri, String urlPath) {
+    public Folder(Account smugmug, String uri, String name, String nodeUri, String urlPath) {
         super(smugmug, uri);
         this.name = name;
         this.nodeUri = nodeUri;

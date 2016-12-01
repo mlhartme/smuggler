@@ -19,7 +19,7 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import net.mlhartme.smuggler.smugmug.Album;
 import net.mlhartme.smuggler.smugmug.AlbumImage;
 import net.mlhartme.smuggler.smugmug.Folder;
-import net.mlhartme.smuggler.smugmug.Smugmug;
+import net.mlhartme.smuggler.smugmug.Account;
 import net.mlhartme.smuggler.smugmug.User;
 import net.oneandone.sushi.fs.World;
 import org.junit.AfterClass;
@@ -38,7 +38,7 @@ import static org.junit.Assert.assertTrue;
 
 public class TestAll {
     private static World WORLD;
-    private static Smugmug SMUGMUG;
+    private static Account SMUGMUG;
     private static PrintStream LOG;
     private static Folder ROOT;
     private Folder TEST;

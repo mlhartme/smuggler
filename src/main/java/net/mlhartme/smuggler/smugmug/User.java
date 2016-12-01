@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User extends Handle {
-    public User(Smugmug smugmug, String uri) {
+    public User(Account smugmug, String uri) {
         super(smugmug, uri);
     }
 

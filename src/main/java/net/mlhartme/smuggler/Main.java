@@ -18,7 +18,7 @@ package net.mlhartme.smuggler;
 import net.mlhartme.smuggler.smugmug.Album;
 import net.mlhartme.smuggler.smugmug.AlbumImage;
 import net.mlhartme.smuggler.smugmug.Folder;
-import net.mlhartme.smuggler.smugmug.Smugmug;
+import net.mlhartme.smuggler.smugmug.Account;
 import net.mlhartme.smuggler.smugmug.User;
 import net.oneandone.sushi.fs.World;
 import net.oneandone.sushi.fs.file.FileNode;
@@ -32,7 +32,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		Config config;
 		World world;
-		Smugmug smugmug;
+		Account smugmug;
 
 		if (args.length != 1) {
 			System.out.println("usage:");
@@ -58,7 +58,7 @@ public class Main {
 		}
 	}
 
-	public static void tree(Smugmug smugmug, String nickName) throws IOException {
+	public static void tree(Account smugmug, String nickName) throws IOException {
 		User user;
 
 		user = smugmug.user(nickName);
@@ -79,7 +79,7 @@ public class Main {
 		}
 	}
 
-	public static void sync(World world, Smugmug smugmug, String userNickName, String albumName) throws IOException {
+	public static void sync(World world, Account smugmug, String userNickName, String albumName) throws IOException {
 		List<FileNode> local;
 		User user;
 		Album album;
@@ -162,8 +162,8 @@ public class Main {
             this.album = album;
         }
 
-        public Smugmug newSmugmug() {
-            return new Smugmug(consumerKey, consumerSecret, tokenId, tokenSecret);
+        public Account newSmugmug() {
+            return new Account(consumerKey, consumerSecret, tokenId, tokenSecret);
         }
     }
 }

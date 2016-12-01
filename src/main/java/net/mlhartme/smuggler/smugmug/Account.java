@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.UUID;
 
 /** https://smugmug.atlassian.net/wiki/display/API/Home */
-public class Smugmug {
+public class Account {
 	public static final String API = "https://api.smugmug.com";
 
 	//--
@@ -43,7 +43,7 @@ public class Smugmug {
 	private final String oauthTokenId;
 	private final String oauthTokenSecret;
 
-	public Smugmug(String consumerKey, String consumerSecret, String oauthTokenId, String oauthTokenSecret) {
+	public Account(String consumerKey, String consumerSecret, String oauthTokenId, String oauthTokenSecret) {
 		this.client = Client.create();
 		this.consumerKey = consumerKey;
 		this.consumerSecret = consumerSecret;
