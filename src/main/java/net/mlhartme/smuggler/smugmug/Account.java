@@ -19,6 +19,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientRequest;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.oauth.client.OAuthClientFilter;
@@ -52,7 +54,22 @@ public class Account {
 	}
 
 	public void wirelog(PrintStream dest) {
-		client.addFilter(new LoggingFilter(dest));
+		client.addFilter(new LoggingFilter(dest) {
+			@Override
+			public ClientResponse handle(ClientRequest request) {
+				ClientResponse response;
+
+				if (request.getURI().getHost().contains("upload")) {
+					dest.println("> upload " + request.getURI());
+					response = this.getNext().handle(request);
+					dest.println("< " + response.getStatus());
+					return response;
+				} else {
+					return super.handle(request);
+				}
+			}
+
+		});
 	}
 
 	public JsonObject getObject(String path) throws IOException {
