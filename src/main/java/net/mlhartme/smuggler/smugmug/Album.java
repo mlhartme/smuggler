@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Album extends Base {
+public class Album extends Handle {
     public static Album create(Smugmug smugmug, JsonObject album) {
         return new Album(smugmug, Json.string(album, "Uri"), Json.string(album, "Name"), Json.uris(album, "Node"));
     }

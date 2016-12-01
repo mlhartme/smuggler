@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node extends Base {
+public class Node extends Handle {
     public static Node create(Smugmug smugmug, JsonObject node) {
         String type;
         String folderUri;

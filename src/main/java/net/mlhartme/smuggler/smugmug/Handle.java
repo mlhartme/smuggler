@@ -15,11 +15,11 @@
  */
 package net.mlhartme.smuggler.smugmug;
 
-public class Base {
+public class Handle {
     public final Smugmug smugmug;
     public final String uri;
 
-    public Base(Smugmug smugmug, String uri) {
+    public Handle(Smugmug smugmug, String uri) {
         this.smugmug = smugmug;
         this.uri = uri;
     }
@@ -43,8 +43,8 @@ public class Base {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Base) {
-            return uri.equals(((Base) obj).uri);
+        if (obj instanceof Handle) {
+            return uri.equals(((Handle) obj).uri);
         } else {
             return false;
         }

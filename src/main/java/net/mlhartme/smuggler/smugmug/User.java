@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User extends Base {
+public class User extends Handle {
     public static User forNickName(Smugmug smugmug, String nickName) {
         return new User(smugmug, "/api/v2/folder/user/" + nickName);
     }

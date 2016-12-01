@@ -17,7 +17,7 @@ package net.mlhartme.smuggler.smugmug;
 
 import com.google.gson.JsonObject;
 
-public class Image extends Base {
+public class Image extends Handle {
     public static Image create(Smugmug smugmug, JsonObject image) {
         return new Image(smugmug, Json.string(image, "Uri"), Json.string(image, "FileName"));
     }

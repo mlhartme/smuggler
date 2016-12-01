@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Folder extends Base {
+public class Folder extends Handle {
     public static Folder create(Smugmug smugmug, JsonObject folder) {
         return new Folder(smugmug, Json.string(folder, "Uri") /*Json.uris(folder, "FolderByID")*/,
                 Json.string(folder, "Name"), Json.uris(folder, "Node"), Json.string(folder, "UrlPath"));

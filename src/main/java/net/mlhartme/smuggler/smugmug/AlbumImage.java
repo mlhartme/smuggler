@@ -20,7 +20,7 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.util.List;
 
-public class AlbumImage extends Base {
+public class AlbumImage extends Handle {
     public static AlbumImage create(Smugmug smugmug, JsonObject ai) {
         return new AlbumImage(smugmug, Json.string(ai, "Uri"), Json.uris(ai, "Image"), Json.string(ai, "FileName"));
     }
