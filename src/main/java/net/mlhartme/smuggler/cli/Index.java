@@ -16,14 +16,15 @@
 package net.mlhartme.smuggler.cli;
 
 import net.mlhartme.smuggler.smugmug.Album;
+import net.mlhartme.smuggler.smugmug.AlbumImage;
 import net.mlhartme.smuggler.smugmug.Folder;
 import net.mlhartme.smuggler.smugmug.User;
 import net.oneandone.sushi.util.Strings;
 
 import java.io.IOException;
 
-public class Tree extends Command {
-    public Tree() throws IOException {
+public class Index extends Command {
+    public Index() throws IOException {
     }
 
     public void run(User user) throws IOException {
@@ -37,10 +38,9 @@ public class Tree extends Command {
         }
         for (Album album : folder.listAlbums()) {
             System.out.println(Strings.times(' ', indent + 2) + "A " + album.name + " (" + album.toString() + ")");
-			/*
-			for (Image image : album.list(account)) {
+			for (AlbumImage image : album.listImages()) {
 				System.out.println(Strings.times(' ', indent + 4) + image.fileName);
-			}*/
+			}
         }
     }
 

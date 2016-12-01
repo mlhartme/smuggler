@@ -22,6 +22,7 @@ import net.mlhartme.smuggler.smugmug.AlbumImage;
 import net.mlhartme.smuggler.smugmug.Folder;
 import net.mlhartme.smuggler.smugmug.Account;
 import net.mlhartme.smuggler.smugmug.User;
+import net.oneandone.sushi.fs.Node;
 import net.oneandone.sushi.fs.World;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -113,9 +114,30 @@ public class TestAll {
         assertEquals(TEST.node(), album.folder().node());
         assertEquals(Collections.singletonList(album), TEST.listAlbums());
         assertEquals(Collections.singletonList(album.node()), TEST.node().list());
+        assertTrue(album.listImages().isEmpty());
         aiUri = album.upload(WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
         ai = SMUGMUG.albumImage(aiUri);
+        assertEquals(Collections.singletonList(ai), album.listImages());
         ai.delete();
+        album.delete();
+    }
+
+    @Test
+    public void images() throws Exception {
+        String md5;
+        Node<?> file;
+        Album album;
+        String aiUri;
+        AlbumImage ai;
+
+        file = WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg");
+        md5 = file.md5();
+        album = TEST.createAlbum("album");
+        aiUri = album.upload(file);
+        ai = SMUGMUG.albumImage(aiUri);
+        assertEquals("mhm.jpg", ai.fileName);
+        assertEquals(md5, ai.md5);
+        assertEquals(album, ai.album());
         album.delete();
     }
 }

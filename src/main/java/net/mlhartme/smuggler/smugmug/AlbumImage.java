@@ -22,7 +22,8 @@ import java.util.List;
 
 public class AlbumImage extends Handle {
     public static AlbumImage create(Account account, JsonObject ai) {
-        return new AlbumImage(account, Json.string(ai, "Uri"), Json.uris(ai, "Image"), Json.string(ai, "FileName"));
+        return new AlbumImage(account, Json.string(ai, "Uri"), Json.uris(ai, "Image"),
+                Json.string(ai, "FileName"), Json.string(ai, "ArchivedMD5"));
     }
 
     public static AlbumImage lookupFileName(List<AlbumImage> images, String fileName) {
@@ -37,11 +38,13 @@ public class AlbumImage extends Handle {
 
     public final String imageUri;
     public final String fileName;
+    public final String md5;
 
-    public AlbumImage(Account account, String albumImageUri, String imageUri, String fileName) {
+    public AlbumImage(Account account, String albumImageUri, String imageUri, String fileName, String md5) {
         super(account, albumImageUri);
         this.imageUri = imageUri;
         this.fileName = fileName;
+        this.md5 = md5;
     }
 
     public Album album() throws IOException {

@@ -92,7 +92,7 @@ public class Account {
 		result = new ArrayList<>();
 		i = 0;
 		while (true) {
-			obj = get(path +"?start=" + (i + 1) + "&count=1");
+			obj = get(path +"?start=" + (i + 1) + "&count=100");
 			locator = Json.string(obj, "Response","Locator");
 			array = Json.arrayOpt(Json.object(obj, "Response"), locator);
 			if (array == null || array.size() == 0) {

@@ -17,7 +17,6 @@ package net.mlhartme.smuggler.smugmug;
 
 import com.google.gson.JsonObject;
 import com.sun.jersey.api.client.WebResource;
-import net.oneandone.sushi.fs.file.FileNode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class Album extends Handle {
     }
 
     /** @return albumImageUri */
-    public String upload(FileNode file) throws IOException {
+    public String upload(net.oneandone.sushi.fs.Node<?> file) throws IOException {
         JsonObject response;
         byte[] image;
         String md5;
