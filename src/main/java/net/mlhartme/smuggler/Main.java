@@ -55,7 +55,7 @@ public class Main {
 	public static void tree(Smugmug smugmug, String userName) throws IOException {
 		User user;
 
-		user = User.nickname(smugmug, userName);
+		user = User.forNickName(smugmug, userName);
 		tree(smugmug, 0, user.folder(smugmug));
 	}
 
@@ -82,7 +82,7 @@ public class Main {
 
 		errors = 0;
 		local = world.getHome().join("timeline").list();
-		user = User.nickname(smugmug, userNickName);
+		user = User.forNickName(smugmug, userNickName);
 		album = user.lookupAlbum(smugmug, albumName);
 		if (album == null) {
 			throw new IOException("no such album: " + albumName);

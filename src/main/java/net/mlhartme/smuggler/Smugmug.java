@@ -123,10 +123,6 @@ public class Smugmug {
 
 	//--
 
-	public User user(String nickName) {
-		return User.nickname(this, nickName);
-	}
-
 	public Image image(String uri) throws IOException {
 		return Image.create(this, getObject(uri, "Image"));
 	}

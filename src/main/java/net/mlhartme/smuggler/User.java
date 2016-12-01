@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User extends Base {
-    public static User nickname(Smugmug smugmug, String nickName) {
+    public static User forNickName(Smugmug smugmug, String nickName) {
         return new User(smugmug, "/api/v2/folder/user/" + nickName);
     }
 
