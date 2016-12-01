@@ -108,6 +108,8 @@ public class TestAll {
         AlbumImage ai;
 
         album = TEST.createAlbum("album");
+        assertEquals(TEST, album.folder());
+        assertEquals(TEST.node(), album.folder().node());
         assertEquals(Collections.singletonList(album), TEST.listAlbums());
         assertEquals(Collections.singletonList(album.node()), TEST.node().list());
         aiUri = album.upload(WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
