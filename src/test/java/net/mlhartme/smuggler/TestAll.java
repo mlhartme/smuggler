@@ -47,10 +47,10 @@ public class TestAll {
     @BeforeClass
     public static void init() throws IOException {
         User user;
-        Main.Config config;
+        Config config;
 
         WORLD = World.create();
-        config = Main.Config.load(WORLD);
+        config = Config.load(WORLD);
         SMUGMUG = config.newSmugmug();
         LOG = new PrintStream(new FileOutputStream("target/testall.log"));
         SMUGMUG.wirelog(LOG);
