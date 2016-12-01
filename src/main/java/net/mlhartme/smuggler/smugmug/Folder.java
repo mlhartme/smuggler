@@ -46,7 +46,7 @@ public class Folder extends Handle {
     }
 
     public Folder parent() throws IOException {
-        return Folder.create(account, account.getObject(uri + "!parent", "Folder"));
+        return Folder.create(account, account.getObject(uri + "!parent"));
     }
 
     public List<Folder> listFolders() throws IOException {

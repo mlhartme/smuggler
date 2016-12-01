@@ -55,12 +55,13 @@ public class Account {
 		client.addFilter(new LoggingFilter(dest));
 	}
 
-	public JsonObject getObject(String path, String type) throws IOException {
-		return Json.object(get(path), "Response", type);
-	}
+	public JsonObject getObject(String path) throws IOException {
+		JsonObject response;
+		String locator;
 
-	public JsonObject get(String path) throws IOException {
-		return Json.parse(api(path).get(String.class)).getAsJsonObject();
+		response = Json.object(get(path), "Response");
+		locator = Json.string(response, "Locator");
+		return Json.object(response, locator);
 	}
 
 	public List<JsonObject> getList(String path) throws IOException {
@@ -87,6 +88,10 @@ public class Account {
 				}
 			}
 		}
+	}
+
+	public JsonObject get(String path) throws IOException {
+		return Json.parse(api(path).get(String.class)).getAsJsonObject();
 	}
 
 	public WebResource.Builder api(String path) {
@@ -130,24 +135,24 @@ public class Account {
 	}
 
 	public Image image(String uri) throws IOException {
-		return Image.create(this, getObject(uri, "Image"));
+		return Image.create(this, getObject(uri));
 	}
 
 	public Node node(String uri) throws IOException {
-		return Node.create(this, getObject(uri, "Node"));
+		return Node.create(this, getObject(uri));
 	}
 
 	public Album album(String uri) throws IOException {
-		return Album.create(this, getObject(uri, "Album"));
+		return Album.create(this, getObject(uri));
 	}
 
 	public Folder folder(String uri) throws IOException {
-		return Folder.create(this, getObject(uri, "Folder"));
+		return Folder.create(this, getObject(uri));
 	}
 
 
 	public AlbumImage albumImage(String uri) throws IOException {
-		return AlbumImage.create(this, getObject(uri, "AlbumImage"));
+		return AlbumImage.create(this, getObject(uri));
 	}
 
 

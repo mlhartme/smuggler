@@ -27,7 +27,7 @@ public class User extends Handle {
     }
 
     public Folder folder() throws IOException {
-        return Folder.create(account, account.getObject(uri,"Folder"));
+        return Folder.create(account, account.getObject(uri));
     }
 
     public List<Album> listAlbums() throws IOException {
