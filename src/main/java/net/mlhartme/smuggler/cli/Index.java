@@ -19,7 +19,6 @@ import net.mlhartme.smuggler.smugmug.Album;
 import net.mlhartme.smuggler.smugmug.AlbumImage;
 import net.mlhartme.smuggler.smugmug.Folder;
 import net.mlhartme.smuggler.smugmug.User;
-import net.oneandone.sushi.util.Strings;
 
 import java.io.IOException;
 
@@ -31,22 +30,21 @@ public class Index extends Command {
     }
 
     public void run(User user) throws IOException {
-        tree(0, user.folder());
+        tree(user.folder());
     }
 
-    public void tree(int indent, Folder folder) throws IOException {
-        System.out.println(Strings.times(' ', indent) + "F " + folder.urlPath + " (@" + folder.uri + ")");
+    public void tree(Folder folder) throws IOException {
+        System.out.println("F " + folder.urlPath + " (@" + folder.uri + ")");
         for (Folder child : folder.listFolders()) {
-            tree(indent + 2, child);
+            tree(child);
         }
         for (Album album : folder.listAlbums()) {
-            System.out.println(Strings.times(' ', indent + 2) + "A " + album.urlPath + " (@" + album.uri + ")");
+            System.out.println("A " + album.urlPath + " (@" + album.uri + ")");
             if (full) {
                 for (AlbumImage image : album.listImages()) {
-                    System.out.println(Strings.times(' ', indent + 4) + image.fileName + " " + image.md5);
+                    System.out.println("+ " + image.fileName + " (@" + image.uri + ") " + image.md5);
                 }
             }
         }
     }
-
 }
