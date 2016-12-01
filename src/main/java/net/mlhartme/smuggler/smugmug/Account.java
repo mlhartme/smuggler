@@ -106,7 +106,7 @@ public class Account {
 		} else {
 			url = url + "?";
 		}
-		url = url + "_pretty=&_verbosity=2";
+		url = url + "_pretty=&_verbosity=1";
 		return resource(url);
 	}
 

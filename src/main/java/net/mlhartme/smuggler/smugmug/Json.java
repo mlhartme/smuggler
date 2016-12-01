@@ -31,7 +31,15 @@ public class Json {
     }
 
     public static String uris(JsonObject object, String name) {
-        return Json.string(object, "Uris", name, "Uri");
+        JsonElement uri;
+
+        uri = Json.element(object, "Uris", name);
+        if (uri.isJsonObject()) {
+            // verbosity 2 or 2 - or a post request that does not honor the verbosity
+            return Json.string(uri.getAsJsonObject(), "Uri");
+        } else {
+            return uri.getAsString();
+        }
     }
 
     public static String string(JsonObject obj, String name, String sub, String subsub) {
@@ -65,6 +73,10 @@ public class Json {
         } else {
             throw new IllegalArgumentException("field '" + name + "' is not an object: " + obj);
         }
+    }
+
+    public static JsonElement element(JsonObject obj, String name, String sub) {
+        return element(object(obj, name), sub);
     }
 
     public static JsonElement element(JsonObject obj, String name) {
