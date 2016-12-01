@@ -31,6 +31,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
@@ -107,12 +108,11 @@ public class TestAll {
         AlbumImage ai;
 
         album = TEST.createAlbum("album");
-        System.out.println("created album " + album.name);
+        assertEquals(Collections.singletonList(album), TEST.listAlbums());
+        assertEquals(Collections.singletonList(album.node()), TEST.node().list());
         aiUri = album.upload(WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
-        System.out.println("created image " + aiUri);
         ai = SMUGMUG.albumImage(aiUri);
         ai.delete();
-        System.out.println("deleted image");
         album.delete();
     }
 }

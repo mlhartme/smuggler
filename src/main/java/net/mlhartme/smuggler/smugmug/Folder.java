@@ -72,7 +72,7 @@ public class Folder extends Handle {
         List<Album> result;
 
         result = new ArrayList<>();
-        for (JsonObject object : account.getList(uri + "!folderalbums")) {
+        for (JsonObject object : account.getList(uri + "!albums")) {
             result.add(Album.create(account, object));
         }
         return result;

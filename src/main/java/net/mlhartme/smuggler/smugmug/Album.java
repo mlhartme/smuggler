@@ -37,6 +37,10 @@ public class Album extends Handle {
         this.nodeUri = nodeUri;
     }
 
+    public Node node() throws IOException {
+        return account.node(nodeUri);
+    }
+
     public List<AlbumImage> listImages() throws IOException {
         List<AlbumImage> result;
 
