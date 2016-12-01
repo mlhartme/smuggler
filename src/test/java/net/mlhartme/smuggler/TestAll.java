@@ -53,8 +53,8 @@ public class TestAll {
         SMUGMUG = config.newSmugmug();
         LOG = new PrintStream(new FileOutputStream("target/testall.log"));
         SMUGMUG.wirelog(LOG);
-        user = User.forNickName(SMUGMUG, config.user);
-        ROOT = user.folder(SMUGMUG);
+        user = SMUGMUG.user(config.user);
+        ROOT = user.folder();
     }
 
     @AfterClass

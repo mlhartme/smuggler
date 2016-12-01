@@ -58,17 +58,17 @@ public class Main {
 		}
 	}
 
-	public static void tree(Smugmug smugmug, String userName) throws IOException {
+	public static void tree(Smugmug smugmug, String nickName) throws IOException {
 		User user;
 
-		user = User.forNickName(smugmug, userName);
-		tree(smugmug, 0, user.folder(smugmug));
+		user = smugmug.user(nickName);
+		tree(0, user.folder());
 	}
 
-	public static void tree(Smugmug smugmug, int indent, Folder folder) throws IOException {
+	public static void tree(int indent, Folder folder) throws IOException {
 		System.out.println(Strings.times(' ', indent) + "F " + folder.urlPath + " (" + folder.uri + "@" + folder.uri + ")");
 		for (Folder child : folder.listFolders()) {
-			tree(smugmug, indent + 2, child);
+			tree(indent + 2, child);
 		}
 		for (Album album : folder.listAlbums()) {
 			System.out.println(Strings.times(' ', indent + 2) + "A " + album.name + " (" + album.toString() + ")");
@@ -88,8 +88,8 @@ public class Main {
 
 		errors = 0;
 		local = world.getHome().join("timeline").list();
-		user = User.forNickName(smugmug, userNickName);
-		album = user.lookupAlbum(smugmug, albumName);
+		user = smugmug.user(userNickName);
+		album = user.lookupAlbum(albumName);
 		if (album == null) {
 			throw new IOException("no such album: " + albumName);
 		}

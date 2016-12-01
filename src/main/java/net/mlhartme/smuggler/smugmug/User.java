@@ -22,19 +22,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User extends Handle {
-    public static User forNickName(Smugmug smugmug, String nickName) {
-        return new User(smugmug, "/api/v2/folder/user/" + nickName);
-    }
-
     public User(Smugmug smugmug, String uri) {
         super(smugmug, uri);
     }
 
-    public Folder folder(Smugmug smugmug) throws IOException {
+    public Folder folder() throws IOException {
         return Folder.create(smugmug, smugmug.getObject(uri,"Folder"));
     }
 
-    public List<Album> listAlbums(Smugmug smugmug) throws IOException {
+    public List<Album> listAlbums() throws IOException {
         List<Album> result;
 
         result = new ArrayList<>();
@@ -44,8 +40,8 @@ public class User extends Handle {
         return result;
     }
 
-    public Album lookupAlbum(Smugmug smugmug, String name) throws IOException {
-        for (Album album : listAlbums(smugmug)) {
+    public Album lookupAlbum(String name) throws IOException {
+        for (Album album : listAlbums()) {
             if (album.name.equals(name)) {
                 return album;
             }
