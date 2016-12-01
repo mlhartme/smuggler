@@ -16,6 +16,7 @@
 package net.mlhartme.smuggler;
 
 import com.sun.jersey.api.client.UniformInterfaceException;
+import net.mlhartme.smuggler.cli.Config;
 import net.mlhartme.smuggler.smugmug.Album;
 import net.mlhartme.smuggler.smugmug.AlbumImage;
 import net.mlhartme.smuggler.smugmug.Folder;

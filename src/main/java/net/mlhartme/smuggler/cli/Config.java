@@ -1,4 +1,4 @@
-package net.mlhartme.smuggler;
+package net.mlhartme.smuggler.cli;
 
 import net.mlhartme.smuggler.smugmug.Account;
 import net.oneandone.sushi.fs.World;

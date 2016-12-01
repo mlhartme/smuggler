@@ -1,4 +1,4 @@
-package net.mlhartme.smuggler;
+package net.mlhartme.smuggler.cli;
 
 import net.mlhartme.smuggler.smugmug.Album;
 import net.mlhartme.smuggler.smugmug.Folder;
