@@ -16,6 +16,11 @@
 package net.mlhartme.smuggler;
 
 import com.sun.jersey.api.client.UniformInterfaceException;
+import net.mlhartme.smuggler.smugmug.Album;
+import net.mlhartme.smuggler.smugmug.AlbumImage;
+import net.mlhartme.smuggler.smugmug.Folder;
+import net.mlhartme.smuggler.smugmug.Smugmug;
+import net.mlhartme.smuggler.smugmug.User;
 import net.oneandone.sushi.fs.World;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,10 +46,10 @@ public class TestAll {
     @BeforeClass
     public static void init() throws IOException {
         User user;
-        Config config;
+        Main.Config config;
 
         WORLD = World.create();
-        config = Config.load(WORLD);
+        config = Main.Config.load(WORLD);
         SMUGMUG = config.newSmugmug();
         LOG = new PrintStream(new FileOutputStream("target/testall.log"));
         SMUGMUG.wirelog(LOG);
