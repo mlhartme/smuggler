@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Folder extends Handle {
-    public static Folder create(Account smugmug, JsonObject folder) {
-        return new Folder(smugmug, Json.string(folder, "Uri") /*Json.uris(folder, "FolderByID")*/,
+    public static Folder create(Account account, JsonObject folder) {
+        return new Folder(account, Json.string(folder, "Uri") /*Json.uris(folder, "FolderByID")*/,
                 Json.string(folder, "Name"), Json.uris(folder, "Node"), Json.string(folder, "UrlPath"));
     }
 
@@ -34,27 +34,27 @@ public class Folder extends Handle {
     public final String nodeUri;
     public final String urlPath;
 
-    public Folder(Account smugmug, String uri, String name, String nodeUri, String urlPath) {
-        super(smugmug, uri);
+    public Folder(Account account, String uri, String name, String nodeUri, String urlPath) {
+        super(account, uri);
         this.name = name;
         this.nodeUri = nodeUri;
         this.urlPath = urlPath;
     }
 
     public Node node() throws IOException {
-        return smugmug.node(nodeUri);
+        return account.node(nodeUri);
     }
 
     public Folder parent() throws IOException {
-        return Folder.create(smugmug, smugmug.getObject(uri + "!parent", "Folder"));
+        return Folder.create(account, account.getObject(uri + "!parent", "Folder"));
     }
 
     public List<Folder> listFolders() throws IOException {
         List<Folder> result;
 
         result = new ArrayList<>();
-        for (JsonObject object : smugmug.getList(uri + "!folders", "Folder")) {
-            result.add(Folder.create(smugmug, object));
+        for (JsonObject object : account.getList(uri + "!folders", "Folder")) {
+            result.add(Folder.create(account, object));
         }
         return result;
     }
@@ -72,8 +72,8 @@ public class Folder extends Handle {
         List<Album> result;
 
         result = new ArrayList<>();
-        for (JsonObject object : smugmug.getList(uri + "!folderalbums", "Album")) {
-            result.add(Album.create(smugmug, object));
+        for (JsonObject object : account.getList(uri + "!folderalbums", "Album")) {
+            result.add(Album.create(account, object));
         }
         return result;
     }
@@ -91,19 +91,19 @@ public class Folder extends Handle {
         WebResource.Builder resource;
         JsonObject created;
 
-        resource = smugmug.api(uri + "!folders");
+        resource = account.api(uri + "!folders");
         resource.header("Content-Type", "application/json");
         created = Json.object(Json.post(resource, "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Folder");
-        return Folder.create(smugmug, created);
+        return Folder.create(account, created);
     }
 
     public Album createAlbum(String name) {
         WebResource.Builder resource;
         JsonObject created;
 
-        resource = smugmug.api(uri + "!albums");
+        resource = account.api(uri + "!albums");
         resource.header("Content-Type", "application/json");
         created = Json.object(Json.post(resource, "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Album");
-        return Album.create(smugmug, created);
+        return Album.create(account, created);
     }
 }

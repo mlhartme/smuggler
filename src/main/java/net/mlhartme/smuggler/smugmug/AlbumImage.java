@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class AlbumImage extends Handle {
-    public static AlbumImage create(Account smugmug, JsonObject ai) {
-        return new AlbumImage(smugmug, Json.string(ai, "Uri"), Json.uris(ai, "Image"), Json.string(ai, "FileName"));
+    public static AlbumImage create(Account account, JsonObject ai) {
+        return new AlbumImage(account, Json.string(ai, "Uri"), Json.uris(ai, "Image"), Json.string(ai, "FileName"));
     }
 
     public static AlbumImage lookupFileName(List<AlbumImage> images, String fileName) {
@@ -38,8 +38,8 @@ public class AlbumImage extends Handle {
     public final String imageUri;
     public final String fileName;
 
-    public AlbumImage(Account smugmug, String albumImageUri, String imageUri, String fileName) {
-        super(smugmug, albumImageUri);
+    public AlbumImage(Account account, String albumImageUri, String imageUri, String fileName) {
+        super(account, albumImageUri);
         this.imageUri = imageUri;
         this.fileName = fileName;
     }
@@ -48,10 +48,10 @@ public class AlbumImage extends Handle {
         String albumUri;
 
         albumUri = uri.substring(0, uri.indexOf("/image"));
-        return smugmug.album(albumUri);
+        return account.album(albumUri);
     }
 
     public Image image() throws IOException {
-        return smugmug.image(imageUri);
+        return account.image(imageUri);
     }
 }

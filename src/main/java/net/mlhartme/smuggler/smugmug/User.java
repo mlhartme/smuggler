@@ -22,20 +22,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User extends Handle {
-    public User(Account smugmug, String uri) {
-        super(smugmug, uri);
+    public User(Account account, String uri) {
+        super(account, uri);
     }
 
     public Folder folder() throws IOException {
-        return Folder.create(smugmug, smugmug.getObject(uri,"Folder"));
+        return Folder.create(account, account.getObject(uri,"Folder"));
     }
 
     public List<Album> listAlbums() throws IOException {
         List<Album> result;
 
         result = new ArrayList<>();
-        for (JsonObject album : smugmug.getList(uri + "!albums", "Album")) {
-            result.add(Album.create(smugmug, album));
+        for (JsonObject album : account.getList(uri + "!albums", "Album")) {
+            result.add(Album.create(account, album));
         }
         return result;
     }

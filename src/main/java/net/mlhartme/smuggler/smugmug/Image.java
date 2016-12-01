@@ -18,16 +18,16 @@ package net.mlhartme.smuggler.smugmug;
 import com.google.gson.JsonObject;
 
 public class Image extends Handle {
-    public static Image create(Account smugmug, JsonObject image) {
-        return new Image(smugmug, Json.string(image, "Uri"), Json.string(image, "FileName"));
+    public static Image create(Account account, JsonObject image) {
+        return new Image(account, Json.string(image, "Uri"), Json.string(image, "FileName"));
     }
 
     //--
 
     public final String fileName;
 
-    public Image(Account smugmug, String uri, String fileName) {
-        super(smugmug, uri);
+    public Image(Account account, String uri, String fileName) {
+        super(account, uri);
         this.fileName = fileName;
     }
 }

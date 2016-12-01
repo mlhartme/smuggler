@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node extends Handle {
-    public static Node create(Account smugmug, JsonObject node) {
+    public static Node create(Account account, JsonObject node) {
         String type;
         String folderUri;
         String albumUri;
@@ -40,7 +40,7 @@ public class Node extends Handle {
             default:
                 throw new IllegalArgumentException("unknown type: " + type);
         }
-        return new Node(smugmug, Json.string(node, "Uri"), Json.uris(node, "ParentNode"), folderUri, albumUri);
+        return new Node(account, Json.string(node, "Uri"), Json.uris(node, "ParentNode"), folderUri, albumUri);
     }
 
     //--
@@ -52,15 +52,15 @@ public class Node extends Handle {
     /** may be null */
     public final String albumUri;
 
-    public Node(Account smugmug, String uri, String parentUri, String folderUri, String albumUri) {
-        super(smugmug, uri);
+    public Node(Account account, String uri, String parentUri, String folderUri, String albumUri) {
+        super(account, uri);
         this.parentUri = parentUri;
         this.folderUri = folderUri;
         this.albumUri = albumUri;
     }
 
     public Node parent() throws IOException {
-        return smugmug.node(parentUri);
+        return account.node(parentUri);
     }
 
     public boolean isFolder() {
@@ -72,19 +72,19 @@ public class Node extends Handle {
     }
 
     public Folder folder() throws IOException {
-        return smugmug.folder(folderUri);
+        return account.folder(folderUri);
     }
 
     public Album album() throws IOException {
-        return smugmug.album(albumUri);
+        return account.album(albumUri);
     }
 
     public List<Node> list() throws IOException {
         List<Node> result;
 
         result = new ArrayList<>();
-        for (JsonObject object : smugmug.getList(uri + "!children", "Node")) {
-            result.add(Node.create(smugmug, object));
+        for (JsonObject object : account.getList(uri + "!children", "Node")) {
+            result.add(Node.create(account, object));
         }
         return result;
     }

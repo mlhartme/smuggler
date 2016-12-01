@@ -16,17 +16,17 @@
 package net.mlhartme.smuggler.smugmug;
 
 public class Handle {
-    public final Account smugmug;
+    public final Account account;
     public final String uri;
 
-    public Handle(Account smugmug, String uri) {
-        this.smugmug = smugmug;
+    public Handle(Account account, String uri) {
+        this.account = account;
         this.uri = uri;
     }
 
     /* also deletes the image if this is the last album it is contained in */
     public void delete() {
-        smugmug.api(uri).delete();
+        account.api(uri).delete();
     }
 
     //--

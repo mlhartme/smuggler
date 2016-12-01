@@ -24,15 +24,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Album extends Handle {
-    public static Album create(Account smugmug, JsonObject album) {
-        return new Album(smugmug, Json.string(album, "Uri"), Json.string(album, "Name"), Json.uris(album, "Node"));
+    public static Album create(Account account, JsonObject album) {
+        return new Album(account, Json.string(album, "Uri"), Json.string(album, "Name"), Json.uris(album, "Node"));
     }
 
     public final String name;
     public final String nodeUri;
 
-    public Album(Account smugmug, String uri, String name, String nodeUri) {
-        super(smugmug, uri);
+    public Album(Account account, String uri, String name, String nodeUri) {
+        super(account, uri);
         this.name = name;
         this.nodeUri = nodeUri;
     }
@@ -41,8 +41,8 @@ public class Album extends Handle {
         List<AlbumImage> result;
 
         result = new ArrayList<>();
-        for (JsonObject object : smugmug.getList(uri + "!images", "AlbumImage")) {
-            result.add(AlbumImage.create(smugmug, object));
+        for (JsonObject object : account.getList(uri + "!images", "AlbumImage")) {
+            result.add(AlbumImage.create(account, object));
         }
         return result;
     }
@@ -55,7 +55,7 @@ public class Album extends Handle {
         WebResource.Builder resource;
 
         image = file.readBytes();
-        resource = smugmug.upload();
+        resource = account.upload();
         md5 = file.md5();
         resource.header("Content-Length", image.length);
         resource.header("Content-MD5", md5);

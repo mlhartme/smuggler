@@ -73,7 +73,7 @@ public class Main {
 		for (Album album : folder.listAlbums()) {
 			System.out.println(Strings.times(' ', indent + 2) + "A " + album.name + " (" + album.toString() + ")");
 			/*
-			for (Image image : album.list(smugmug)) {
+			for (Image image : album.list(account)) {
 				System.out.println(Strings.times(' ', indent + 4) + image.fileName);
 			}*/
 		}
