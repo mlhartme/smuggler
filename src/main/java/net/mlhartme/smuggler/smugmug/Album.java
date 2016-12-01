@@ -25,18 +25,20 @@ import java.util.List;
 public class Album extends Handle {
     public static Album create(Account account, JsonObject album) {
         return new Album(account, Json.string(album, "Uri"), Json.string(album, "Name"),
-                Json.uris(album, "Node"), Json.uris(album, "Folder"));
+                Json.uris(album, "Node"), Json.uris(album, "Folder"), Json.string(album,"UrlPath"));
     }
 
     public final String name;
     public final String nodeUri;
     public final String folderUri;
+    public final String urlPath;
 
-    public Album(Account account, String uri, String name, String nodeUri, String folderUri) {
+    public Album(Account account, String uri, String name, String nodeUri, String folderUri, String urlPath) {
         super(account, uri);
         this.name = name;
         this.nodeUri = nodeUri;
         this.folderUri = folderUri;
+        this.urlPath = urlPath;
     }
 
     public Node node() throws IOException {

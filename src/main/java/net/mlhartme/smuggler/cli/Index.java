@@ -24,7 +24,10 @@ import net.oneandone.sushi.util.Strings;
 import java.io.IOException;
 
 public class Index extends Command {
-    public Index() throws IOException {
+    private boolean full;
+
+    public Index(boolean full) throws IOException {
+        this.full = full;
     }
 
     public void run(User user) throws IOException {
@@ -32,15 +35,17 @@ public class Index extends Command {
     }
 
     public void tree(int indent, Folder folder) throws IOException {
-        System.out.println(Strings.times(' ', indent) + "F " + folder.urlPath + " (" + folder.uri + "@" + folder.uri + ")");
+        System.out.println(Strings.times(' ', indent) + "F " + folder.urlPath + " (@" + folder.uri + ")");
         for (Folder child : folder.listFolders()) {
             tree(indent + 2, child);
         }
         for (Album album : folder.listAlbums()) {
-            System.out.println(Strings.times(' ', indent + 2) + "A " + album.name + " (" + album.toString() + ")");
-			for (AlbumImage image : album.listImages()) {
-				System.out.println(Strings.times(' ', indent + 4) + image.fileName + " " + image.md5);
-			}
+            System.out.println(Strings.times(' ', indent + 2) + "A " + album.urlPath + " (@" + album.uri + ")");
+            if (full) {
+                for (AlbumImage image : album.listImages()) {
+                    System.out.println(Strings.times(' ', indent + 4) + image.fileName + " " + image.md5);
+                }
+            }
         }
     }
 
