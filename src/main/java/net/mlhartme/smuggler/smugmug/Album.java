@@ -59,8 +59,23 @@ public class Album extends Handle {
         return result;
     }
 
+    public AlbumImage createAlbumImage(Image image) {
+        WebResource.Builder resource;
+        JsonObject created;
+
+        resource = account.api(uri + "!images");
+        resource.header("Content-Type", "application/json");
+        created = Json.object(Json.post(resource /*, "ImageUri", image.uri */), "Response");
+        return AlbumImage.create(account, created);
+    }
+
     /** @return albumImageUri */
     public String upload(net.oneandone.sushi.fs.Node<?> file) throws IOException {
+        return upload(file, file.getName());
+    }
+
+    /** @return albumImageUri */
+    public String upload(net.oneandone.sushi.fs.Node<?> file, String fileName) throws IOException {
         JsonObject response;
         byte[] image;
         String md5;
@@ -72,7 +87,7 @@ public class Album extends Handle {
         resource.header("Content-Length", image.length);
         resource.header("Content-MD5", md5);
         resource.header("X-Smug-ResponseType", "JSON");
-        resource.header("X-Smug-FileName", file.getName());
+        resource.header("X-Smug-FileName", fileName);
         resource.header("X-Smug-AlbumUri", uri);
         resource.header("X-Smug-Version", "v2");
 

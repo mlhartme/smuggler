@@ -38,6 +38,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TestAll {
@@ -130,7 +131,9 @@ public class TestAll {
         Album album;
         String aiUri;
         AlbumImage ai;
+        AlbumImage copy;
         Image image;
+        String ai2;
 
         file = WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg");
         md5 = file.md5();
@@ -144,6 +147,31 @@ public class TestAll {
         image = ai.image();
         assertEquals("mhm.jpg", image.fileName);
         assertEquals(md5, image.md5);
+
+        // uploading the same image twice creates two copies
+        ai2 = album.upload(file, "copy.jpg");
+        copy = SMUGMUG.albumImage(ai2);
+        assertNotEquals(ai, copy);
+        assertNotEquals(ai.image(), copy.image());
+        assertEquals(ai.md5, copy.md5);
+
         album.delete();
+    }
+
+    @Test
+    public void imagesClones() throws Exception {
+        Album album;
+        Album second;
+        String aiUri;
+        AlbumImage ai;
+
+        album = TEST.createAlbum("album");
+        aiUri = album.upload(WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
+        ai = SMUGMUG.albumImage(aiUri);
+
+        second = TEST.createAlbum("second");
+        second.createAlbumImage(ai.image());
+
+        System.out.println(second.listImages());
     }
 }
