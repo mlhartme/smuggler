@@ -25,7 +25,7 @@ import java.util.List;
 
 public class Folder extends Base {
     public static Folder create(JsonObject folder) {
-        return new Folder(Json.string(folder, "Uri"), Json.string(folder, "Name"), Json.string(folder, "Uris", "Node", "Uri"),
+        return new Folder(Json.string(folder, "Uri"), Json.string(folder, "Name"), Json.uris(folder, "Node"),
                 Json.string(folder, "UrlPath"));
     }
 

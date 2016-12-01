@@ -30,6 +30,10 @@ public class Json {
         }
     }
 
+    public static String uris(JsonObject object, String name) {
+        return Json.string(object, "Uris", name, "Uri");
+    }
+
     public static String string(JsonObject obj, String name, String sub, String subsub) {
         return string(object(obj, name, sub), subsub);
     }

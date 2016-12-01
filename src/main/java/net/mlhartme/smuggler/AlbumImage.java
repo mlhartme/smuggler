@@ -22,8 +22,7 @@ import java.util.List;
 
 public class AlbumImage extends Base {
     public static AlbumImage create(JsonObject ai) {
-        return new AlbumImage(Json.string(ai, "Uri"), Json.string(ai, "Uris", "Image", "Uri"),
-                Json.string(ai, "FileName"));
+        return new AlbumImage(Json.string(ai, "Uri"), Json.uris(ai, "Image"), Json.string(ai, "FileName"));
     }
 
     public static AlbumImage lookupFileName(List<AlbumImage> images, String fileName) {

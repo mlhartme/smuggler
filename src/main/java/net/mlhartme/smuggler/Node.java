@@ -31,16 +31,16 @@ public class Node extends Base {
         switch (type) {
             case "Album":
                 folderUri = null;
-                albumUri = Json.string(node, "Uris", "Album", "Uri");
+                albumUri = Json.uris(node, "Album");
                 break;
             case "Folder":
-                folderUri = Json.string(node, "Uris", "FolderByID", "Uri");
+                folderUri = Json.uris(node, "FolderByID");
                 albumUri = null;
                 break;
             default:
                 throw new IllegalArgumentException("unknown type: " + type);
         }
-        return new Node(Json.string(node, "Uri"), Json.string(node, "Uris", "ParentNode", "Uri"), folderUri, albumUri);
+        return new Node(Json.string(node, "Uri"), Json.uris(node, "ParentNode"), folderUri, albumUri);
     }
 
     //--

@@ -25,7 +25,7 @@ import java.util.List;
 
 public class Album extends Base {
     public static Album create(JsonObject album) {
-        return new Album(Json.string(album, "Uri"), Json.string(album, "Name"), Json.string(album, "Uris", "Node", "Uri"));
+        return new Album(Json.string(album, "Uri"), Json.string(album, "Name"), Json.uris(album, "Node"));
     }
 
     public final String name;
