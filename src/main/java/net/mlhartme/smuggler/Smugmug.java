@@ -55,10 +55,6 @@ public class Smugmug {
 		client.addFilter(new LoggingFilter(dest));
 	}
 
-	public User user(String id) {
-		return new User(id);
-	}
-
 	public JsonObject getObject(String path, String type) throws IOException {
 		return Json.object(get(path), "Response", type);
 	}
@@ -126,6 +122,10 @@ public class Smugmug {
 	}
 
 	//--
+
+	public User user(String nickName) {
+		return User.nickname(this, nickName);
+	}
 
 	public Image image(String uri) throws IOException {
 		return Image.create(this, getObject(uri, "Image"));

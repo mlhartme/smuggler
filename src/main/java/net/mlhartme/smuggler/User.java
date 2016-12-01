@@ -21,22 +21,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
-    public final String nickName;
+public class User extends Base {
+    public static User nickname(Smugmug smugmug, String nickName) {
+        return new User(smugmug, "/api/v2/folder/user/" + nickName);
+    }
 
-    public User(String nickName) {
-        this.nickName = nickName;
+    public User(Smugmug smugmug, String uri) {
+        super(smugmug, uri);
     }
 
     public Folder folder(Smugmug smugmug) throws IOException {
-        return Folder.create(smugmug, smugmug.getObject("/api/v2/folder/user/" + nickName,"Folder"));
+        return Folder.create(smugmug, smugmug.getObject(uri,"Folder"));
     }
 
     public List<Album> listAlbums(Smugmug smugmug) throws IOException {
         List<Album> result;
 
         result = new ArrayList<>();
-        for (JsonObject album : smugmug.getList("/api/v2/user/" + nickName + "!albums", "Album")) {
+        for (JsonObject album : smugmug.getList(uri + "!albums", "Album")) {
             result.add(Album.create(smugmug, album));
         }
         return result;
