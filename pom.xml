@@ -10,14 +10,14 @@
   </parent>
 
   <groupId>net.mlhartme</groupId>
-  <artifactId>smugmug</artifactId>
+  <artifactId>smuggler</artifactId>
   <packaging>jar</packaging>
   <version>1.0.0-SNAPSHOT</version>
 
   <scm>
-    <url>https://github.com/mlhartme/smugmug</url>
-    <connection>scm:git:ssh://git@github.com/mlhartme/smugmug.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/mlhartme/smugmug.git</developerConnection>
+    <url>https://github.com/mlhartme/smuggler</url>
+    <connection>scm:git:ssh://git@github.com/mlhartme/smuggler.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/mlhartme/smuggler.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
