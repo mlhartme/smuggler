@@ -19,15 +19,17 @@ import com.google.gson.JsonObject;
 
 public class Image extends Handle {
     public static Image create(Account account, JsonObject image) {
-        return new Image(account, Json.string(image, "Uri"), Json.string(image, "FileName"));
+        return new Image(account, Json.string(image, "Uri"), Json.string(image, "FileName"), Json.string(image, "ArchivedMD5"));
     }
 
     //--
 
     public final String fileName;
+    public final String md5;
 
-    public Image(Account account, String uri, String fileName) {
+    public Image(Account account, String uri, String fileName, String md5) {
         super(account, uri);
         this.fileName = fileName;
+        this.md5 = md5;
     }
 }

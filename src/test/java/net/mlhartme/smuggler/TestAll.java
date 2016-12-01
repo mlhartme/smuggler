@@ -17,10 +17,11 @@ package net.mlhartme.smuggler;
 
 import com.sun.jersey.api.client.UniformInterfaceException;
 import net.mlhartme.smuggler.cli.Config;
+import net.mlhartme.smuggler.smugmug.Account;
 import net.mlhartme.smuggler.smugmug.Album;
 import net.mlhartme.smuggler.smugmug.AlbumImage;
 import net.mlhartme.smuggler.smugmug.Folder;
-import net.mlhartme.smuggler.smugmug.Account;
+import net.mlhartme.smuggler.smugmug.Image;
 import net.mlhartme.smuggler.smugmug.User;
 import net.oneandone.sushi.fs.Node;
 import net.oneandone.sushi.fs.World;
@@ -129,6 +130,7 @@ public class TestAll {
         Album album;
         String aiUri;
         AlbumImage ai;
+        Image image;
 
         file = WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg");
         md5 = file.md5();
@@ -138,6 +140,10 @@ public class TestAll {
         assertEquals("mhm.jpg", ai.fileName);
         assertEquals(md5, ai.md5);
         assertEquals(album, ai.album());
+
+        image = ai.image();
+        assertEquals("mhm.jpg", image.fileName);
+        assertEquals(md5, image.md5);
         album.delete();
     }
 }

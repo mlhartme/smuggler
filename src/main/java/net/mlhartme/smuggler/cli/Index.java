@@ -39,7 +39,7 @@ public class Index extends Command {
         for (Album album : folder.listAlbums()) {
             System.out.println(Strings.times(' ', indent + 2) + "A " + album.name + " (" + album.toString() + ")");
 			for (AlbumImage image : album.listImages()) {
-				System.out.println(Strings.times(' ', indent + 4) + image.fileName);
+				System.out.println(Strings.times(' ', indent + 4) + image.fileName + " " + image.md5);
 			}
         }
     }
