@@ -34,7 +34,7 @@ public class User extends Handle {
         List<Album> result;
 
         result = new ArrayList<>();
-        for (JsonObject album : account.getList(uri + "!albums", "Album")) {
+        for (JsonObject album : account.getList(uri + "!albums")) {
             result.add(Album.create(account, album));
         }
         return result;

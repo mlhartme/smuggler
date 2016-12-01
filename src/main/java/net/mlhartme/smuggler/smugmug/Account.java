@@ -63,8 +63,9 @@ public class Account {
 		return Json.parse(api(path).get(String.class)).getAsJsonObject();
 	}
 
-	public List<JsonObject> getList(String path, String type) throws IOException {
+	public List<JsonObject> getList(String path) throws IOException {
 		int i;
+		String locator;
 		JsonObject obj;
 		JsonArray array;
 		List<JsonObject> result;
@@ -74,7 +75,8 @@ public class Account {
 		i = 0;
 		while (true) {
 			obj = get(path +"?start=" + (i + 1) + "&count=1");
-			array = Json.arrayOpt(Json.object(obj, "Response"), type);
+			locator = Json.string(obj, "Response","Locator");
+			array = Json.arrayOpt(Json.object(obj, "Response"), locator);
 			if (array == null || array.size() == 0) {
 				return result;
 			} else {

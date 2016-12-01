@@ -53,7 +53,7 @@ public class Folder extends Handle {
         List<Folder> result;
 
         result = new ArrayList<>();
-        for (JsonObject object : account.getList(uri + "!folders", "Folder")) {
+        for (JsonObject object : account.getList(uri + "!folders")) {
             result.add(Folder.create(account, object));
         }
         return result;
@@ -72,7 +72,7 @@ public class Folder extends Handle {
         List<Album> result;
 
         result = new ArrayList<>();
-        for (JsonObject object : account.getList(uri + "!folderalbums", "Album")) {
+        for (JsonObject object : account.getList(uri + "!folderalbums")) {
             result.add(Album.create(account, object));
         }
         return result;

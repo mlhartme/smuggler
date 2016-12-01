@@ -41,7 +41,7 @@ public class Album extends Handle {
         List<AlbumImage> result;
 
         result = new ArrayList<>();
-        for (JsonObject object : account.getList(uri + "!images", "AlbumImage")) {
+        for (JsonObject object : account.getList(uri + "!images")) {
             result.add(AlbumImage.create(account, object));
         }
         return result;

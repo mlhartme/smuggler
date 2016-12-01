@@ -83,7 +83,7 @@ public class Node extends Handle {
         List<Node> result;
 
         result = new ArrayList<>();
-        for (JsonObject object : account.getList(uri + "!children", "Node")) {
+        for (JsonObject object : account.getList(uri + "!children")) {
             result.add(Node.create(account, object));
         }
         return result;
