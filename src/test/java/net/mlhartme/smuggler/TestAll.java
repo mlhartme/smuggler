@@ -188,4 +188,40 @@ public class TestAll {
         assertEquals(imageUri, image.uri);
         assertEquals(second, image.album());
     }
+
+    @Test
+    public void collectImageAlbum() throws Exception {
+        Album first;
+        Album second;
+        String aiUri;
+        AlbumImage ai;
+        List<AlbumImage> lst;
+        Image image;
+        String imageUri;
+
+        first = TEST.createAlbum("first");
+        aiUri = first.upload(WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
+        ai = SMUGMUG.albumImage(aiUri);
+        image = ai.image();
+        imageUri = image.uri;
+        assertEquals(first, image.album());
+
+        second = TEST.createAlbum("second");
+        second.collect(ai);
+
+        assertEquals(Collections.singletonList(ai), first.listImages());
+
+        lst = second.listImages();
+        assertEquals(1, lst.size());
+        ai = lst.get(0);
+        assertEquals(second, ai.album());
+
+        image = ai.image();
+        assertEquals(imageUri, image.uri);
+        assertEquals(first, image.album());
+
+        image.delete();
+        assertTrue(first.listImages().isEmpty());
+        assertTrue(second.listImages().isEmpty());
+    }
 }

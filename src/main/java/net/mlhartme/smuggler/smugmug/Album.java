@@ -59,7 +59,6 @@ public class Album extends Handle {
         return result;
     }
 
-    /** move arguments into this Album */
     public void move(AlbumImage ai) {
         JsonObject result;
 
@@ -69,14 +68,14 @@ public class Album extends Handle {
         }
     }
 
-    public AlbumImage createAlbumImage(Image image) {
-        WebResource.Builder resource;
-        JsonObject created;
+        /** move arguments into this Album */
+    public void collect(AlbumImage ai) {
+        JsonObject result;
 
-        resource = account.api(uri + "!images");
-        resource.header("Content-Type", "application/json");
-        created = Json.object(Json.post(resource /*, "ImageUri", image.uri */), "Response");
-        return AlbumImage.create(account, created);
+        result = Json.post(account.api(uri + "!collectimages"), "CollectUris", ai.uri);
+        if (Json.integer(result, "Code") != 200) {
+            throw new IllegalStateException(result.toString());
+        }
     }
 
     /** @return albumImageUri */
