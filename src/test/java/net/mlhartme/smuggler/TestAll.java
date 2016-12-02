@@ -159,19 +159,33 @@ public class TestAll {
     }
 
     @Test
-    public void imagesClones() throws Exception {
-        Album album;
+    public void moveImageAlbum() throws Exception {
+        Album first;
         Album second;
         String aiUri;
         AlbumImage ai;
+        List<AlbumImage> lst;
+        Image image;
+        String imageUri;
 
-        album = TEST.createAlbum("album");
-        aiUri = album.upload(WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
+        first = TEST.createAlbum("first");
+        aiUri = first.upload(WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
         ai = SMUGMUG.albumImage(aiUri);
+        image = ai.image();
+        imageUri = image.uri;
+        assertEquals(first, image.album());
 
         second = TEST.createAlbum("second");
-        second.createAlbumImage(ai.image());
+        second.move(ai);
 
-        System.out.println(second.listImages());
+        assertTrue(first.listImages().isEmpty());
+        lst = second.listImages();
+        assertEquals(1, lst.size());
+        ai = lst.get(0);
+        assertEquals(second, ai.album());
+
+        image = ai.image();
+        assertEquals(imageUri, image.uri);
+        assertEquals(second, image.album());
     }
 }

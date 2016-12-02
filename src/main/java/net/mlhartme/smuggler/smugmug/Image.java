@@ -17,19 +17,28 @@ package net.mlhartme.smuggler.smugmug;
 
 import com.google.gson.JsonObject;
 
+import java.io.IOException;
+
 public class Image extends Handle {
     public static Image create(Account account, JsonObject image) {
-        return new Image(account, Json.string(image, "Uri"), Json.string(image, "FileName"), Json.string(image, "ArchivedMD5"));
+        return new Image(account, Json.string(image, "Uri"), Json.string(image, "FileName"), Json.string(image, "ArchivedMD5"),
+                Json.uris(image, "ImageAlbum"));
     }
 
     //--
 
     public final String fileName;
     public final String md5;
+    public final String album;
 
-    public Image(Account account, String uri, String fileName, String md5) {
+    public Image(Account account, String uri, String fileName, String md5, String album) {
         super(account, uri);
         this.fileName = fileName;
         this.md5 = md5;
+        this.album = album;
+    }
+
+    public Folder album() throws IOException {
+        return account.folder(album);
     }
 }

@@ -59,6 +59,16 @@ public class Album extends Handle {
         return result;
     }
 
+    /** move arguments into this Album */
+    public void move(AlbumImage ai) {
+        JsonObject result;
+
+        result = Json.post(account.api(uri + "!moveimages"), "MoveUris", ai.uri);
+        if (Json.integer(result, "Code") != 200) {
+            throw new IllegalStateException(result.toString());
+        }
+    }
+
     public AlbumImage createAlbumImage(Image image) {
         WebResource.Builder resource;
         JsonObject created;

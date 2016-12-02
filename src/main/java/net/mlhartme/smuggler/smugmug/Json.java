@@ -60,6 +60,17 @@ public class Json {
         }
     }
 
+    public static int integer(JsonObject obj, String name) {
+        JsonElement e;
+
+        e = element(obj, name);
+        if (e.isJsonPrimitive()) {
+            return e.getAsInt();
+        } else {
+            throw new IllegalArgumentException("field '" + name + "' is not an integer: " + obj);
+        }
+    }
+
     public static JsonObject object(JsonObject obj, String name, String sub) {
         return object(object(obj, name), sub);
     }
@@ -114,4 +125,5 @@ public class Json {
     }
 
     private static final JsonParser parser = new JsonParser();
+
 }

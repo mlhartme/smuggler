@@ -174,6 +174,7 @@ public class Account {
 
 
 	//-- TODO
+    // see also: https://oauth.net/core/1.0a/
 
 	public void addOauth(WebResource.Builder dest) {
 		StringBuilder builder;
