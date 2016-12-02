@@ -16,6 +16,7 @@
 package net.mlhartme.smuggler.smugmug;
 
 import com.google.gson.JsonObject;
+import com.sun.jersey.api.client.WebResource;
 
 import java.io.IOException;
 import java.util.List;
@@ -56,5 +57,13 @@ public class AlbumImage extends Handle {
 
     public Image image() throws IOException {
         return account.image(imageUri);
+    }
+
+    public void setFileName(String name) {
+        WebResource.Builder builder;
+
+        builder = account.api(uri);
+        builder.header("X-HTTP-Method-Override", "PATCH");
+        System.out.println("patch: " + Json.post(builder, "FileName", name));
     }
 }
