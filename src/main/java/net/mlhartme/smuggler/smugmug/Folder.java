@@ -88,12 +88,9 @@ public class Folder extends Handle {
     }
 
     public Folder createFolder(String name) {
-        WebResource.Builder resource;
         JsonObject created;
 
-        resource = account.api(uri + "!folders");
-        resource.header("Content-Type", "application/json");
-        created = Json.object(Json.post(resource, "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Folder");
+        created = Json.object(account.post(uri + "!folders", "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Folder");
         return Folder.create(account, created);
     }
 
