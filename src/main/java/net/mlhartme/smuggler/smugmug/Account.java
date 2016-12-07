@@ -125,6 +125,16 @@ public class Account {
 		HttpNode http;
 		String str;
 
+		url = apiuri(path);
+		http = (HttpNode) world.validNode(url);
+		http.getRoot().setOauth(new Oauth(consumerKey, consumerSecret, oauthTokenId, oauthTokenSecret));
+		http.getRoot().addExtraHeader("Accept", "application/json");
+		str = http.readString();
+		return Json.parse(str).getAsJsonObject();
+	}
+
+	private String apiuri(String path) {
+		String url;
 		url = API + path;
 		if (url.contains("?")) {
 			url = url + "&";
@@ -132,11 +142,7 @@ public class Account {
 			url = url + "?";
 		}
 		url = url + "_pretty=&_verbosity=1";
-		http = (HttpNode) world.validNode(url);
-		http.getRoot().setOauth(new Oauth(consumerKey, consumerSecret, oauthTokenId, oauthTokenSecret));
-		http.getRoot().addExtraHeader("Accept", "application/json");
-		str = http.readString();
-		return Json.parse(str).getAsJsonObject();
+		return url;
 	}
 
 	public WebResource.Builder api(String path) {
@@ -145,13 +151,7 @@ public class Account {
 		if (!path.startsWith("/")) {
 			throw new IllegalArgumentException();
 		}
-		url = API + path;
-		if (url.contains("?")) {
-			url = url + "&";
-		} else {
-			url = url + "?";
-		}
-		url = url + "_pretty=&_verbosity=1";
+		url = apiuri(path);
 		return resource(url);
 	}
 
