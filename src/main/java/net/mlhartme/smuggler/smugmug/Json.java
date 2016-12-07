@@ -102,16 +102,6 @@ public class Json {
 
     //--
 
-    public static JsonObject post(WebResource.Builder resource, String ... keyValues) {
-        JsonObject obj;
-
-        obj = new JsonObject();
-        for (int i = 0; i < keyValues.length; i += 2) {
-            obj.add(keyValues[i], new JsonPrimitive(keyValues[i + 1]));
-        }
-        return post(resource, obj.toString());
-    }
-
 
     public static JsonObject post(WebResource.Builder resource, Object body) {
         String response;

@@ -18,12 +18,12 @@ package net.mlhartme.smuggler.smugmug;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.LoggingFilter;
-import com.sun.jersey.api.uri.UriComponent;
 import com.sun.jersey.oauth.client.OAuthClientFilter;
 import com.sun.jersey.oauth.signature.*;
 import net.oneandone.sushi.fs.World;
@@ -32,9 +32,6 @@ import net.oneandone.sushi.fs.http.Oauth;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.*;
 
 /** https://smugmug.atlassian.net/wiki/display/API/Home */
@@ -114,7 +111,13 @@ public class Account {
 	}
 
 	public JsonObject post(String path, String ... keyValues) {
-		return Json.post(api(path), keyValues);
+		JsonObject obj;
+
+		obj = new JsonObject();
+		for (int i = 0; i < keyValues.length; i += 2) {
+            obj.add(keyValues[i], new JsonPrimitive(keyValues[i + 1]));
+        }
+		return Json.post(api(path), obj.toString());
 	}
 
 	public JsonObject get(String path) throws IOException {
