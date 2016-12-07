@@ -72,7 +72,7 @@ public class Album extends Handle {
     public void collect(AlbumImage ai) {
         JsonObject result;
 
-        result = Json.post(account.api(uri + "!collectimages"), "CollectUris", ai.uri);
+        result = account.post(uri + "!collectimages", "CollectUris", ai.uri);
         if (Json.integer(result, "Code") != 200) {
             throw new IllegalStateException(result.toString());
         }

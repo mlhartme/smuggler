@@ -113,6 +113,10 @@ public class Account {
 		}
 	}
 
+	public JsonObject post(String path, String ... keyValues) {
+		return Json.post(api(path), keyValues);
+	}
+
 	public JsonObject get(String path) throws IOException {
 		String url;
 		HttpNode http;
