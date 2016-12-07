@@ -95,12 +95,9 @@ public class Folder extends Handle {
     }
 
     public Album createAlbum(String name) {
-        WebResource.Builder resource;
         JsonObject created;
 
-        resource = account.api(uri + "!albums");
-        resource.header("Content-Type", "application/json");
-        created = Json.object(Json.post(resource, "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Album");
+        created = Json.object(account.post(uri + "!albums", "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Album");
         return Album.create(account, created);
     }
 }
