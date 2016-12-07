@@ -21,9 +21,6 @@ import net.oneandone.sushi.fs.World;
 import java.io.IOException;
 import java.util.Properties;
 
-/**
- * Created by mhm on 01.12.16.
- */
 public class Config {
     public static Config load(World world) throws IOException {
         Properties p;
@@ -59,7 +56,7 @@ public class Config {
         this.album = album;
     }
 
-    public Account newSmugmug() {
-        return new Account(consumerKey, consumerSecret, tokenId, tokenSecret);
+    public Account newSmugmug(World world) {
+        return new Account(world, consumerKey, consumerSecret, tokenId, tokenSecret);
     }
 }

@@ -35,7 +35,7 @@ public abstract class Command {
     public void run() throws IOException {
         Account account;
 
-        account = config.newSmugmug();
+        account = config.newSmugmug(world);
         try (PrintStream dest = new PrintStream(new FileOutputStream("wire.log"))) {
             account.wirelog(dest);
             run(account.user(config.user));

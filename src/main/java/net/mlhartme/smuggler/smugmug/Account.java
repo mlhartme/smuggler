@@ -23,15 +23,19 @@ import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.LoggingFilter;
+import com.sun.jersey.api.uri.UriComponent;
 import com.sun.jersey.oauth.client.OAuthClientFilter;
-import com.sun.jersey.oauth.signature.OAuthParameters;
-import com.sun.jersey.oauth.signature.OAuthSecrets;
+import com.sun.jersey.oauth.signature.*;
+import net.oneandone.sushi.fs.World;
+import net.oneandone.sushi.fs.http.HttpNode;
+import net.oneandone.sushi.fs.http.Oauth;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.*;
 
 /** https://smugmug.atlassian.net/wiki/display/API/Home */
 public class Account {
@@ -39,13 +43,15 @@ public class Account {
 
 	//--
 
+	private final World world;
 	private final Client client;
 	private final String consumerKey;
 	private final String consumerSecret;
 	private final String oauthTokenId;
 	private final String oauthTokenSecret;
 
-	public Account(String consumerKey, String consumerSecret, String oauthTokenId, String oauthTokenSecret) {
+	public Account(World world, String consumerKey, String consumerSecret, String oauthTokenId, String oauthTokenSecret) {
+		this.world = world;
 		this.client = Client.create();
 		this.consumerKey = consumerKey;
 		this.consumerSecret = consumerSecret;
@@ -108,7 +114,22 @@ public class Account {
 	}
 
 	public JsonObject get(String path) throws IOException {
-		return Json.parse(api(path).get(String.class)).getAsJsonObject();
+		String url;
+		HttpNode http;
+		String str;
+
+		url = API + path;
+		if (url.contains("?")) {
+			url = url + "&";
+		} else {
+			url = url + "?";
+		}
+		url = url + "_pretty=&_verbosity=1";
+		http = (HttpNode) world.validNode(url);
+		http.getRoot().setOauth(new Oauth(consumerKey, consumerSecret, oauthTokenId, oauthTokenSecret));
+		http.getRoot().addExtraHeader("Accept", "application/json");
+		str = http.readString();
+		return Json.parse(str).getAsJsonObject();
 	}
 
 	public WebResource.Builder api(String path) {
@@ -135,6 +156,7 @@ public class Account {
 		OAuthSecrets secrets;
 		OAuthParameters params;
 		WebResource resource;
+		WebResource.Builder result;
 
 		resource = client.resource(url);
 		secrets = new OAuthSecrets().consumerSecret(consumerSecret);
@@ -142,7 +164,8 @@ public class Account {
 		params = new OAuthParameters().consumerKey(consumerKey).signatureMethod("HMAC-SHA1").version("1.0");
 		params.token(oauthTokenId);
 		resource.addFilter(new OAuthClientFilter(client.getProviders(), params, secrets));
-		return resource.accept("application/json");
+		result = resource.accept("application/json");
+		return result;
 	}
 
 	//--
@@ -172,37 +195,4 @@ public class Account {
 		return AlbumImage.create(this, getObject(uri));
 	}
 
-
-	//-- TODO
-    // see also: https://oauth.net/core/1.0a/
-
-	public void addOauth(WebResource.Builder dest) {
-		StringBuilder builder;
-
-		builder = new StringBuilder();
-		arg(builder, "OAuth oauth_nonce", UUID.randomUUID().toString());
-		arg(builder, "oauth_token", oauthTokenId);
-		arg(builder, "oauth_consumer_key", consumerKey);
-		arg(builder, "oauth_signature_method", "HMAC-SHA1");
-		arg(builder, "oauth_version", "1.0");
-		arg(builder, "oauth_timestamp", new Long(System.currentTimeMillis() / 1000).toString());
-		arg(builder, "oauth_signature", signature());
-
-		dest.header("Authorization", builder.toString());
-	}
-
-	private static String signature() {
-		return "";
-	}
-
-	private static void arg(StringBuilder builder, String key, String value) {
-		if (builder.length() > 0) {
-			builder.append(", ");
-		}
-		builder.append(key);
-		builder.append('=');
-		builder.append('"');
-		builder.append(value);
-		builder.append('"');
-	}
 }

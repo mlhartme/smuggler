@@ -33,7 +33,7 @@ public class Handle {
 
     @Override
     public String toString() {
-        return getClass().getName() + "@" + uri;
+        return getClass().getSimpleName() + "@" + uri;
     }
 
     @Override

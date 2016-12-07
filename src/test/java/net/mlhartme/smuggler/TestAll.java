@@ -55,7 +55,7 @@ public class TestAll {
 
         WORLD = World.create();
         config = Config.load(WORLD);
-        SMUGMUG = config.newSmugmug();
+        SMUGMUG = config.newSmugmug(WORLD);
         LOG = new PrintStream(new FileOutputStream("target/testall.log"));
         SMUGMUG.wirelog(LOG);
         user = SMUGMUG.user(config.user);
