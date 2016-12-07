@@ -69,11 +69,11 @@ public class TestAll {
 
     @Before
     public void before() throws Exception {
-        TEST = ROOT.lookupFolder("test");
+        TEST = ROOT.lookupFolder("test2");
         if (TEST != null) {
             TEST.delete();
         }
-        TEST = ROOT.createFolder("test");
+        TEST = ROOT.createFolder("test2");
     }
 
     @Test
@@ -83,7 +83,7 @@ public class TestAll {
         List<Folder> lst;
 
         sub = TEST.createFolder("a");
-        assertEquals("/Test/A", sub.urlPath);
+        assertEquals("/Test2/A", sub.urlPath);
         assertEquals(TEST, sub.parent());
         assertEquals(TEST.node(), sub.node().parent());
 
@@ -100,7 +100,7 @@ public class TestAll {
         lst = TEST.listFolders();
         assertEquals(Arrays.asList(sub), lst);
         subsub = sub.createFolder("sub");
-        assertEquals("/Test/A/Sub", subsub.urlPath);
+        assertEquals("/Test2/A/Sub", subsub.urlPath);
         System.out.println(subsub);
         sub.delete();
     }
