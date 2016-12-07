@@ -60,10 +60,7 @@ public class AlbumImage extends Handle {
     }
 
     public void setFileName(String name) {
-        WebResource.Builder builder;
-
-        builder = account.api(uri);
-        builder.header("X-HTTP-Method-Override", "PATCH");
-        System.out.println("patch: " + Json.post(builder, "FileName", name));
+        // TODO patch
+        System.out.println("patch: " + account.post(uri, "FileName", name));
     }
 }
