@@ -116,7 +116,6 @@ public class Account {
 	}
 
 	public JsonObject post(String path, String ... keyValues) throws IOException {
-		String url;
 		JsonObject obj;
 		HttpNode http;
 		String str;
@@ -124,31 +123,35 @@ public class Account {
 		if (!path.startsWith("/")) {
 			throw new IllegalArgumentException();
 		}
-		url = apiuri(path);
 		obj = new JsonObject();
 		for (int i = 0; i < keyValues.length; i += 2) {
 			obj.add(keyValues[i], new JsonPrimitive(keyValues[i + 1]));
 		}
 
-		http = (HttpNode) world.validNode(url);
-		http.getRoot().setOauth(new Oauth(consumerKey, consumerSecret, oauthTokenId, oauthTokenSecret));
-		http.getRoot().addExtraHeader("Accept", "application/json");
+		http = sushi(path);
 		http.getRoot().addExtraHeader("Content-Type", "application/json");
 		str = http.post(obj.toString() + "\n");
 		return Json.parse(str).getAsJsonObject();
 	}
 
 	public JsonObject get(String path) throws IOException {
-		String url;
 		HttpNode http;
 		String str;
+
+		http = sushi(path);
+		str = http.readString();
+		return Json.parse(str).getAsJsonObject();
+	}
+
+	private HttpNode sushi(String path) throws IOException {
+		String url;
+		HttpNode http;
 
 		url = apiuri(path);
 		http = (HttpNode) world.validNode(url);
 		http.getRoot().setOauth(new Oauth(consumerKey, consumerSecret, oauthTokenId, oauthTokenSecret));
 		http.getRoot().addExtraHeader("Accept", "application/json");
-		str = http.readString();
-		return Json.parse(str).getAsJsonObject();
+		return http;
 	}
 
 	private String apiuri(String path) {
