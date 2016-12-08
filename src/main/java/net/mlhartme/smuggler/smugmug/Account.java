@@ -180,10 +180,20 @@ public class Account {
 		byte[] image;
 		String md5;
 		WebResource.Builder resource;
+		OAuthSecrets secrets;
+		OAuthParameters params;
+		WebResource resource1;
 
 		image = file.readBytes();
-		resource = upload();
 		md5 = file.md5();
+
+		secrets = new OAuthSecrets().consumerSecret(consumerSecret);
+		secrets.setTokenSecret(oauthTokenSecret);
+		params = new OAuthParameters().consumerKey(consumerKey).signatureMethod("HMAC-SHA1").version("1.0");
+		params.token(oauthTokenId);
+		resource1 = client.resource("http://upload.smugmug.com/");
+		resource1.addFilter(new OAuthClientFilter(client.getProviders(), params, secrets));
+		resource = resource1.accept("application/json");
 		resource.header("Content-Length", image.length);
 		resource.header("Content-MD5", md5);
 		resource.header("X-Smug-ResponseType", "JSON");
@@ -196,22 +206,6 @@ public class Account {
 			throw new IOException("not ok: " + response);
 		}
 		return Json.string(response, "Image", "AlbumImageUri");
-	}
-
-	private WebResource.Builder upload() {
-		OAuthSecrets secrets;
-		OAuthParameters params;
-		WebResource resource;
-		WebResource.Builder result;
-
-		resource = client.resource("http://upload.smugmug.com/");
-		secrets = new OAuthSecrets().consumerSecret(consumerSecret);
-		secrets.setTokenSecret(oauthTokenSecret);
-		params = new OAuthParameters().consumerKey(consumerKey).signatureMethod("HMAC-SHA1").version("1.0");
-		params.token(oauthTokenId);
-		resource.addFilter(new OAuthClientFilter(client.getProviders(), params, secrets));
-		result = resource.accept("application/json");
-		return result;
 	}
 
 	//--
