@@ -32,6 +32,7 @@ import net.oneandone.sushi.fs.http.HttpNode;
 import net.oneandone.sushi.fs.http.Oauth;
 import net.oneandone.sushi.fs.http.model.Method;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
@@ -39,6 +40,7 @@ import java.util.*;
 /** https://smugmug.atlassian.net/wiki/display/API/Home */
 public class Account {
 	static {
+		new File("target/sushiwire.log").delete();
 		HttpFilesystem.wireLog("target/sushiwire.log");
 	}
 
@@ -174,34 +176,29 @@ public class Account {
 		Method.delete(sushi(path));
 	}
 
-	/** @return albumImageUri */
+	/**
+	 * https://api.smugmug.com/api/v2/doc/reference/upload.html
+	 * @return albumImageUri
+	 */
 	public String upload(net.oneandone.sushi.fs.Node<?> file, String fileName, String uri) throws IOException {
-		JsonObject response;
+		HttpNode http;
 		byte[] image;
 		String md5;
-		WebResource.Builder resource;
-		OAuthSecrets secrets;
-		OAuthParameters params;
-		WebResource resource1;
+		JsonObject response;
 
 		image = file.readBytes();
 		md5 = file.md5();
+		http = (HttpNode) world.validNode("https://upload.smugmug.com/");
+		http.getRoot().setOauth(new Oauth(consumerKey, consumerSecret, oauthTokenId, oauthTokenSecret));
+		http.getRoot().addExtraHeader("Accept", "application/json");
+		http.getRoot().addExtraHeader("Content-MD5", md5);
+		http.getRoot().addExtraHeader("Content-Length", Integer.toString(image.length));
+		http.getRoot().addExtraHeader("X-Smug-ResponseType", "JSON");
+		http.getRoot().addExtraHeader("X-Smug-FileName", fileName);
+		http.getRoot().addExtraHeader("X-Smug-AlbumUri", uri);
+		http.getRoot().addExtraHeader("X-Smug-Version", "v2");
 
-		secrets = new OAuthSecrets().consumerSecret(consumerSecret);
-		secrets.setTokenSecret(oauthTokenSecret);
-		params = new OAuthParameters().consumerKey(consumerKey).signatureMethod("HMAC-SHA1").version("1.0");
-		params.token(oauthTokenId);
-		resource1 = client.resource("http://upload.smugmug.com/");
-		resource1.addFilter(new OAuthClientFilter(client.getProviders(), params, secrets));
-		resource = resource1.accept("application/json");
-		resource.header("Content-Length", image.length);
-		resource.header("Content-MD5", md5);
-		resource.header("X-Smug-ResponseType", "JSON");
-		resource.header("X-Smug-FileName", fileName);
-		resource.header("X-Smug-AlbumUri", uri);
-		resource.header("X-Smug-Version", "v2");
-
-		response = Json.post(resource, image);
+		response = Json.parse(http.getWorld().getSettings().string(http.post(image)));
 		if (!"ok".equals(Json.string(response, "stat"))) {
 			throw new IOException("not ok: " + response);
 		}
