@@ -97,45 +97,41 @@ public class Account {
 	}
 
 	public JsonObject post(String path, String ... keyValues) throws IOException {
-		JsonObject obj;
 		HttpNode http;
 		String str;
+
+		http = api(path);
+		http.getRoot().addExtraHeader("Content-Type", "application/json");
+		str = http.post(json(keyValues));
+		return Json.parse(str).getAsJsonObject();
+	}
+
+	private String json(String[] keyValues) {
+		JsonObject obj;
 
 		obj = new JsonObject();
 		for (int i = 0; i < keyValues.length; i += 2) {
 			obj.add(keyValues[i], new JsonPrimitive(keyValues[i + 1]));
 		}
-		http = sushi(path);
-		http.getRoot().addExtraHeader("Content-Type", "application/json");
-		str = http.post(obj.toString() + "\n");
-		return Json.parse(str).getAsJsonObject();
+		return obj.toString();
 	}
 
 	public JsonObject get(String path) throws IOException {
 		HttpNode http;
 		String str;
 
-		http = sushi(path);
+		http = api(path);
 		str = http.readString();
 		return Json.parse(str).getAsJsonObject();
 	}
 
-	private HttpNode sushi(String path) throws IOException {
+	private HttpNode api(String path) throws IOException {
 		String url;
 		HttpNode http;
 
 		if (!path.startsWith("/")) {
 			throw new IllegalArgumentException();
 		}
-		url = apiuri(path);
-		http = (HttpNode) world.validNode(url);
-		http.getRoot().setOauth(new Oauth(consumerKey, consumerSecret, oauthTokenId, oauthTokenSecret));
-		http.getRoot().addExtraHeader("Accept", "application/json");
-		return http;
-	}
-
-	private String apiuri(String path) {
-		String url;
 
 		url = "https://api.smugmug.com" + path;
 		if (url.contains("?")) {
@@ -144,11 +140,14 @@ public class Account {
 			url = url + "?";
 		}
 		url = url + "_pretty=&_verbosity=1";
-		return url;
+		http = (HttpNode) world.validNode(url);
+		http.getRoot().setOauth(new Oauth(consumerKey, consumerSecret, oauthTokenId, oauthTokenSecret));
+		http.getRoot().addExtraHeader("Accept", "application/json");
+		return http;
 	}
 
 	public void delete(String path) throws IOException {
-		Method.delete(sushi(path));
+		Method.delete(api(path));
 	}
 
 	/**
