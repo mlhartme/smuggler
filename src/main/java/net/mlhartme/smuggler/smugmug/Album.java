@@ -85,25 +85,6 @@ public class Album extends Handle {
 
     /** @return albumImageUri */
     public String upload(net.oneandone.sushi.fs.Node<?> file, String fileName) throws IOException {
-        JsonObject response;
-        byte[] image;
-        String md5;
-        WebResource.Builder resource;
-
-        image = file.readBytes();
-        resource = account.upload();
-        md5 = file.md5();
-        resource.header("Content-Length", image.length);
-        resource.header("Content-MD5", md5);
-        resource.header("X-Smug-ResponseType", "JSON");
-        resource.header("X-Smug-FileName", fileName);
-        resource.header("X-Smug-AlbumUri", uri);
-        resource.header("X-Smug-Version", "v2");
-
-        response = Json.post(resource, image);
-        if (!"ok".equals(Json.string(response, "stat"))) {
-            throw new IOException("not ok: " + response);
-        }
-        return Json.string(response, "Image", "AlbumImageUri");
+        return account.upload(file, fileName, uri);
     }
 }

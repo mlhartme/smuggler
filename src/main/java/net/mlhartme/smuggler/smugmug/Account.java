@@ -174,17 +174,37 @@ public class Account {
 		Method.delete(sushi(path));
 	}
 
-	public WebResource.Builder upload() {
-		return resource("http://upload.smugmug.com/");
+	/** @return albumImageUri */
+	public String upload(net.oneandone.sushi.fs.Node<?> file, String fileName, String uri) throws IOException {
+		JsonObject response;
+		byte[] image;
+		String md5;
+		WebResource.Builder resource;
+
+		image = file.readBytes();
+		resource = upload();
+		md5 = file.md5();
+		resource.header("Content-Length", image.length);
+		resource.header("Content-MD5", md5);
+		resource.header("X-Smug-ResponseType", "JSON");
+		resource.header("X-Smug-FileName", fileName);
+		resource.header("X-Smug-AlbumUri", uri);
+		resource.header("X-Smug-Version", "v2");
+
+		response = Json.post(resource, image);
+		if (!"ok".equals(Json.string(response, "stat"))) {
+			throw new IOException("not ok: " + response);
+		}
+		return Json.string(response, "Image", "AlbumImageUri");
 	}
 
-	private WebResource.Builder resource(String url) {
+	private WebResource.Builder upload() {
 		OAuthSecrets secrets;
 		OAuthParameters params;
 		WebResource resource;
 		WebResource.Builder result;
 
-		resource = client.resource(url);
+		resource = client.resource("http://upload.smugmug.com/");
 		secrets = new OAuthSecrets().consumerSecret(consumerSecret);
 		secrets.setTokenSecret(oauthTokenSecret);
 		params = new OAuthParameters().consumerKey(consumerKey).signatureMethod("HMAC-SHA1").version("1.0");
