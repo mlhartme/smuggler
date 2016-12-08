@@ -37,8 +37,6 @@ public class Account {
 		HttpFilesystem.wireLog("target/sushiwire.log");
 	}
 
-	public static final String API = "https://api.smugmug.com";
-
 	//--
 
 	private final World world;
@@ -94,19 +92,19 @@ public class Account {
 		}
 	}
 
+	public JsonObject patch(String path, String ... keyValues) throws IOException {
+		return null; // TODO
+	}
+
 	public JsonObject post(String path, String ... keyValues) throws IOException {
 		JsonObject obj;
 		HttpNode http;
 		String str;
 
-		if (!path.startsWith("/")) {
-			throw new IllegalArgumentException();
-		}
 		obj = new JsonObject();
 		for (int i = 0; i < keyValues.length; i += 2) {
 			obj.add(keyValues[i], new JsonPrimitive(keyValues[i + 1]));
 		}
-
 		http = sushi(path);
 		http.getRoot().addExtraHeader("Content-Type", "application/json");
 		str = http.post(obj.toString() + "\n");
@@ -126,6 +124,9 @@ public class Account {
 		String url;
 		HttpNode http;
 
+		if (!path.startsWith("/")) {
+			throw new IllegalArgumentException();
+		}
 		url = apiuri(path);
 		http = (HttpNode) world.validNode(url);
 		http.getRoot().setOauth(new Oauth(consumerKey, consumerSecret, oauthTokenId, oauthTokenSecret));
@@ -135,7 +136,8 @@ public class Account {
 
 	private String apiuri(String path) {
 		String url;
-		url = API + path;
+
+		url = "https://api.smugmug.com" + path;
 		if (url.contains("?")) {
 			url = url + "&";
 		} else {
@@ -146,9 +148,6 @@ public class Account {
 	}
 
 	public void delete(String path) throws IOException {
-		if (!path.startsWith("/")) {
-			throw new IllegalArgumentException();
-		}
 		Method.delete(sushi(path));
 	}
 

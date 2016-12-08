@@ -60,6 +60,6 @@ public class AlbumImage extends Handle {
 
     public void setFileName(String name) throws IOException {
         // TODO patch
-        System.out.println("patch: " + account.post(uri, "FileName", name));
+        System.out.println(account.patch(uri, "FileName", name));
     }
 }
