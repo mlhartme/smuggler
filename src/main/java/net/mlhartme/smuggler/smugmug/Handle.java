@@ -15,6 +15,8 @@
  */
 package net.mlhartme.smuggler.smugmug;
 
+import java.io.IOException;
+
 public class Handle {
     public final Account account;
     public final String uri;
@@ -25,8 +27,8 @@ public class Handle {
     }
 
     /* also deletes the image if this is the last album it is contained in */
-    public void delete() {
-        account.api(uri).delete();
+    public void delete() throws IOException {
+        account.delete(uri);
     }
 
     //--

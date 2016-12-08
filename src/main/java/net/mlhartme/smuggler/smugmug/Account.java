@@ -30,6 +30,7 @@ import net.oneandone.sushi.fs.World;
 import net.oneandone.sushi.fs.http.HttpFilesystem;
 import net.oneandone.sushi.fs.http.HttpNode;
 import net.oneandone.sushi.fs.http.Oauth;
+import net.oneandone.sushi.fs.http.model.Method;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -166,14 +167,11 @@ public class Account {
 		return url;
 	}
 
-	public WebResource.Builder api(String path) {
-		String url;
-
+	public void delete(String path) throws IOException {
 		if (!path.startsWith("/")) {
 			throw new IllegalArgumentException();
 		}
-		url = apiuri(path);
-		return resource(url);
+		Method.delete(sushi(path));
 	}
 
 	public WebResource.Builder upload() {
