@@ -111,13 +111,31 @@ public class Account {
 	}
 
 	public JsonObject post(String path, String ... keyValues) {
+		String url;
 		JsonObject obj;
+		WebResource.Builder builder;
+		OAuthSecrets secrets;
+		OAuthParameters params;
+		WebResource resource;
+
+		if (!path.startsWith("/")) {
+			throw new IllegalArgumentException();
+		}
+		url = apiuri(path);
 
 		obj = new JsonObject();
 		for (int i = 0; i < keyValues.length; i += 2) {
             obj.add(keyValues[i], new JsonPrimitive(keyValues[i + 1]));
         }
-		return Json.post(api(path), obj.toString());
+
+		resource = client.resource(url);
+		secrets = new OAuthSecrets().consumerSecret(consumerSecret);
+		secrets.setTokenSecret(oauthTokenSecret);
+		params = new OAuthParameters().consumerKey(consumerKey).signatureMethod("HMAC-SHA1").version("1.0");
+		params.token(oauthTokenId);
+		resource.addFilter(new OAuthClientFilter(client.getProviders(), params, secrets));
+		builder = resource.accept("application/json");
+		return Json.post(builder, obj.toString());
 	}
 
 	public JsonObject get(String path) throws IOException {
