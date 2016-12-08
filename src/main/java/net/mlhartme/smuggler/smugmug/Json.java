@@ -16,7 +16,6 @@
 package net.mlhartme.smuggler.smugmug;
 
 import com.google.gson.*;
-import com.sun.jersey.api.client.WebResource;
 
 public class Json {
     public static JsonArray arrayOpt(JsonObject object, String name) {
@@ -101,14 +100,6 @@ public class Json {
     }
 
     //--
-
-
-    public static JsonObject post(WebResource.Builder resource, Object body) {
-        String response;
-
-        response = resource.post(String.class, body);
-        return parse(response).getAsJsonObject();
-    }
 
     public static JsonObject parse(String str) {
         return parser.parse(str).getAsJsonObject();

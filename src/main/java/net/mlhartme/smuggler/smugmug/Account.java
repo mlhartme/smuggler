@@ -19,13 +19,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientRequest;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.filter.LoggingFilter;
-import com.sun.jersey.oauth.client.OAuthClientFilter;
-import com.sun.jersey.oauth.signature.*;
 import net.oneandone.sushi.fs.World;
 import net.oneandone.sushi.fs.http.HttpFilesystem;
 import net.oneandone.sushi.fs.http.HttpNode;
@@ -49,7 +42,6 @@ public class Account {
 	//--
 
 	private final World world;
-	private final Client client;
 	private final String consumerKey;
 	private final String consumerSecret;
 	private final String oauthTokenId;
@@ -57,7 +49,6 @@ public class Account {
 
 	public Account(World world, String consumerKey, String consumerSecret, String oauthTokenId, String oauthTokenSecret) {
 		this.world = world;
-		this.client = Client.create();
 		this.consumerKey = consumerKey;
 		this.consumerSecret = consumerSecret;
 		this.oauthTokenId = oauthTokenId;
@@ -65,22 +56,7 @@ public class Account {
 	}
 
 	public void wirelog(PrintStream dest) {
-		client.addFilter(new LoggingFilter(dest) {
-			@Override
-			public ClientResponse handle(ClientRequest request) {
-				ClientResponse response;
-
-				if (request.getURI().getHost().contains("upload")) {
-					dest.println("> upload " + request.getURI());
-					response = this.getNext().handle(request);
-					dest.println("< " + response.getStatus());
-					return response;
-				} else {
-					return super.handle(request);
-				}
-			}
-
-		});
+		// TODO
 	}
 
 	public JsonObject getObject(String path) throws IOException {
@@ -190,9 +166,7 @@ public class Account {
 		md5 = file.md5();
 		http = (HttpNode) world.validNode("https://upload.smugmug.com/");
 		http.getRoot().setOauth(new Oauth(consumerKey, consumerSecret, oauthTokenId, oauthTokenSecret));
-		http.getRoot().addExtraHeader("Accept", "application/json");
 		http.getRoot().addExtraHeader("Content-MD5", md5);
-		http.getRoot().addExtraHeader("Content-Length", Integer.toString(image.length));
 		http.getRoot().addExtraHeader("X-Smug-ResponseType", "JSON");
 		http.getRoot().addExtraHeader("X-Smug-FileName", fileName);
 		http.getRoot().addExtraHeader("X-Smug-AlbumUri", uri);

@@ -15,7 +15,6 @@
  */
 package net.mlhartme.smuggler;
 
-import com.sun.jersey.api.client.UniformInterfaceException;
 import net.mlhartme.smuggler.cli.Config;
 import net.mlhartme.smuggler.smugmug.Account;
 import net.mlhartme.smuggler.smugmug.Album;
@@ -88,13 +87,7 @@ public class TestAll {
         assertEquals(TEST.node(), sub.node().parent());
 
         assertTrue(sub.listFolders().isEmpty());
-        try { // TODO
-            assertTrue(sub.listAlbums().isEmpty());
-            System.out.println("ok");
-        } catch (UniformInterfaceException e) {
-            System.out.println("failed: " + e.getMessage());
-//            assertEquals(404, e.getResponse().getStatus());
-        }
+        assertTrue(sub.listAlbums().isEmpty());
         assertTrue(sub.node().list().isEmpty());
 
         lst = TEST.listFolders();

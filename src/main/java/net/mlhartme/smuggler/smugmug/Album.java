@@ -16,7 +16,6 @@
 package net.mlhartme.smuggler.smugmug;
 
 import com.google.gson.JsonObject;
-import com.sun.jersey.api.client.WebResource;
 
 import java.io.IOException;
 import java.util.ArrayList;
