@@ -59,7 +59,7 @@ public class AlbumImage extends Handle {
         return account.image(imageUri);
     }
 
-    public void setFileName(String name) {
+    public void setFileName(String name) throws IOException {
         // TODO patch
         System.out.println("patch: " + account.post(uri, "FileName", name));
     }

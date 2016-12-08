@@ -27,6 +27,7 @@ import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.oauth.client.OAuthClientFilter;
 import com.sun.jersey.oauth.signature.*;
 import net.oneandone.sushi.fs.World;
+import net.oneandone.sushi.fs.http.HttpFilesystem;
 import net.oneandone.sushi.fs.http.HttpNode;
 import net.oneandone.sushi.fs.http.Oauth;
 
@@ -36,6 +37,10 @@ import java.util.*;
 
 /** https://smugmug.atlassian.net/wiki/display/API/Home */
 public class Account {
+	static {
+		HttpFilesystem.wireLog("target/sushiwire.log");
+	}
+
 	public static final String API = "https://api.smugmug.com";
 
 	//--
@@ -110,32 +115,27 @@ public class Account {
 		}
 	}
 
-	public JsonObject post(String path, String ... keyValues) {
+	public JsonObject post(String path, String ... keyValues) throws IOException {
 		String url;
 		JsonObject obj;
-		WebResource.Builder builder;
-		OAuthSecrets secrets;
-		OAuthParameters params;
-		WebResource resource;
+		HttpNode http;
+		String str;
 
 		if (!path.startsWith("/")) {
 			throw new IllegalArgumentException();
 		}
 		url = apiuri(path);
-
 		obj = new JsonObject();
 		for (int i = 0; i < keyValues.length; i += 2) {
-            obj.add(keyValues[i], new JsonPrimitive(keyValues[i + 1]));
-        }
+			obj.add(keyValues[i], new JsonPrimitive(keyValues[i + 1]));
+		}
 
-		resource = client.resource(url);
-		secrets = new OAuthSecrets().consumerSecret(consumerSecret);
-		secrets.setTokenSecret(oauthTokenSecret);
-		params = new OAuthParameters().consumerKey(consumerKey).signatureMethod("HMAC-SHA1").version("1.0");
-		params.token(oauthTokenId);
-		resource.addFilter(new OAuthClientFilter(client.getProviders(), params, secrets));
-		builder = resource.accept("application/json");
-		return Json.post(builder, obj.toString());
+		http = (HttpNode) world.validNode(url);
+		http.getRoot().setOauth(new Oauth(consumerKey, consumerSecret, oauthTokenId, oauthTokenSecret));
+		http.getRoot().addExtraHeader("Accept", "application/json");
+		http.getRoot().addExtraHeader("Content-Type", "application/json");
+		str = http.post(obj.toString() + "\n");
+		return Json.parse(str).getAsJsonObject();
 	}
 
 	public JsonObject get(String path) throws IOException {

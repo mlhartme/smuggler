@@ -59,7 +59,7 @@ public class Album extends Handle {
         return result;
     }
 
-    public void move(AlbumImage ai) {
+    public void move(AlbumImage ai) throws IOException {
         JsonObject result;
 
         result = account.post(uri + "!moveimages", "MoveUris", ai.uri);
@@ -69,7 +69,7 @@ public class Album extends Handle {
     }
 
         /** move arguments into this Album */
-    public void collect(AlbumImage ai) {
+    public void collect(AlbumImage ai) throws IOException {
         JsonObject result;
 
         result = account.post(uri + "!collectimages", "CollectUris", ai.uri);

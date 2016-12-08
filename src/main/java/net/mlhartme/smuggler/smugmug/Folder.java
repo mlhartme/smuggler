@@ -87,14 +87,14 @@ public class Folder extends Handle {
         return null;
     }
 
-    public Folder createFolder(String name) {
+    public Folder createFolder(String name) throws IOException {
         JsonObject created;
 
         created = Json.object(account.post(uri + "!folders", "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Folder");
         return Folder.create(account, created);
     }
 
-    public Album createAlbum(String name) {
+    public Album createAlbum(String name) throws IOException {
         JsonObject created;
 
         created = Json.object(account.post(uri + "!albums", "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Album");
