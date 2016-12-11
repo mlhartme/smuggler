@@ -27,7 +27,7 @@ public class Image extends Handle {
 
     //--
 
-    public String fileName;
+    public final String fileName;
     public final String md5;
     public final String album; // TODO: becomes out-dated when album image is moved
 

@@ -119,7 +119,7 @@ public class Account {
 		for (int i = 0; i < keyValues.length; i += 2) {
 			obj.add(keyValues[i], new JsonPrimitive(keyValues[i + 1]));
 		}
-		return obj.toString();
+		return obj.toString() + "\r\n"; // TODO: line break to work around wire log problem
 	}
 
 	public JsonObject get(String path) throws IOException {
