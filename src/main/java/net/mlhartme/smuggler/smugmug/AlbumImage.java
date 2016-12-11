@@ -57,9 +57,4 @@ public class AlbumImage extends Handle {
     public Image image() throws IOException {
         return account.image(imageUri);
     }
-
-    public void setFileName(String name) throws IOException {
-        // TODO patch
-        System.out.println(account.patch(uri, "FileName", name));
-    }
 }

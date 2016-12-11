@@ -148,7 +148,7 @@ public class TestAll {
         assertNotEquals(ai.image(), copy.image());
         assertEquals(ai.md5, copy.md5);
 
-        // TODO: copy.setFileName("renamed.jpg");
+        copy.image().setTitle("some title");
         album.delete();
     }
 

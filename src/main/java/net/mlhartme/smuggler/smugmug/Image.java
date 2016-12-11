@@ -27,7 +27,7 @@ public class Image extends Handle {
 
     //--
 
-    public final String fileName;
+    public String fileName;
     public final String md5;
     public final String album; // TODO: becomes out-dated when album image is moved
 
@@ -40,5 +40,9 @@ public class Image extends Handle {
 
     public Folder album() throws IOException {
         return account.folder(album);
+    }
+
+    public void setTitle(String title) throws IOException {
+        account.patch(uri, "Title", title);
     }
 }

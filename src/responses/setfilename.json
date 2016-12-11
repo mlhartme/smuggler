@@ -1,0 +1,65 @@
+{
+  "Response": {
+    "Uri": "/api/v2/image/Tb9L3t8-0?_pretty=",
+    "Locator": "Image",
+    "LocatorType": "Object",
+    "Image": {
+      "Title": "",
+      "Caption": "",
+      "Keywords": "",
+      "KeywordArray": [],
+      "Watermark": "No",
+      "Latitude": "0.00000000000000",
+      "Longitude": "0.00000000000000",
+      "Altitude": 0,
+      "Hidden": false,
+      "ThumbnailUrl": "https://photos.smugmug.com/Test2/Album/i-Tb9L3t8/0/Th/copy-Th.jpg",
+      "FileName": "copy.jpg",
+      "Processing": false,
+      "UploadKey": "5562917838",
+      "Date": "2016-12-10T20:21:36+00:00",
+      "Format": "JPG",
+      "OriginalHeight": 150,
+      "OriginalWidth": 200,
+      "OriginalSize": 5551,
+      "LastUpdated": "2016-12-10T20:21:38+00:00",
+      "Collectable": true,
+      "IsArchive": false,
+      "IsVideo": false,
+      "CanEdit": true,
+      "Protected": false,
+      "Watermarked": false,
+      "ImageKey": "Tb9L3t8",
+      "ArchivedUri": "https://photos.smugmug.com/Test2/Album/i-Tb9L3t8/0/D/copy-D.jpg",
+      "ArchivedSize": 5551,
+      "ArchivedMD5": "35951d96ee6c16d0e8b891b3227a955a",
+      "FormattedValues": {
+        "Caption": {
+          "html": "",
+          "text": ""
+        }
+      },
+      "Uri": "/api/v2/image/Tb9L3t8-0",
+      "WebUri": "https://mlhartme.smugmug.com/Test2/Album/i-Tb9L3t8",
+      "Uris": {
+        "LargestImage": "/api/v2/image/Tb9L3t8-0!largestimage",
+        "ImageSizes": "/api/v2/image/Tb9L3t8-0!sizes",
+        "ImageSizeDetails": "/api/v2/image/Tb9L3t8-0!sizedetails",
+        "PointOfInterest": "/api/v2/image/Tb9L3t8!pointofinterest",
+        "PointOfInterestCrops": "/api/v2/image/Tb9L3t8!poicrops",
+        "Regions": "/api/v2/image/Tb9L3t8!regions",
+        "ImageAlbum": "/api/v2/album/ffVjx6",
+        "ImageDownload": "/api/v2/image/Tb9L3t8!download",
+        "ImageOwner": "/api/v2/user/mlhartme",
+        "ImageComments": "/api/v2/image/Tb9L3t8!comments",
+        "RotateImage": "/api/v2/image/Tb9L3t8!rotate",
+        "ColorImage": "/api/v2/image/Tb9L3t8!color",
+        "CropImage": "/api/v2/image/Tb9L3t8!crop",
+        "ImageMetadata": "/api/v2/image/Tb9L3t8!metadata",
+        "ImagePrices": "/api/v2/image/Tb9L3t8!prices"
+      }
+    }
+  },
+  "Code": 200,
+  "Message": "Ok"
+}

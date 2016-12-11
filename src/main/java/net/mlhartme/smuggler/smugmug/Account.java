@@ -93,7 +93,13 @@ public class Account {
 	}
 
 	public JsonObject patch(String path, String ... keyValues) throws IOException {
-		return null; // TODO
+		HttpNode http;
+		String str;
+
+		http = api(path);
+		http.getRoot().addExtraHeader("Content-Type", "application/json");
+		str = http.patch(json(keyValues));
+		return Json.parse(str).getAsJsonObject();
 	}
 
 	public JsonObject post(String path, String ... keyValues) throws IOException {
