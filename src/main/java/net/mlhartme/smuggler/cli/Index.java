@@ -15,9 +15,7 @@
  */
 package net.mlhartme.smuggler.cli;
 
-import net.mlhartme.smuggler.smugmug.Album;
-import net.mlhartme.smuggler.smugmug.AlbumImage;
-import net.mlhartme.smuggler.smugmug.Folder;
+import net.mlhartme.smuggler.cache.FolderData;
 import net.mlhartme.smuggler.smugmug.User;
 
 import java.io.IOException;
@@ -30,21 +28,6 @@ public class Index extends Command {
     }
 
     public void run(User user) throws IOException {
-        tree(user.folder());
-    }
-
-    public void tree(Folder folder) throws IOException {
-        System.out.println("F " + folder.urlPath + " (@" + folder.uri + ")");
-        for (Folder child : folder.listFolders()) {
-            tree(child);
-        }
-        for (Album album : folder.listAlbums()) {
-            System.out.println("A " + album.urlPath + " (@" + album.uri + ")");
-            if (full) {
-                for (AlbumImage image : album.listImages()) {
-                    System.out.println("+ " + image.fileName + " (@" + image.uri + ") " + image.md5);
-                }
-            }
-        }
+        System.out.println(FolderData.load(user.folder(), full));
     }
 }
