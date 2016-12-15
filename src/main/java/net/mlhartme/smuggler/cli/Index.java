@@ -17,6 +17,9 @@ package net.mlhartme.smuggler.cli;
 
 import net.mlhartme.smuggler.cache.FolderData;
 import net.mlhartme.smuggler.smugmug.User;
+import net.oneandone.sushi.fs.file.FileNode;
+import net.oneandone.sushi.util.Diff;
+import net.oneandone.sushi.util.Strings;
 
 import java.io.IOException;
 
@@ -28,6 +31,18 @@ public class Index extends Command {
     }
 
     public void run(User user) throws IOException {
-        System.out.println(FolderData.load(user.folder(), full));
+        String str;
+        String old;
+        FileNode file;
+
+        str = FolderData.load(user.folder().lookupFolder(config.album), full).toString();
+        file = world.getHome().join(config.album, ".smuggler.idx");
+        if (file.exists()) {
+            old = file.readString();
+        } else {
+            old = "";
+        }
+        file.writeString(str);
+        System.out.println(Diff.diff(old, str));
     }
 }
