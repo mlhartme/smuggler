@@ -15,6 +15,8 @@
  */
 package net.mlhartme.smuggler.cli;
 
+import net.mlhartme.smuggler.cache.FolderData;
+import net.mlhartme.smuggler.cache.ImageData;
 import net.mlhartme.smuggler.smugmug.Album;
 import net.mlhartme.smuggler.smugmug.AlbumImage;
 import net.mlhartme.smuggler.smugmug.User;
@@ -28,49 +30,25 @@ public class Sync extends Command {
     }
 
     public void run(User user) throws IOException {
-        List<FileNode> local;
-        Album album;
-        List<AlbumImage> remote;
-        int errors;
+        FileNode local;
+        List<FileNode> files;
+        String path;
+        FolderData fd;
+        ImageData id;
 
-        errors = 0;
-        local = world.getHome().join(config.folder).list();
-        album = user.lookupAlbum(config.folder);
-        if (album == null) {
-            throw new IOException("no such folder: " + album);
-        }
-        remote = album.listImages();
-        for (FileNode file : local) {
-            if (AlbumImage.lookupFileName(remote, file.getName()) == null) {
-                System.out.print("A " + file);
-                try {
-                    album.upload(file);
-                    System.out.println();
-                } catch (Exception e) {
-                    System.out.println(" " + e.getMessage());
-                    errors++;
-                }
+        local = world.getHome().join(config.folder);
+        fd = FolderData.load(local.join(".smuggler.idx"));
+        files = local.find("**/*.JPG");
+        System.out.println("local files: " + files);
+
+        for (FileNode file : files) {
+            path = file.getRelative(local);
+            id = fd.lookupFilename(file.getName());
+            if (id == null) {
+                System.out.println("A " + path);
+            } else {
+
             }
-        }
-        for (AlbumImage image : remote) {
-            if (lookup(local, image.fileName) == null) {
-                System.out.print("D " + image.fileName);
-                image.delete();
-                System.out.println();
-            }
-        }
-        if (errors > 0) {
-            System.out.println("failed with errors: " + errors);
         }
     }
-
-    private static FileNode lookup(List<FileNode> local, String fileName) {
-        for (FileNode file : local) {
-            if (file.getName().equals(fileName)) {
-                return file;
-            }
-        }
-        return null;
-    }
-
 }

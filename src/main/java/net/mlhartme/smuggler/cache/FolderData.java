@@ -73,7 +73,7 @@ public class FolderData {
         FolderData f;
 
         idx = urlPath.lastIndexOf('/');
-        if (idx == -1) {
+        if (idx == 0) {
             if (!folders.isEmpty()) {
                 throw new IllegalStateException();
             }
@@ -89,7 +89,7 @@ public class FolderData {
             }
             folders.remove(size);
         }
-        throw new IllegalStateException();
+        throw new IllegalStateException(urlPath);
     }
 
     public static FolderData forLine(String line) {
@@ -99,6 +99,8 @@ public class FolderData {
         idx = line.indexOf('@');
         return new FolderData(line.substring(idx + 1), line.substring(0, idx));
     }
+
+    //--
 
     public final String uri;
     public final String urlPath;
@@ -110,6 +112,24 @@ public class FolderData {
         this.urlPath = urlPath;
         this.folders = new ArrayList<>();
         this.albums = new ArrayList<>();
+    }
+
+    public ImageData lookupFilename(String filename) {
+        ImageData result;
+
+        for (AlbumData ad : albums) {
+            result = ad.lookupFilename(filename);
+            if (result != null) {
+                return result;
+            }
+        }
+        for (FolderData fd : folders) {
+            result = fd.lookupFilename(filename);
+            if (result != null) {
+                return result;
+            }
+        }
+        return null;
     }
 
     public void toString(PrintWriter dest) {
