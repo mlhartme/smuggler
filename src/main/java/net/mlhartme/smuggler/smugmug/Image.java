@@ -29,7 +29,7 @@ public class Image extends Handle {
 
     public final String fileName;
     public final String md5;
-    public final String album; // TODO: becomes out-dated when album image is moved
+    public final String album; // TODO: becomes out-dated when folder image is moved
 
     public Image(Account account, String uri, String fileName, String md5, String album) {
         super(account, uri);

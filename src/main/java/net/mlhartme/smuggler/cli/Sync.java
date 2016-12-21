@@ -34,10 +34,10 @@ public class Sync extends Command {
         int errors;
 
         errors = 0;
-        local = world.getHome().join("timeline").list();
-        album = user.lookupAlbum(config.album);
+        local = world.getHome().join(config.folder).list();
+        album = user.lookupAlbum(config.folder);
         if (album == null) {
-            throw new IOException("no such album: " + album);
+            throw new IOException("no such folder: " + album);
         }
         remote = album.listImages();
         for (FileNode file : local) {

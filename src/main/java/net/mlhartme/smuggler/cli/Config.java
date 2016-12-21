@@ -27,7 +27,7 @@ public class Config {
 
         p = world.getHome().join(".smuggler.properties").readProperties();
         return new Config(get(p, "consumer.key"), get(p, "consumer.secret"), get(p, "token.id"), get(p, "token.secret"),
-                get(p, "user"), get(p, "album"));
+                get(p, "user"), get(p, "folder"));
     }
 
     public static String get(Properties p, String key) {
@@ -45,15 +45,15 @@ public class Config {
     public final String tokenId;
     public final String tokenSecret;
     public final String user;
-    public final String album;
+    public final String folder;
 
-    public Config(String consumerKey, String consumerSecret, String tokenId, String tokenSecret, String user, String album) {
+    public Config(String consumerKey, String consumerSecret, String tokenId, String tokenSecret, String user, String folder) {
         this.consumerKey = consumerKey;
         this.consumerSecret = consumerSecret;
         this.tokenId = tokenId;
         this.tokenSecret = tokenSecret;
         this.user = user;
-        this.album = album;
+        this.folder = folder;
     }
 
     public Account newSmugmug(World world) {

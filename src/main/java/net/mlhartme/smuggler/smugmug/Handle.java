@@ -26,7 +26,7 @@ public class Handle {
         this.uri = uri;
     }
 
-    /* also deletes the image if this is the last album it is contained in */
+    /* also deletes the image if this is the last folder it is contained in */
     public void delete() throws IOException {
         account.delete(uri);
     }

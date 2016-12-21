@@ -104,7 +104,7 @@ public class TestAll {
         String aiUri;
         AlbumImage ai;
 
-        album = TEST.createAlbum("album");
+        album = TEST.createAlbum("folder");
         assertEquals(TEST, album.folder());
         assertEquals(TEST.node(), album.folder().node());
         assertEquals(Collections.singletonList(album), TEST.listAlbums());
@@ -130,7 +130,7 @@ public class TestAll {
 
         file = WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg");
         md5 = file.md5();
-        album = TEST.createAlbum("album");
+        album = TEST.createAlbum("folder");
         aiUri = album.upload(file);
         ai = SMUGMUG.albumImage(aiUri);
         assertEquals("mhm.jpg", ai.fileName);

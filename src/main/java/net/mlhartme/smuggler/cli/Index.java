@@ -31,8 +31,8 @@ public class Index extends Command {
         String old;
         FileNode file;
 
-        str = FolderData.load(user.folder().lookupFolder(config.album), true).toString();
-        file = world.getHome().join(config.album, ".smuggler.idx");
+        str = FolderData.load(user.folder().lookupFolder(config.folder), true).toString();
+        file = world.getHome().join(config.folder, ".smuggler.idx");
         if (file.exists()) {
             old = file.readString();
         } else {
