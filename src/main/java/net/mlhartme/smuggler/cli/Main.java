@@ -24,7 +24,7 @@ public class Main {
 		Cli cli;
 
 		cli = new Cli();
-		cli.add(Index.class, "index -full");
+		cli.add(Index.class, "index");
 		cli.add(Sync.class, "sync");
 		cli.run(args);
 	}

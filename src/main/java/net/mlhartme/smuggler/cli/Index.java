@@ -23,10 +23,7 @@ import net.oneandone.sushi.util.Diff;
 import java.io.IOException;
 
 public class Index extends Command {
-    private boolean full;
-
-    public Index(boolean full) throws IOException {
-        this.full = full;
+    public Index() throws IOException {
     }
 
     public void run(User user) throws IOException {
@@ -34,7 +31,7 @@ public class Index extends Command {
         String old;
         FileNode file;
 
-        str = FolderData.load(user.folder().lookupFolder(config.album), full).toString();
+        str = FolderData.load(user.folder().lookupFolder(config.album), true).toString();
         file = world.getHome().join(config.album, ".smuggler.idx");
         if (file.exists()) {
             old = file.readString();
