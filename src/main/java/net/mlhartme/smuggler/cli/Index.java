@@ -19,7 +19,6 @@ import net.mlhartme.smuggler.cache.FolderData;
 import net.mlhartme.smuggler.smugmug.User;
 import net.oneandone.sushi.fs.file.FileNode;
 import net.oneandone.sushi.util.Diff;
-import net.oneandone.sushi.util.Strings;
 
 import java.io.IOException;
 
