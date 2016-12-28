@@ -160,7 +160,7 @@ public class Account {
 	 * https://api.smugmug.com/api/v2/doc/reference/upload.html
 	 * @return albumImageUri
 	 */
-	public String upload(net.oneandone.sushi.fs.Node<?> file, String fileName, String uri) throws IOException {
+	public Uploaded upload(net.oneandone.sushi.fs.Node<?> file, String fileName, String uri) throws IOException {
 		HttpNode http;
 		byte[] image;
 		String md5;
@@ -180,9 +180,18 @@ public class Account {
 		if (!"ok".equals(Json.string(response, "stat"))) {
 			throw new IOException("not ok: " + response);
 		}
-		return Json.string(response, "Image", "AlbumImageUri");
+		return new Uploaded(Json.string(response, "Image", "AlbumImageUri"), md5);
 	}
 
+	public static class Uploaded {
+		public final String albumImageUri;
+		public final String md5;
+
+		public Uploaded(String albumImageUri, String md5) {
+			this.albumImageUri = albumImageUri;
+			this.md5 = md5;
+		}
+	}
 	//--
 
 	public User user(String nickName) {

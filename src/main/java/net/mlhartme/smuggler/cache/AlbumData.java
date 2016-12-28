@@ -43,6 +43,10 @@ public class AlbumData {
         this.images = new ArrayList<>();
     }
 
+    public String name() {
+        return urlPath.substring(urlPath.lastIndexOf('/') + 1);
+    }
+
     public ImageData lookupFilename(String filename) {
         for (ImageData id : images) {
             if (filename.equals(id.fileName)) {

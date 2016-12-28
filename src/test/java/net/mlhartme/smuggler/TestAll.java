@@ -110,7 +110,7 @@ public class TestAll {
         assertEquals(Collections.singletonList(album), TEST.listAlbums());
         assertEquals(Collections.singletonList(album.node()), TEST.node().list());
         assertTrue(album.listImages().isEmpty());
-        aiUri = album.upload(WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
+        aiUri = album.upload(WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg")).albumImageUri;
         ai = SMUGMUG.albumImage(aiUri);
         assertEquals(Collections.singletonList(ai), album.listImages());
         ai.delete();
@@ -131,7 +131,7 @@ public class TestAll {
         file = WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg");
         md5 = file.md5();
         album = TEST.createAlbum("folder");
-        aiUri = album.upload(file);
+        aiUri = album.upload(file).albumImageUri;
         ai = SMUGMUG.albumImage(aiUri);
         assertEquals("mhm.jpg", ai.fileName);
         assertEquals(md5, ai.md5);
@@ -142,7 +142,7 @@ public class TestAll {
         assertEquals(md5, image.md5);
 
         // uploading the same image twice creates two copies
-        ai2 = album.upload(file, "copy.jpg");
+        ai2 = album.upload(file, "copy.jpg").albumImageUri;
         copy = SMUGMUG.albumImage(ai2);
         assertNotEquals(ai, copy);
         assertNotEquals(ai.image(), copy.image());
@@ -163,7 +163,7 @@ public class TestAll {
         String imageUri;
 
         first = TEST.createAlbum("first");
-        aiUri = first.upload(WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
+        aiUri = first.upload(WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg")).albumImageUri;
         ai = SMUGMUG.albumImage(aiUri);
         image = ai.image();
         imageUri = image.uri;
@@ -194,7 +194,7 @@ public class TestAll {
         String imageUri;
 
         first = TEST.createAlbum("first");
-        aiUri = first.upload(WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg"));
+        aiUri = first.upload(WORLD.guessProjectHome(getClass()).join("src/test/mhm.jpg")).albumImageUri;
         ai = SMUGMUG.albumImage(aiUri);
         image = ai.image();
         imageUri = image.uri;

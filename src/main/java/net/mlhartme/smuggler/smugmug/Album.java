@@ -78,12 +78,12 @@ public class Album extends Handle {
     }
 
     /** @return albumImageUri */
-    public String upload(net.oneandone.sushi.fs.Node<?> file) throws IOException {
+    public Account.Uploaded upload(net.oneandone.sushi.fs.Node<?> file) throws IOException {
         return upload(file, file.getName());
     }
 
     /** @return albumImageUri */
-    public String upload(net.oneandone.sushi.fs.Node<?> file, String fileName) throws IOException {
+    public Account.Uploaded upload(net.oneandone.sushi.fs.Node<?> file, String fileName) throws IOException {
         return account.upload(file, fileName, uri);
     }
 }

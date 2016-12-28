@@ -117,6 +117,10 @@ public class FolderData {
         this.albums = new ArrayList<>();
     }
 
+    public String name() {
+        return urlPath.substring(urlPath.lastIndexOf('/') + 1);
+    }
+
     public ImageData lookupFilename(String filename) {
         ImageData result;
 
@@ -130,6 +134,28 @@ public class FolderData {
             result = fd.lookupFilename(filename);
             if (result != null) {
                 return result;
+            }
+        }
+        return null;
+    }
+
+    public AlbumData lookupAlbum(String path) {
+        int idx;
+        String name;
+
+        idx = path.indexOf("/");
+        if (idx == -1) {
+            for (AlbumData ad : albums) {
+                if (path.equals(ad.name())) {
+                    return ad;
+                }
+            }
+        } else {
+            name = path.substring(0, idx);
+            for (FolderData fd : folders) {
+                if (name.equals(fd.name())) {
+                    return fd.lookupAlbum(path.substring(idx + 1));
+                }
             }
         }
         return null;
