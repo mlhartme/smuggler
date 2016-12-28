@@ -58,7 +58,7 @@ public class FolderData {
                     parent(folders, album.urlPath).albums.add(album);
                     break;
                 case '+':
-                    album.images.add(ImageData.forLine(line));
+                    album.images.add(ImageData.forLine(album, line));
                     break;
                 default:
                     throw new IOException("invalid line: " + line);

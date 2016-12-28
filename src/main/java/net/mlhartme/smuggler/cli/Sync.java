@@ -39,15 +39,13 @@ public class Sync extends Command {
         local = world.getHome().join(config.folder);
         fd = FolderData.load(local.join(".smuggler.idx"));
         files = local.find("**/*.JPG");
-        System.out.println("local files: " + files);
-
+        System.out.println("local file count: " + files.size());
         for (FileNode file : files) {
             path = file.getRelative(local);
             id = fd.lookupFilename(file.getName());
             if (id == null) {
                 System.out.println("A " + path);
             } else {
-
             }
         }
     }

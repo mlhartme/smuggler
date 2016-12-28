@@ -16,7 +16,7 @@ public class AlbumData {
         result = new AlbumData(album.uri, album.urlPath);
         if (full) {
             for (AlbumImage image : album.listImages()) {
-                result.images.add(new ImageData(image.uri, image.fileName, image.md5));
+                result.images.add(new ImageData(result, image.uri, image.fileName, image.md5));
             }
         }
         return result;
@@ -44,8 +44,6 @@ public class AlbumData {
     }
 
     public ImageData lookupFilename(String filename) {
-        ImageData result;
-
         for (ImageData id : images) {
             if (filename.equals(id.fileName)) {
                 return id;
