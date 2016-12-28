@@ -36,7 +36,7 @@ public abstract class Command {
         Account account;
 
         account = config.newSmugmug(world);
-        try (PrintStream dest = new PrintStream(new FileOutputStream("wire.log"))) {
+        try (PrintStream dest = new PrintStream(new FileOutputStream(world.getHome().join("smuggler.log").getAbsolute()))) {
             account.wirelog(dest);
             run(account.user(config.user));
         }

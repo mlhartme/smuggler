@@ -32,11 +32,6 @@ import java.util.*;
 
 /** https://smugmug.atlassian.net/wiki/display/API/Home */
 public class Account {
-	static {
-		new File("target/sushiwire.log").delete();
-		HttpFilesystem.wireLog("target/sushiwire.log");
-	}
-
 	//--
 
 	private final World world;
