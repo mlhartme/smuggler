@@ -11,13 +11,22 @@ import static org.junit.Assert.assertEquals;
 
 public class CacheTest {
     @Test
-    public void test() throws IOException {
+    public void root() throws IOException {
+        check("cache");
+    }
+
+    @Test
+    public void timeline() throws IOException {
+        check("cache2");
+    }
+
+    public void check(String name) throws IOException {
         World world;
         FileNode file;
         FolderData fd;
 
         world = World.create();
-        file = world.guessProjectHome(getClass()).join("src/test/cache");
+        file = world.guessProjectHome(getClass()).join("src/test", name);
         fd = FolderData.load(file);
         assertEquals(file.readString(), fd.toString());
     }

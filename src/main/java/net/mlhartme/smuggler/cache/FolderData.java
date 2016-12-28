@@ -66,30 +66,33 @@ public class FolderData {
         }
     }
 
-    private static FolderData parent(List<FolderData> folders, String urlPath) {
+    private static FolderData parent(List<FolderData> stack, String urlPath) {
         int idx;
         String path;
         int size;
         FolderData f;
 
         idx = urlPath.lastIndexOf('/');
-        if (idx == 0) {
-            if (!folders.isEmpty()) {
-                throw new IllegalStateException();
+        if (idx == -1) {
+            if (!urlPath.isEmpty()) {
+                throw new IllegalStateException(urlPath);
+            }
+            if (!stack.isEmpty()) {
+                throw new IllegalStateException(stack.toString());
             }
             return null;
         }
         path = urlPath.substring(0, idx);
-        size = folders.size();
+        size = stack.size();
         while (size > 0) {
             size--;
-            f = folders.get(size);
+            f = stack.get(size);
             if (f.urlPath.equals(path)) {
                 return f;
             }
-            folders.remove(size);
+            stack.remove(size);
         }
-        throw new IllegalStateException(urlPath);
+        return null;
     }
 
     public static FolderData forLine(String line) {
