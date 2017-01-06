@@ -19,8 +19,6 @@ import net.mlhartme.smuggler.cache.AlbumData;
 import net.mlhartme.smuggler.cache.FolderData;
 import net.mlhartme.smuggler.cache.ImageData;
 import net.mlhartme.smuggler.smugmug.Account;
-import net.mlhartme.smuggler.smugmug.Album;
-import net.mlhartme.smuggler.smugmug.AlbumImage;
 import net.mlhartme.smuggler.smugmug.User;
 import net.oneandone.sushi.fs.file.FileNode;
 
@@ -36,6 +34,7 @@ public class Sync extends Command {
         FileNode local;
         FileNode index;
         List<FileNode> files;
+        String path;
         FolderData root;
         ImageData id;
         List<Action> actions;
@@ -48,8 +47,13 @@ public class Sync extends Command {
         actions = new ArrayList<>();
         for (FileNode file : files) {
             id = root.lookupFilename(file.getName());
+            path = file.getParent().getRelative(local);
             if (id == null) {
-                actions.add(new Upload(file, root, file.getParent().getRelative(local)));
+                actions.add(new Upload(file, root, path));
+            } else if ((root.urlPath + "/" + path).equals(id.album.urlPath)) {
+                // no changes
+            } else {
+                actions.add(new Move(id, root, path));
             }
         }
         if (actions.isEmpty()) {
@@ -92,6 +96,35 @@ public class Sync extends Command {
 
         public String toString() {
             return "A " + path + "/" + file.getName();
+        }
+    }
+
+    public static class Move extends Action {
+        private final ImageData image;
+        private final FolderData root;
+        private final String path;
+
+        public Move(ImageData image, FolderData root, String path) {
+            this.image = image;
+            this.root = root;
+            this.path = path;
+        }
+
+        @Override
+        public void run(Account account) throws IOException {
+            AlbumData dest;
+
+            if (!image.album.images.remove(image)) {
+                throw new IllegalStateException("not in album");
+            }
+            dest = root.getOrCreateAlbum(account, path);
+            account.album(dest.uri).move(account.albumImage(image.uri));
+            dest.images.add(new ImageData(dest, image.uri, image.fileName, image.md5));
+        }
+
+        @Override
+        public String toString() {
+            return "M " + image.album.urlPath + "/" + image.fileName + " ->" + path;
         }
     }
 }
