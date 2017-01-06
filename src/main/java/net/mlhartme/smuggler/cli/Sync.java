@@ -24,7 +24,9 @@ import net.oneandone.sushi.fs.file.FileNode;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Sync extends Command {
     public Sync() throws IOException {
@@ -33,29 +35,37 @@ public class Sync extends Command {
     public void run(User user) throws IOException {
         FileNode local;
         FileNode index;
-        List<FileNode> files;
+        Map<String, FileNode> localMap;
         String path;
         FolderData root;
         ImageData id;
         List<Action> actions;
+        Map<String, ImageData> remoteMap;
 
         local = world.getHome().join(config.folder);
         index = local.join(".smuggler.idx");
         root = FolderData.load(index);
-        files = local.find("**/*.JPG");
-        System.out.println("local file count: " + files.size());
+        remoteMap = new HashMap<>();
+        root.imageMap(remoteMap);
+        localMap = localMap(local);
+        System.out.println("local file count: " + localMap.size());
+        System.out.println("remote file count: " + localMap.size());
         actions = new ArrayList<>();
-        for (FileNode file : files) {
-            id = root.lookupFilename(file.getName());
+        for (FileNode file : localMap.values()) {
+            id = remoteMap.get(file.getName());
             path = file.getParent().getRelative(local);
             if (id == null) {
                 actions.add(new Upload(file, root, path));
-            } else if ((root.urlPath + "/" + path).equals(id.album.urlPath)) {
-                // no changes
             } else {
-                actions.add(new Move(id, root, path));
+                if ((root.urlPath + "/" + path).equals(id.album.urlPath)) {
+                    // no changes
+                } else {
+                    actions.add(new Move(id, root, path));
+                }
             }
         }
+        removes(localMap, remoteMap, actions);
+
         if (actions.isEmpty()) {
             System.out.println("nothing to do");
             return;
@@ -63,7 +73,7 @@ public class Sync extends Command {
         for (Action action : actions) {
             System.out.println(action.toString());
         }
-        System.out.print("Press return to continue, ctrl-c to abort: ");
+        System.out.print("Press return to continue (" + actions.size() + " actions), ctrl-c to abort: ");
         System.in.read();
         for (Action action : actions) {
             System.out.print(action.toString());
@@ -74,6 +84,27 @@ public class Sync extends Command {
         index.writeString(root.toString());
     }
 
+    private static void removes(Map<String, FileNode> localMap, Map<String, ImageData> remoteMap, List<Action> result) {
+        for (Map.Entry<String, ImageData> remote : remoteMap.entrySet()) {
+            if (!localMap.containsKey(remote.getKey())) {
+                result.add(new Delete(remote.getValue()));
+            }
+        }
+    }
+    private static Map<String, FileNode> localMap(FileNode root) throws IOException {
+        Map<String, FileNode> result;
+        FileNode old;
+
+        result = new HashMap<>();
+        for (FileNode file : root.find("**/*.JPG")) {
+            old = result.put(file.getName(), file);
+            if (old != null) {
+                throw new IllegalStateException("duplicate file name '" + file.getName() + "': "
+                        + file.getRelative(root) + " vs " + old.getRelative(root));
+            }
+        }
+        return result;
+    }
     public static abstract class Action {
         public abstract void run(Account account) throws IOException;
         public abstract String toString();
@@ -127,4 +158,24 @@ public class Sync extends Command {
             return "M " + image.album.urlPath + "/" + image.fileName + " ->" + path;
         }
     }
+
+    public static class Delete extends Action {
+        private final ImageData image;
+
+        public Delete(ImageData image) {
+            this.image = image;
+        }
+
+        public void run(Account account) throws IOException {
+            account.albumImage(image.uri).delete();
+            if (!image.album.images.remove(image)) {
+                throw new IllegalStateException();
+            }
+        }
+
+        public String toString() {
+            return "D " + image.album.urlPath + "/" + image.fileName;
+        }
+    }
+
 }

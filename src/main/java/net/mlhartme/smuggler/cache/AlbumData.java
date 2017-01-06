@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AlbumData {
     public static AlbumData load(Album album, boolean full) throws IOException {
@@ -49,13 +50,17 @@ public class AlbumData {
         return urlPath.substring(urlPath.lastIndexOf('/') + 1);
     }
 
-    public ImageData lookupFilename(String filename) {
+    public void imageMap(Map<String, ImageData> dest) {
+        ImageData old;
+
         for (ImageData id : images) {
-            if (filename.equals(id.fileName)) {
-                return id;
+            old = dest.put(id.fileName, id);
+            if (old != null) {
+                System.err.println("duplicate fileName '" + id.fileName + "': " + old.album.urlPath + " vs " + id.album.urlPath);
+//                throw new IllegalStateException("duplicate fileName '" + id.fileName + "': "
+  //                 + old.album.urlPath + " vs " + id.album.urlPath);
             }
         }
-        return null;
     }
 
     public void upload(Account account, FileNode file) throws IOException {

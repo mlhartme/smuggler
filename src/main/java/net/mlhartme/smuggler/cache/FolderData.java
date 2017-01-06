@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class FolderData {
     public static FolderData load(Folder folder, boolean full) throws IOException {
@@ -122,22 +123,13 @@ public class FolderData {
         return urlPath.substring(urlPath.lastIndexOf('/') + 1);
     }
 
-    public ImageData lookupFilename(String filename) {
-        ImageData result;
-
+    public void imageMap(Map<String, ImageData> dest) {
         for (AlbumData ad : albums) {
-            result = ad.lookupFilename(filename);
-            if (result != null) {
-                return result;
-            }
+            ad.imageMap(dest);
         }
         for (FolderData fd : folders) {
-            result = fd.lookupFilename(filename);
-            if (result != null) {
-                return result;
-            }
+            fd.imageMap(dest);
         }
-        return null;
     }
 
     public AlbumData getOrCreateAlbum(Account account, String path) throws IOException {
