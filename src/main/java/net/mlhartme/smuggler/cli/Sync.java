@@ -37,24 +37,20 @@ public class Sync extends Command {
         FileNode index;
         List<FileNode> files;
         AlbumData album;
-        FolderData fd;
+        FolderData root;
         ImageData id;
         List<Action> actions;
 
         local = world.getHome().join(config.folder);
         index = local.join(".smuggler.idx");
-        fd = FolderData.load(index);
+        root = FolderData.load(index);
         files = local.find("**/*.JPG");
         System.out.println("local file count: " + files.size());
         actions = new ArrayList<>();
         for (FileNode file : files) {
-            id = fd.lookupFilename(file.getName());
+            id = root.lookupFilename(file.getName());
             if (id == null) {
-                album = fd.lookupAlbum(file.getParent().getRelative(local));
-                if (album == null) {
-                    throw new UnsupportedOperationException("cannot create album yet");
-                }
-                actions.add(new Upload(file, album));
+                actions.add(new Upload(file, root, file.getParent().getRelative(local)));
             }
         }
         if (actions.isEmpty()) {
@@ -72,7 +68,7 @@ public class Sync extends Command {
             action.run(user.account);
             System.out.println();
         }
-        index.writeString(fd.toString());
+        index.writeString(root.toString());
     }
 
     public static abstract class Action {
@@ -82,24 +78,28 @@ public class Sync extends Command {
 
     public static class Upload extends Action {
         private final FileNode file;
-        private final AlbumData albumData;
+        private final FolderData root;
+        private final String path;
 
-        public Upload(FileNode file, AlbumData album) {
+        public Upload(FileNode file, FolderData root, String path) {
             this.file = file;
-            this.albumData = album;
+            this.root = root;
+            this.path = path;
         }
 
         public void run(Account account) throws IOException {
+            AlbumData dest;
             Album album;
             Account.Uploaded uploaded;
 
-            album = account.album(albumData.uri);
+            dest = root.getOrCreateAlbum(account, path);
+            album = account.album(dest.uri);
             uploaded = album.upload(file);
-            albumData.images.add(new ImageData(albumData, uploaded.albumImageUri, file.getName(), uploaded.md5));
+            dest.images.add(new ImageData(dest, uploaded.albumImageUri, file.getName(), uploaded.md5));
         }
 
         public String toString() {
-            return "A " + file.getName();
+            return "A " + path + "/" + file.getName();
         }
     }
 }

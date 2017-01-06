@@ -1,5 +1,6 @@
 package net.mlhartme.smuggler.cache;
 
+import net.mlhartme.smuggler.smugmug.Account;
 import net.mlhartme.smuggler.smugmug.Album;
 import net.mlhartme.smuggler.smugmug.Folder;
 import net.oneandone.sushi.fs.file.FileNode;
@@ -139,9 +140,13 @@ public class FolderData {
         return null;
     }
 
-    public AlbumData lookupAlbum(String path) {
+    public AlbumData getOrCreateAlbum(Account account, String path) throws IOException {
         int idx;
         String name;
+        Folder folder;
+        FolderData data;
+        Album album;
+        AlbumData nad;
 
         idx = path.indexOf("/");
         if (idx == -1) {
@@ -150,15 +155,22 @@ public class FolderData {
                     return ad;
                 }
             }
+            album = account.folder(uri).createAlbum(path);
+            nad = new AlbumData(album.uri, album.urlPath);
+            albums.add(nad);
+            return nad;
         } else {
             name = path.substring(0, idx);
             for (FolderData fd : folders) {
                 if (name.equals(fd.name())) {
-                    return fd.lookupAlbum(path.substring(idx + 1));
+                    return fd.getOrCreateAlbum(account, path.substring(idx + 1));
                 }
             }
+            folder = account.folder(uri).createFolder(name);
+            data = new FolderData(folder.uri, folder.urlPath);
+            folders.add(data);
+            return data.getOrCreateAlbum(account, path.substring(idx + 1));
         }
-        return null;
     }
 
     public void toString(PrintWriter dest) {
