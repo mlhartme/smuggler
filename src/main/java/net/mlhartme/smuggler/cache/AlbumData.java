@@ -1,7 +1,9 @@
 package net.mlhartme.smuggler.cache;
 
+import net.mlhartme.smuggler.smugmug.Account;
 import net.mlhartme.smuggler.smugmug.Album;
 import net.mlhartme.smuggler.smugmug.AlbumImage;
+import net.oneandone.sushi.fs.file.FileNode;
 import net.oneandone.sushi.util.Strings;
 
 import java.io.IOException;
@@ -54,6 +56,15 @@ public class AlbumData {
             }
         }
         return null;
+    }
+
+    public void upload(Account account, FileNode file) throws IOException {
+        Album album;
+        Account.Uploaded uploaded;
+
+        album = account.album(uri);
+        uploaded = album.upload(file);
+        images.add(new ImageData(this, uploaded.albumImageUri, file.getName(), uploaded.md5));
     }
 
     public void toString(PrintWriter dest) {

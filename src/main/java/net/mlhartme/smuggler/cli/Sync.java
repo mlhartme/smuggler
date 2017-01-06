@@ -36,7 +36,6 @@ public class Sync extends Command {
         FileNode local;
         FileNode index;
         List<FileNode> files;
-        AlbumData album;
         FolderData root;
         ImageData id;
         List<Action> actions;
@@ -88,14 +87,7 @@ public class Sync extends Command {
         }
 
         public void run(Account account) throws IOException {
-            AlbumData dest;
-            Album album;
-            Account.Uploaded uploaded;
-
-            dest = root.getOrCreateAlbum(account, path);
-            album = account.album(dest.uri);
-            uploaded = album.upload(file);
-            dest.images.add(new ImageData(dest, uploaded.albumImageUri, file.getName(), uploaded.md5));
+            root.getOrCreateAlbum(account, path).upload(account, file);
         }
 
         public String toString() {
