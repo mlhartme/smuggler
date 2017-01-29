@@ -41,6 +41,7 @@ public class Sync extends Command {
         ImageData id;
         List<Action> actions;
         Map<String, ImageData> remoteMap;
+        int errors;
 
         local = world.getHome().join(config.folder);
         index = local.join(".smuggler.idx");
@@ -75,13 +76,20 @@ public class Sync extends Command {
         }
         System.out.print("Press return to continue (" + actions.size() + " actions), ctrl-c to abort: ");
         System.in.read();
+        errors = 0;
         for (Action action : actions) {
             System.out.print(action.toString());
             System.out.print(" ... ");
-            action.run(user.account);
+            try {
+                action.run(user.account);
+            } catch (IOException e) {
+                System.out.println(" failed: " + e.getMessage());
+                errors++;
+            }
             System.out.println();
         }
         index.writeString(root.toString());
+        System.out.println("done, errors=" + errors);
     }
 
     private static void removes(Map<String, FileNode> localMap, Map<String, ImageData> remoteMap, List<Action> result) {
