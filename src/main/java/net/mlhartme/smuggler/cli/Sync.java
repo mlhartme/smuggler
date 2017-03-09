@@ -44,7 +44,7 @@ public class Sync extends Command {
         int errors;
 
         local = world.getHome().join(config.folder);
-        index = local.join(".smuggler.idx");
+        index = local.join(SMUGGLER_IDX);
         root = FolderData.load(index);
         remoteMap = new HashMap<>();
         root.imageMap(remoteMap);
@@ -88,6 +88,7 @@ public class Sync extends Command {
             }
             System.out.println();
         }
+        root.sort();
         index.writeString(root.toString());
         System.out.println("done, errors=" + errors);
     }

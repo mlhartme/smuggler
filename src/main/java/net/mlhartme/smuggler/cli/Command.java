@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 
 public abstract class Command {
+    public static final String SMUGGLER_IDX = ".smuggler.idx";
+
     protected final World world;
     protected final Config config;
 

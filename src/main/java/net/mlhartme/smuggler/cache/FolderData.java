@@ -11,10 +11,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class FolderData {
+public class FolderData implements Comparable<FolderData> {
     public static FolderData load(Folder folder, boolean full) throws IOException {
         FolderData result;
 
@@ -165,6 +166,11 @@ public class FolderData {
         }
     }
 
+    public void sort() {
+        Collections.sort(folders);
+        Collections.sort(albums);
+    }
+
     public void toString(PrintWriter dest) {
         dest.println("F " + urlPath + "@" + uri);
         for (FolderData child : folders) {
@@ -180,5 +186,10 @@ public class FolderData {
         PrintWriter pw = new PrintWriter(dest);
         toString(pw);
         return dest.toString();
+    }
+
+    @Override
+    public int compareTo(FolderData o) {
+        return urlPath.compareTo(o.urlPath);
     }
 }

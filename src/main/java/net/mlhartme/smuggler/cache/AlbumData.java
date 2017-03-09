@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class AlbumData {
+public class AlbumData implements Comparable<AlbumData> {
     public static AlbumData load(Album album, boolean full) throws IOException {
         AlbumData result;
 
@@ -77,5 +77,10 @@ public class AlbumData {
         for (ImageData image : images) {
             dest.println(image.toString());
         }
+    }
+
+    @Override
+    public int compareTo(AlbumData o) {
+        return urlPath.compareTo(o.urlPath);
     }
 }

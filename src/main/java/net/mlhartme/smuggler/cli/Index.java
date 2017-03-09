@@ -27,14 +27,21 @@ public class Index extends Command {
     }
 
     public void run(User user) throws IOException {
+        FolderData data;
         String str;
-        String old;
         FileNode file;
+        FileNode prev;
+        String old;
 
-        str = FolderData.load(user.folder().lookupFolder(config.folder), true).toString();
-        file = world.getHome().join(config.folder, ".smuggler.idx");
+        data = FolderData.load(user.folder().lookupFolder(config.folder), true);
+        data.sort();
+        str = data.toString();
+        file = world.getHome().join(config.folder, SMUGGLER_IDX);
         if (file.exists()) {
             old = file.readString();
+            prev = file.getParent().join(SMUGGLER_IDX + ".prev");
+            prev.deleteFileOpt();
+            file.move(prev);
         } else {
             old = "";
         }
