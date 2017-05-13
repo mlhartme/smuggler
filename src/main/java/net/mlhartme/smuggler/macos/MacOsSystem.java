@@ -23,7 +23,6 @@ public class MacOsSystem {
         int proc_pidinfo(@pid_t long pgrpid, long flavor, long arg, Pointer buffer, int buffersize);
 
         int thread_info(@pid_t long tread, long flavor, Pointer buffer, Pointer buffersize);
-        int thread_info(@pid_t long tread, long flavor, thread_identifier_info result);
 
         int pid_for_task(@pid_t long task, Pointer pid);
 
@@ -87,7 +86,7 @@ public class MacOsSystem {
 
         Pointer resolved = thread_array.getPointer(0);
         for (int i = 0; i < count.getInt(0); i++) {
-            result.add(resolved.getLong(i));
+            result.add(((long) resolved.getInt(i * 4)));
         }
         return result;
     }
