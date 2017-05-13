@@ -22,11 +22,17 @@ public class MacOsSystem {
         int proc_listpgrppids(@pid_t int pgrpid, Pointer buffer, int buffersize);
         int proc_pidinfo(@pid_t long pgrpid, long flavor, long arg, Pointer buffer, int buffersize);
 
+        int processor_set_default(int host, Pointer psDefault);
+        int host_processor_set_priv(int host, int psDefault, Pointer psDefaultControl);
+        int processor_set_tasks(int defaultControl, Pointer tasks, Pointer num);
+
         int thread_info(@pid_t int tread, long flavor, Pointer buffer, Pointer buffersize);
 
         int pid_for_task(@pid_t long task, Pointer pid);
+        int task_for_pid(long callerTask, long pid, Pointer task);
 
-        // /usr/include/mach/task.defs
+        int mach_host_self();
+
         long mach_task_self();
         int task_threads(@pid_t long task, Pointer buffer, Pointer buffersize);
 
@@ -117,6 +123,39 @@ public class MacOsSystem {
             throw new IOException("pid_for_task failed");
         }
         return pid.getLong(0);
+    }
+
+    // http://newosxbook.com/articles/PST2.html
+    public List<Integer> tasks() {
+        List<Integer> result;
+        int myhost;
+        Pointer psDefault;
+        Pointer psDefaultControl;
+        int kr;
+        Pointer tasks;
+        Pointer number;
+
+        result = new ArrayList();
+
+        myhost = system.mach_host_self(); // host self is host priv if you're root anyway..
+
+        psDefault = longPointer();
+        kr = system.processor_set_default(myhost, psDefault);
+        if (kr != 0) {
+            throw new RuntimeException("set_default failed");
+        }
+        psDefaultControl = longPointer();
+        kr = system.host_processor_set_priv(myhost, psDefault.getInt(0), psDefaultControl);
+        if (kr != 0) {
+            throw new RuntimeException("set_default failed");
+        }
+        tasks = arrayPointer(102400);
+        number = longPointer();
+        kr = system.processor_set_tasks(psDefault.getInt(0), tasks, number);
+        if (kr != 0) {
+            throw new RuntimeException("set_default failed");
+        }
+        return null;
     }
 
     //--

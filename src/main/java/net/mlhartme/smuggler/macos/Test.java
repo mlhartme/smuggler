@@ -28,6 +28,7 @@ public class Test {
             t.start();
         }
   */
+        System.out.println(system.tasks());
         System.out.println("pid=" + system.getpid());
         long task = system.mach_task_self();
         System.out.println("task: " + task);
