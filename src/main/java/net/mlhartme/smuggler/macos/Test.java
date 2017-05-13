@@ -29,7 +29,14 @@ public class Test {
   */      System.out.println("pid=" + system.getpid());
         threads = system.proc_pidlistthreads(system.getpid());
         System.out.println("proc_threads=" + threads);
-        System.out.println("task_threads=" + system.mach_task_threads());
+        threads = system.mach_task_threads(system.mach_task_self());
+        System.out.println("task_threads=" + threads);
+        for (long thread : threads) {
+            thread_identifier_info ti;
+            ti = system.thread_identifier_info(thread);
+            System.out.println("  handle " + ti.thread_handle.get());
+            System.out.println("  id " + ti.thread_id.get());
+        }
     }
 
     // /usr/include/sys/proc_info
