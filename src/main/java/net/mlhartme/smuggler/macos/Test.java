@@ -26,10 +26,14 @@ public class Test {
             t.setDaemon(true);
             t.start();
         }
-  */      System.out.println("pid=" + system.getpid());
+  */
+        System.out.println("pid=" + system.getpid());
+        long task = system.mach_task_self();
+        System.out.println("task: " + task);
+        System.out.println("pid_for_task:" + system.pid_for_task(task));
         threads = system.proc_pidlistthreads(system.getpid());
         System.out.println("proc_threads=" + threads);
-        threads = system.mach_task_threads(system.mach_task_self());
+        threads = system.mach_task_threads(task);
         System.out.println("task_threads=" + threads);
         for (long thread : threads) {
             thread_identifier_info ti;

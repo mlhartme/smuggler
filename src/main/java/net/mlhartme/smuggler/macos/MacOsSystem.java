@@ -3,9 +3,9 @@ package net.mlhartme.smuggler.macos;
 import jnr.ffi.LibraryLoader;
 import jnr.ffi.Pointer;
 import jnr.ffi.Runtime;
-import jnr.ffi.provider.jffi.ByteBufferMemoryIO;
 import jnr.ffi.types.pid_t;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
@@ -24,6 +24,8 @@ public class MacOsSystem {
 
         int thread_info(@pid_t long tread, long flavor, Pointer buffer, Pointer buffersize);
         int thread_info(@pid_t long tread, long flavor, thread_identifier_info result);
+
+        int pid_for_task(@pid_t long task, Pointer pid);
 
         // /usr/include/mach/task.defs
         long mach_task_self();
@@ -104,6 +106,18 @@ public class MacOsSystem {
             throw new RuntimeException("thread_info failed");
         }
         return thread_identifier_info.of(tident);
+    }
+
+    public long pid_for_task(long task) throws IOException {
+        Pointer pid;
+        int kr;
+
+        pid = longPointer();
+        kr = system.pid_for_task(task, pid);
+        if (kr != 0) {
+            throw new IOException("pid_for_task failed");
+        }
+        return pid.getLong(0);
     }
 
     //--
