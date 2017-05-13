@@ -22,7 +22,7 @@ public class MacOsSystem {
         int proc_listpgrppids(@pid_t int pgrpid, Pointer buffer, int buffersize);
         int proc_pidinfo(@pid_t long pgrpid, long flavor, long arg, Pointer buffer, int buffersize);
 
-        int thread_info(@pid_t long tread, long flavor, Pointer buffer, Pointer buffersize);
+        int thread_info(@pid_t int tread, long flavor, Pointer buffer, Pointer buffersize);
 
         int pid_for_task(@pid_t long task, Pointer pid);
 
@@ -70,11 +70,11 @@ public class MacOsSystem {
         return system.mach_task_self();
     }
 
-    public List<Long> mach_task_threads(long task) {
+    public List<Integer> mach_task_threads(long task) {
         Pointer thread_array;
         Pointer count;
         int kr;
-        List<Long> result;
+        List<Integer> result;
 
         thread_array = longPointer();
         count = longPointer();
@@ -86,12 +86,12 @@ public class MacOsSystem {
 
         Pointer resolved = thread_array.getPointer(0);
         for (int i = 0; i < count.getInt(0); i++) {
-            result.add(((long) resolved.getInt(i * 4)));
+            result.add((resolved.getInt(i * 4)));
         }
         return result;
     }
 
-    public thread_identifier_info thread_identifier_info(long thread) {
+    public thread_identifier_info thread_identifier_info(int thread) {
         Pointer tident;
         Pointer count;
         int kr;

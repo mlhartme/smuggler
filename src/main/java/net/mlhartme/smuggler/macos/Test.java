@@ -10,7 +10,8 @@ import java.util.List;
 public class Test {
     public static void main(String[] args) throws IOException {
         MacOsSystem system;
-        List<Long> threads;
+        List<Long> pthreads;
+        List<Integer> mach_threads;
 
         system = new MacOsSystem();
 /*        for (int i = 0; i < 10; i++) {
@@ -31,11 +32,11 @@ public class Test {
         long task = system.mach_task_self();
         System.out.println("task: " + task);
         System.out.println("pid_for_task:" + system.pid_for_task(task));
-        threads = system.proc_pidlistthreads(system.getpid());
-        System.out.println("proc_threads=" + threads);
-        threads = system.mach_task_threads(task);
-        System.out.println("task_threads=" + threads);
-        for (long thread : threads) {
+        pthreads = system.proc_pidlistthreads(system.getpid());
+        System.out.println("proc_threads=" + pthreads);
+        mach_threads = system.mach_task_threads(task);
+        System.out.println("task_threads=" + mach_threads);
+        for (int thread : mach_threads) {
             thread_identifier_info ti;
             ti = system.thread_identifier_info(thread);
             System.out.println("  handle " + ti.thread_handle.get());
