@@ -35,7 +35,7 @@ public class Sync extends Command {
     public void run(User user) throws IOException {
         FileNode local;
         FileNode index;
-        Map<String, FileNode> localMap;
+        Map<String, FileNode> localMap; // maps file names to nodes
         String path;
         FolderData root;
         ImageData id;
@@ -50,7 +50,7 @@ public class Sync extends Command {
         root.imageMap(remoteMap);
         localMap = localMap(local);
         System.out.println("local file count: " + localMap.size());
-        System.out.println("remote file count: " + localMap.size());
+        System.out.println("remote file count: " + remoteMap.size());
         actions = new ArrayList<>();
         for (FileNode file : localMap.values()) {
             id = remoteMap.get(file.getName());
@@ -100,6 +100,7 @@ public class Sync extends Command {
             }
         }
     }
+
     private static Map<String, FileNode> localMap(FileNode root) throws IOException {
         Map<String, FileNode> result;
         FileNode old;

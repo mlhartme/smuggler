@@ -29,7 +29,7 @@ public class FolderData implements Comparable<FolderData> {
         return result;
     }
 
-    public static FolderData load(FileNode node) throws IOException {
+    public static FolderData load(FileNode index) throws IOException {
         LineReader lr;
         String line;
         FolderData next;
@@ -38,7 +38,7 @@ public class FolderData implements Comparable<FolderData> {
         FolderData parent;
 
         folders = new ArrayList<>();
-        lr = node.newLineReader();
+        lr = index.newLineReader();
         album = null;
         while (true) {
             line = lr.next();
