@@ -96,7 +96,11 @@ public class Folder extends Handle {
     public Album createAlbum(String name) throws IOException {
         JsonObject created;
 
-        created = Json.object(account.post(uri + "!albums", "Name", name, "UrlName", Strings.capitalize(name)), "Response", "Album");
+        created = Json.object(account.post(uri + "!albums",
+                "Name", name,
+                "UrlName", Strings.capitalize(name),
+                "Privacy", "Private",
+                "SortMethod", "Date Taken"), "Response", "Album");
         return Album.create(account, created);
     }
 }
